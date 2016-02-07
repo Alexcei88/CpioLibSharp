@@ -10,6 +10,10 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
+            using (CPIOLibSharp.CPIOFileStream sr = new CPIOLibSharp.CPIOFileStream("cpiofromrpm.cpio"))
+            {
+                
+            }
         }
     }
 }
