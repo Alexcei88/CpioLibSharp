@@ -12,7 +12,7 @@ namespace TestProject
         {
             using (CPIOLibSharp.CPIOFileStream sr = new CPIOLibSharp.CPIOFileStream("cpiofromrpm.cpio"))
             {
-                
+                sr.Save("test");    
             }
         }
     }
