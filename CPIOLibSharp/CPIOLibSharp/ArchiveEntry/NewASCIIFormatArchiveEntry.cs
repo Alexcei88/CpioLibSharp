@@ -1,4 +1,5 @@
 ﻿using System;
+using CPIOLibSharp;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -16,21 +17,15 @@ namespace CPIOLibSharp.ArchiveEntry
         {
             get
             {
-                byte[] buffer = new byte[8];
                 unsafe
                 {
-                    fixed (byte* ptr = _entry.c_filesize)
+                    fixed (byte* pointer = _entry.c_filesize)
                     {
-                        int i = 0;
-                        for (byte* d = ptr; i < 8; ++i, ++d)
-                        {
-                            buffer[i] = *d;
-                        }
+                        string dataSize = Encoding.ASCII.GetString(GetByteArrayFromFixedArray(pointer, 8));
+                        int size = int.Parse(dataSize, System.Globalization.NumberStyles.HexNumber);
+                        return size % 4 == 0 ? size : (size + 4) / 4 * 4;
                     }
-                }
-                string dataSize = Encoding.ASCII.GetString(buffer);
-                int size = int.Parse(dataSize, System.Globalization.NumberStyles.HexNumber);
-                return size % 4 == 0 ? size : (size + 4) / 4 * 4;
+                }                
             }
         }
 
@@ -46,22 +41,18 @@ namespace CPIOLibSharp.ArchiveEntry
         {
             get
             {
-                byte[] buffer = new byte[8];
                 unsafe
                 {
-                    fixed (byte* ptr = _entry.c_namesize)
+                    fixed (byte* pointer = _entry.c_namesize)
                     {
-                        int i = 0;
-                        for (byte* d = ptr; i < 8; ++i, ++d)
-                        {
-                            buffer[i] = *d;
-                        }
+                        byte[] buffer = GetByteArrayFromFixedArray(pointer, 8);
+                        string fileNameSize = Encoding.ASCII.GetString(buffer);
+                        int size = int.Parse(fileNameSize, System.Globalization.NumberStyles.HexNumber);
+                        int commonSize = size + EntrySize;
+                        return commonSize % 4 == 0 ? size : (4 - commonSize % 4) + size;
                     }
+
                 }
-                string fileNameSize = Encoding.ASCII.GetString(buffer);
-                int size = int.Parse(fileNameSize, System.Globalization.NumberStyles.HexNumber);
-                int commonSize = size + EntrySize;
-                return commonSize % 4 == 0 ? size : (4 - commonSize % 4) + size;
             }
         }
 
@@ -71,7 +62,84 @@ namespace CPIOLibSharp.ArchiveEntry
             Marshal.Copy(data, 0, @in, EntrySize);
             _entry = (CpioStruct.cpio_newc_header)Marshal.PtrToStructure(@in, _entry.GetType());
             Marshal.FreeHGlobal(@in);
-            return true;
+
+            return FillEntry();
+        }
+
+        protected override bool FillEntry()
+        {
+            unsafe
+            {
+                byte[] majorBuffer;
+                byte[] minorBuffer;
+                // Dev
+                fixed (byte* pointer = _entry.c_devmajor)
+                {
+                    majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
+                }
+
+                fixed (byte* pointer = _entry.c_devminor)
+                {
+                    minorBuffer = GetByteArrayFromFixedArray(pointer, 8);
+                }
+                _archiveEntry.Dev = Encoding.ASCII.GetString(majorBuffer) + Encoding.ASCII.GetString(minorBuffer);
+
+                // Ino
+                fixed (byte* pointer = _entry.c_ino)
+                {
+                    majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
+                }
+                _archiveEntry.Ino = Encoding.ASCII.GetString(majorBuffer);
+
+                // Type, Permission
+                fixed (byte* pointer = _entry.c_mode)
+                {
+                    majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
+                }
+
+
+                // Uid
+                fixed (byte* pointer = _entry.c_uid)
+                {
+                    majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
+                }
+                _archiveEntry.Uid = Encoding.ASCII.GetString(majorBuffer);
+
+                // Gid
+                fixed (byte* pointer = _entry.c_gid)
+                {
+                    majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
+                }
+                _archiveEntry.Gid = Encoding.ASCII.GetString(majorBuffer);
+
+                // mTime
+                fixed (byte* pointer = _entry.c_mtime)
+                {
+                    majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
+                }
+                _archiveEntry.mTime = BitConverter.ToInt64(majorBuffer, 0).ToUnixTime();
+
+                // nLink
+                fixed (byte* pointer = _entry.c_nlink)
+                {
+                    majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
+                }
+                _archiveEntry.nLink = BitConverter.ToInt32(majorBuffer, 0);
+
+                // rDev
+                fixed (byte* pointer = _entry.c_rdevmajor)
+                {
+                    majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
+                }
+
+                fixed (byte* pointer = _entry.c_rdevminor)
+                {
+                    minorBuffer = GetByteArrayFromFixedArray(pointer, 8);
+                }
+                _archiveEntry.rDev = Encoding.ASCII.GetString(majorBuffer) + Encoding.ASCII.GetString(minorBuffer);
+
+                return true;
+            }
         }
     }
 }

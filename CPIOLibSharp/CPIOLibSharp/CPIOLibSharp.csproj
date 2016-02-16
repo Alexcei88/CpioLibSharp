@@ -43,11 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchiveEntry\AbstractCPIOArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\InternalArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ArchiveEntryType.cs" />
     <Compile Include="ArchiveEntry\ICPIOArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\CRCFormatArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\NewASCIIFormatArchiveEntry.cs" />
     <Compile Include="CPIOFileStream.cs" />
     <Compile Include="CpioStruct.cs" />
+    <Compile Include="DateTimeEx.cs" />
     <Compile Include="FileStreams\AbstractCPIOFormat.cs" />
     <Compile Include="FileStreams\ICPIOFormat.cs" />
     <Compile Include="FileStreams\CRCFormat.cs" />

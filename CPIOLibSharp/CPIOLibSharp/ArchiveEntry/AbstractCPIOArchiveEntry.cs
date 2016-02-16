@@ -9,9 +9,7 @@ namespace CPIOLibSharp.ArchiveEntry
     abstract class AbstractCPIOArchiveEntry
         : ICPIOArchiveEntry
     {
-        protected byte[] _fileName;
-
-        protected byte[] _data;
+        protected InternalArchiveEntry _archiveEntry = new InternalArchiveEntry();
 
         public abstract int EntrySize { get; }
 
@@ -19,38 +17,46 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public abstract long FileNameSize { get; }
 
+        /// <summary>
+        /// Заполнение внутренней структуры 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public abstract bool FillEntry(byte[] data);
 
+                
+        protected abstract bool FillEntry();
+
+            
         public void FillFileNameData(byte[] data)
         {
-            _fileName = data;
+            _archiveEntry.FileName = data;
         }
-
-        /// <summary>
-        /// Возвращает имя текущего раздела архива
-        /// </summary>
-        /// <returns></returns>
-        protected string GetFileName()
-        {
-            StringBuilder fileName = new StringBuilder();
-            int i = 0;
-            while (i < _fileName.Length && _fileName[i] != '\0')
-            {
-                fileName.Append((char)_fileName[i++]);
-            }
-            return fileName.ToString();
-        }
-
 
         public void FillDataEntry(byte[] data)
         {
-            _data = data;
+            _archiveEntry.Data = data;
         }
 
         public bool ExtractEntryToDisk(string destFolder)
         {
-            string file = GetFileName();
+            //string file = GetFileName();
             return true;
+
+        }
+
+        protected static unsafe byte[] GetByteArrayFromFixedArray(byte* source, int length)
+        {            
+            byte[] buffer = new byte[length];
+            unsafe
+            {
+                int i = 0;
+                for (byte* d = source; i< length; ++i, ++d)
+                {
+                    buffer[i] = *d;
+                }
+            }
+            return buffer;
         }
     }
 }

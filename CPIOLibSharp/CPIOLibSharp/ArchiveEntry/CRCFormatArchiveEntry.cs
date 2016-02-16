@@ -42,5 +42,10 @@ namespace CPIOLibSharp.ArchiveEntry
         {
             throw new NotImplementedException();
         }
+
+        protected override bool FillEntry()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
