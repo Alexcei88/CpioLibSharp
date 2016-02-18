@@ -24,13 +24,11 @@ namespace CPIOLibSharp.FileStreams
         {
             _fileStream.Seek(0, SeekOrigin.Begin);
 
-
-            while (_fileStream.CanRead)
+            ICPIOArchiveEntry archiveEntry = GetArchiveEntry();
+            int sizeBuffer = archiveEntry.EntrySize;
+            byte[] buffer = new byte[sizeBuffer];
+            while (_fileStream.Read(buffer, 0, sizeBuffer) == sizeBuffer )
             {
-                ICPIOArchiveEntry archiveEntry = GetArchiveEntry();
-                int sizeBuffer = archiveEntry.EntrySize;
-                byte[] buffer = new byte[sizeBuffer];
-                _fileStream.Read(buffer, 0, sizeBuffer);
                 archiveEntry.FillEntry(buffer);
                 int fileNameSize = (int)archiveEntry.FileNameSize;
                 if (fileNameSize > 0)
@@ -39,6 +37,10 @@ namespace CPIOLibSharp.FileStreams
                     _fileStream.Read(fileName, 0, fileNameSize);
                     archiveEntry.FillFileNameData(fileName);
                 }
+                if(archiveEntry.IsLastArchiveEntry())
+                {
+                    return true;
+                }
                 long dataSize = archiveEntry.DataSize;
                 if (dataSize > 0)
                 {
@@ -46,14 +48,12 @@ namespace CPIOLibSharp.FileStreams
                     _fileStream.Read(data, 0, (int)dataSize);
                     archiveEntry.FillDataEntry(data);
                 }
-                if(!archiveEntry.ExtractEntryToDisk(destFolder))
+                if (!archiveEntry.ExtractEntryToDisk(destFolder))
                 {
                     return false;
                 }
             }
-
-
-            return true;
+            return false;
         }
 
         /// <summary>

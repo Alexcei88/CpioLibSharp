@@ -17,13 +17,13 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public ArchiveEntryType Type { get; set; }
 
-        public string Permission { get; set; }
+        public int Permission { get; set; }
 
         public string Uid { get; set; }
 
         public string Gid { get; set; }
 
-        public int nLink { get; set; }
+        public long nLink { get; set; }
 
         public string rDev { get; set; }
 
@@ -50,13 +50,25 @@ namespace CPIOLibSharp.ArchiveEntry
         }
 
         /// <summary>
-        /// Получение типа архива по значению
+        /// Получение типа раздела архива по полю mode
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static ArchiveEntryType GetArchiveEntryType(int value)
+        public static ArchiveEntryType GetArchiveEntryType(long mode)
         {
-            return Enum.GetValues(typeof(ArchiveEntryType)).Cast<ArchiveEntryType>().First(g => (int)g == value);
+            long type = mode >> 9;
+            return Enum.GetValues(typeof(ArchiveEntryType)).Cast<ArchiveEntryType>().First(g => (int)g == type);
         }
+
+        /// <summary>
+        /// Получение прав раздела по поле mode
+        /// </summary>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public static int GePermission(long mode)
+        {
+            return (int)mode & 0x1ff;
+        }
+
     }
 }

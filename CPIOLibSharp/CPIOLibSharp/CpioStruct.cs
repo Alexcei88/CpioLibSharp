@@ -15,6 +15,11 @@ namespace CPIOLibSharp
     public class CpioStruct
     {
         /// <summary>
+        /// Имя последнего раздела архива
+        /// </summary>
+        public static string LAST_ARCHIVEENTRY_FILENAME= "TRAILER!!!";
+
+        /// <summary>
         /// Old Binary Format
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]

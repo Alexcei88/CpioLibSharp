@@ -43,7 +43,7 @@ namespace CPIOLibSharp.ArchiveEntry
             throw new NotImplementedException();
         }
 
-        protected override bool FillEntry()
+        protected override bool FillInternalEntry()
         {
             throw new NotImplementedException();
         }

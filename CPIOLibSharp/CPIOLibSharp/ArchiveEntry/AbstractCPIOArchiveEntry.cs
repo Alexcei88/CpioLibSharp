@@ -23,9 +23,8 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <param name="data"></param>
         /// <returns></returns>
         public abstract bool FillEntry(byte[] data);
-
                 
-        protected abstract bool FillEntry();
+        protected abstract bool FillInternalEntry();
 
             
         public void FillFileNameData(byte[] data)
@@ -40,6 +39,9 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public bool ExtractEntryToDisk(string destFolder)
         {
+            FillInternalEntry();
+                
+            string file = InternalArchiveEntry.GetFileName(_archiveEntry.FileName);
             //string file = GetFileName();
             return true;
 
@@ -57,6 +59,15 @@ namespace CPIOLibSharp.ArchiveEntry
                 }
             }
             return buffer;
+        }
+
+        /// <summary>
+        /// Последний ли раздел в архиве
+        /// </summary>
+        /// <returns></returns>
+        public bool IsLastArchiveEntry()
+        {
+            return InternalArchiveEntry.GetFileName(_archiveEntry.FileName).Equals(CpioStruct.LAST_ARCHIVEENTRY_FILENAME);
         }
     }
 }

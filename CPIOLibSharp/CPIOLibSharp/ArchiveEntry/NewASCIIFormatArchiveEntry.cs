@@ -62,11 +62,11 @@ namespace CPIOLibSharp.ArchiveEntry
             Marshal.Copy(data, 0, @in, EntrySize);
             _entry = (CpioStruct.cpio_newc_header)Marshal.PtrToStructure(@in, _entry.GetType());
             Marshal.FreeHGlobal(@in);
+            return true;
 
-            return FillEntry();
         }
 
-        protected override bool FillEntry()
+        protected override bool FillInternalEntry()
         {
             unsafe
             {
@@ -82,49 +82,51 @@ namespace CPIOLibSharp.ArchiveEntry
                 {
                     minorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-                _archiveEntry.Dev = Encoding.ASCII.GetString(majorBuffer) + Encoding.ASCII.GetString(minorBuffer);
+                _archiveEntry.Dev = GetValueFromHexValue(majorBuffer).ToString() + GetValueFromHexValue(minorBuffer).ToString();
 
                 // Ino
                 fixed (byte* pointer = _entry.c_ino)
                 {
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-                _archiveEntry.Ino = Encoding.ASCII.GetString(majorBuffer);
+                _archiveEntry.Ino = GetValueFromHexValue(majorBuffer).ToString();
 
                 // Type, Permission
                 fixed (byte* pointer = _entry.c_mode)
                 {
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-
+                long mode = GetValueFromHexValue(majorBuffer);
+                _archiveEntry.Type = InternalArchiveEntry.GetArchiveEntryType(mode);
+                _archiveEntry.Permission = InternalArchiveEntry.GePermission(mode);
 
                 // Uid
                 fixed (byte* pointer = _entry.c_uid)
                 {
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-                _archiveEntry.Uid = Encoding.ASCII.GetString(majorBuffer);
+                _archiveEntry.Uid = GetValueFromHexValue(majorBuffer).ToString();
 
                 // Gid
                 fixed (byte* pointer = _entry.c_gid)
                 {
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-                _archiveEntry.Gid = Encoding.ASCII.GetString(majorBuffer);
+                _archiveEntry.Gid = GetValueFromHexValue(majorBuffer).ToString();
 
                 // mTime
                 fixed (byte* pointer = _entry.c_mtime)
                 {
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-                _archiveEntry.mTime = BitConverter.ToInt64(majorBuffer, 0).ToUnixTime();
+                _archiveEntry.mTime = GetValueFromHexValue(majorBuffer).ToUnixTime();
 
                 // nLink
                 fixed (byte* pointer = _entry.c_nlink)
                 {
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-                _archiveEntry.nLink = BitConverter.ToInt32(majorBuffer, 0);
+                _archiveEntry.nLink = GetValueFromHexValue(majorBuffer);
 
                 // rDev
                 fixed (byte* pointer = _entry.c_rdevmajor)
@@ -136,10 +138,16 @@ namespace CPIOLibSharp.ArchiveEntry
                 {
                     minorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-                _archiveEntry.rDev = Encoding.ASCII.GetString(majorBuffer) + Encoding.ASCII.GetString(minorBuffer);
-
+                _archiveEntry.rDev = GetValueFromHexValue(majorBuffer).ToString() + GetValueFromHexValue(minorBuffer).ToString();
                 return true;
             }
         }
+
+        private long GetValueFromHexValue(byte[] buffer)
+        {
+            string fileNameSize = Encoding.ASCII.GetString(buffer);
+            return long.Parse(fileNameSize, System.Globalization.NumberStyles.HexNumber);
+        }
+
     }
 }

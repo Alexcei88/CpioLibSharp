@@ -11,16 +11,16 @@ namespace CPIOLibSharp.ArchiveEntry
     /// </summary>
     enum ArchiveEntryType
     {
-         FILE_TYPE_BITS = 0170,
-         SOCKET = 0140,
-         SYMBOLIC_LINK = 0120,
-         FILE = 0100,
-         BLOCK_SPEC_DEVICE = 0060,
-         DIRECTORY = 0040,
-         CHARACTER_SPEC_DEVICE = 0020,
-         FIFO = 0010,
-         SUID = 0004,
-         GUID = 0002,
-         STICKY_BIT = 0001
+         FILE_TYPE_BITS = 120,
+         SOCKET = 96,
+         SYMBOLIC_LINK = 80,
+         FILE = 64,
+         BLOCK_SPEC_DEVICE = 48,
+         DIRECTORY = 32,
+         CHARACTER_SPEC_DEVICE = 16,
+         FIFO = 8,
+         SUID = 4,
+         GUID = 2,
+         STICKY_BIT = 1
     }    
 }

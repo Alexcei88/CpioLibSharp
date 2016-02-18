@@ -51,5 +51,13 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <param name="destFolder"></param>
         /// <returns></returns>
         bool ExtractEntryToDisk(string destFolder);
+
+        /// <summary>
+        /// Последний ли раздел в файле
+        /// </summary>
+        /// <returns></returns>
+        bool IsLastArchiveEntry();
+
+
     }
 }
