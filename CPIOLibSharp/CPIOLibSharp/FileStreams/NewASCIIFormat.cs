@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CPIOLibSharp.ArchiveEntry;
 using System.IO;
+using Mono.Posix;
+
 
 namespace CPIOLibSharp.FileStreams
 {

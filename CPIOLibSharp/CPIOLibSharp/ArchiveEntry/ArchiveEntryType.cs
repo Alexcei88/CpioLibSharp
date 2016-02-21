@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CPIOLibSharp.ArchiveEntry
 {
     /// <summary>
-    /// Тип раздела архива
+    /// Type entry of archive
     /// </summary>
     enum ArchiveEntryType
     {

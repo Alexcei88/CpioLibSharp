@@ -1,12 +1,7 @@
 ﻿using CPIOLibSharp.ArchiveEntry;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CPIOLibSharp.FileStreams
 {
@@ -22,38 +17,49 @@ namespace CPIOLibSharp.FileStreams
 
         public bool Save(string destFolder)
         {
-            _fileStream.Seek(0, SeekOrigin.Begin);
-
-            IReaderCPIOArchiveEntry archiveEntry = GetArchiveEntry();
-            int sizeBuffer = archiveEntry.EntrySize;
-            byte[] buffer = new byte[sizeBuffer];
-            while (_fileStream.Read(buffer, 0, sizeBuffer) == sizeBuffer )
+            if (Directory.Exists(destFolder))
             {
-                archiveEntry.FillEntry(buffer);
-                int fileNameSize = (int)archiveEntry.FileNameSize;
-                if (fileNameSize > 0)
+                _fileStream.Seek(0, SeekOrigin.Begin);
+
+                IReaderCPIOArchiveEntry archiveEntry = GetArchiveEntry();
+                int sizeBuffer = archiveEntry.EntrySize;
+                byte[] buffer = new byte[sizeBuffer];
+                while (_fileStream.Read(buffer, 0, sizeBuffer) == sizeBuffer)
                 {
-                    byte[] fileName = new byte[fileNameSize];
-                    _fileStream.Read(fileName, 0, fileNameSize);
-                    archiveEntry.FillFileNameData(fileName);
+                    archiveEntry.FillEntry(buffer);
+                    int fileNameSize = (int)archiveEntry.FileNameSize;
+                    if (fileNameSize > 0)
+                    {
+                        byte[] fileName = new byte[fileNameSize];
+                        _fileStream.Read(fileName, 0, fileNameSize);
+                        archiveEntry.FillFileNameData(fileName);
+                    }
+                    if (archiveEntry.IsLastArchiveEntry())
+                    {
+                        return true;
+                    }
+                    long dataSize = archiveEntry.DataSize;
+                    if (dataSize > 0)
+                    {
+                        byte[] data = new byte[dataSize];
+                        _fileStream.Read(data, 0, (int)dataSize);
+                        archiveEntry.FillDataEntry(data);
+                    }
+                    if (!archiveEntry.ExtractEntryToDisk(destFolder))
+                    {
+                        Console.WriteLine("Fail to extract the archive entry: {0}", archiveEntry.ToString());
+                        Directory.Delete(destFolder);
+                        return false;
+                    }
                 }
-                if(archiveEntry.IsLastArchiveEntry())
-                {
-                    return true;
-                }
-                long dataSize = archiveEntry.DataSize;
-                if (dataSize > 0)
-                {
-                    byte[] data = new byte[dataSize];
-                    _fileStream.Read(data, 0, (int)dataSize);
-                    archiveEntry.FillDataEntry(data);
-                }
-                if (!archiveEntry.ExtractEntryToDisk(destFolder))
-                {
-                    return false;
-                }
+                Console.WriteLine("Not find the end entry in file. Fail is invalid");
+                Directory.Delete(destFolder);
+                return false;
             }
-            return false;
+            else
+            {
+                throw new Exception(string.Format("Directory {0} not exist"));
+            }
         }
 
         /// <summary>

@@ -16,7 +16,7 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public string Ino { get; set; }
 
-        public ArchiveEntryType Type { get; set; }
+        public ArchiveEntryType ArchiveType { get; set; }
 
         public int Permission { get; set; }
 
@@ -33,6 +33,15 @@ namespace CPIOLibSharp.ArchiveEntry
         public byte[] FileName { get; set; }
 
         public byte[] Data { get; set; }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder("ArchiveEntry:");
+            builder.AppendLine(string.Format("FileName: {0}", GetFileName(this.FileName)));
+            builder.AppendLine(string.Format("Type {0}", this.ArchiveType));
+            builder.AppendLine(string.Format("Permission: {0}", this.Permission));
+            return builder.ToString();
+        }
 
         /// <summary>
         /// Получение имени файла из переданного массива байт

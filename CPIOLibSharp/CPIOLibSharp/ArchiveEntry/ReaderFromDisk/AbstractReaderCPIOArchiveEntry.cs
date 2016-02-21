@@ -48,7 +48,7 @@ namespace CPIOLibSharp.ArchiveEntry
         public bool ExtractEntryToDisk(string destFolder)
         {
             FillInternalEntry();
-            IWriterEntry writer = InternalArchiveEntry.GetWriter(_archiveEntry.Type);
+            IWriterEntry writer = InternalArchiveEntry.GetWriter(_archiveEntry.ArchiveType);
             bool? result = writer?.Write(_archiveEntry, destFolder);
             return result != null;
         }

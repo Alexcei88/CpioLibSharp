@@ -97,7 +97,7 @@ namespace CPIOLibSharp.ArchiveEntry
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
                 long mode = GetValueFromHexValue(majorBuffer);
-                _archiveEntry.Type = InternalArchiveEntry.GetArchiveEntryType(mode);
+                _archiveEntry.ArchiveType = InternalArchiveEntry.GetArchiveEntryType(mode);
                 _archiveEntry.Permission = InternalArchiveEntry.GePermission(mode);
 
                 // Uid

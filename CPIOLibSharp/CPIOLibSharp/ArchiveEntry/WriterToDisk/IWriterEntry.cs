@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
     /// <summary>
-    /// Interface for writer entry of archive to disk 
+    /// Interface for writer a entry of archive to a disk 
     /// </summary>
     interface IWriterEntry
     {

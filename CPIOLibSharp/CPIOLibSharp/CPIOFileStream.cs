@@ -12,9 +12,9 @@ namespace CPIOLibSharp
     public class CPIOFileStream
         : FileStream
     {
-        ICPIOFormat[] _cpioFormats;
+        private ICPIOFormat[] _cpioFormats;
 
-        ICPIOFormat _currentCpioFormats;
+        private ICPIOFormat _currentCpioFormats;
 
         public CPIOFileStream(string fileName)
             : base(fileName, FileMode.Open)
@@ -27,7 +27,7 @@ namespace CPIOLibSharp
             _currentCpioFormats = _cpioFormats.FirstOrDefault(g => g.DetectFormat());
             if(_currentCpioFormats == null)
             {
-                throw new InvalidDataException(string.Format("File {0} is no format of cpio", fileName));
+                throw new InvalidDataException(string.Format("File {0} has i format of cpio", fileName));
             }
         }
 
@@ -40,6 +40,5 @@ namespace CPIOLibSharp
         {
             return _currentCpioFormats.Save(destFolder);
         }
-
     }
 }
