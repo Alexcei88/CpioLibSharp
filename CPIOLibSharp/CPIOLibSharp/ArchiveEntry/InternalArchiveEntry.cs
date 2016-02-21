@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CPIOLibSharp.ArchiveEntry.WriterToDisk;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,7 +47,8 @@ namespace CPIOLibSharp.ArchiveEntry
             {
                 retFileName.Append((char)fileName[i++]);
             }
-            return retFileName.ToString();
+            string name = retFileName.ToString();
+            return name.Replace('/', '\\');
         }
 
         /// <summary>
@@ -68,6 +70,20 @@ namespace CPIOLibSharp.ArchiveEntry
         public static int GePermission(long mode)
         {
             return (int)mode & 0x1ff;
+        }
+
+        public static IWriterEntry GetWriter(ArchiveEntryType type)
+        {
+            switch(type)
+            {
+                case ArchiveEntryType.DIRECTORY:
+                    return new DirectoryWriterEntry();
+
+                case ArchiveEntryType.FILE:
+                    return new FileWriterEntry();
+                default:
+                    throw new Exception("Нет класса, реализующего запись для данного типа");
+            }
         }
 
     }

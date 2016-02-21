@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
-    class CRCFormatArchiveEntry
-        : AbstractCPIOArchiveEntry
+    class CRCFormatReaderArchiveEntry
+        : AbstractReaderCPIOArchiveEntry
     {
         private CpioStruct.cpio_newc_header _entry = new CpioStruct.cpio_newc_header();
     

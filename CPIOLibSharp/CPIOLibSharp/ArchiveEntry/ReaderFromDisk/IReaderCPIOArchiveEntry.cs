@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace CPIOLibSharp.ArchiveEntry
 {
     /// <summary>
-    /// Entry
+    /// Reader from cpio archive entry
     /// </summary>
-    public interface ICPIOArchiveEntry
+    public interface IReaderCPIOArchiveEntry
     {
         /// <summary>
         /// Размер структура с метаданными

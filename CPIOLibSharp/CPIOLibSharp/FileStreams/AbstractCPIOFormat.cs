@@ -24,7 +24,7 @@ namespace CPIOLibSharp.FileStreams
         {
             _fileStream.Seek(0, SeekOrigin.Begin);
 
-            ICPIOArchiveEntry archiveEntry = GetArchiveEntry();
+            IReaderCPIOArchiveEntry archiveEntry = GetArchiveEntry();
             int sizeBuffer = archiveEntry.EntrySize;
             byte[] buffer = new byte[sizeBuffer];
             while (_fileStream.Read(buffer, 0, sizeBuffer) == sizeBuffer )
@@ -61,7 +61,7 @@ namespace CPIOLibSharp.FileStreams
         /// Фабричный метож
         /// </summary>
         /// <returns></returns>
-        public abstract ICPIOArchiveEntry GetArchiveEntry();
+        public abstract IReaderCPIOArchiveEntry GetArchiveEntry();
 
         /// <summary>
         /// Определение формата CPIO 

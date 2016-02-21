@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
-    class NewASCIIFormatArchiveEntry
-        : AbstractCPIOArchiveEntry
+    class NewASCIIReaderFormatArchiveEntry
+        : AbstractReaderCPIOArchiveEntry
     {
         private CpioStruct.cpio_newc_header _entry = new CpioStruct.cpio_newc_header();
 

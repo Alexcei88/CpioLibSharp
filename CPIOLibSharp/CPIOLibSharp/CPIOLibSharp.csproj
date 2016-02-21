@@ -42,12 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArchiveEntry\AbstractCPIOArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReaderFromDisk\AbstractReaderCPIOArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\InternalArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\ArchiveEntryType.cs" />
-    <Compile Include="ArchiveEntry\ICPIOArchiveEntry.cs" />
-    <Compile Include="ArchiveEntry\CRCFormatArchiveEntry.cs" />
-    <Compile Include="ArchiveEntry\NewASCIIFormatArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReaderFromDisk\IReaderCPIOArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReaderFromDisk\CRCFormatReaderArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReaderFromDisk\NewASCIIFormatArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\WriterToDisk\DirectoryWriterEntry.cs" />
+    <Compile Include="ArchiveEntry\WriterToDisk\FileWriterEntry.cs" />
+    <Compile Include="ArchiveEntry\WriterToDisk\IWriterEntry.cs" />
     <Compile Include="CPIOFileStream.cs" />
     <Compile Include="CpioStruct.cs" />
     <Compile Include="DateTimeEx.cs" />
@@ -57,6 +60,7 @@
     <Compile Include="FileStreams\NewASCIIFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
