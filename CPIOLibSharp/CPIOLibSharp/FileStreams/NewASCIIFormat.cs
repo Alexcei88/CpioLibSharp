@@ -13,7 +13,7 @@ namespace CPIOLibSharp.FileStreams
     class NewASCIIFormat
         : AbstractCPIOFormat
     {
-        public readonly byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'1' };
+        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'1' };
 
         public NewASCIIFormat(FileStream stream)
             : base(stream)

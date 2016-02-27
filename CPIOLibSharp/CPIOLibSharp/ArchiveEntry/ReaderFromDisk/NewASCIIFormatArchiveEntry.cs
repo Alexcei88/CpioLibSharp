@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using CPIOLibSharp.FileStreams;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
@@ -12,6 +13,8 @@ namespace CPIOLibSharp.ArchiveEntry
         : AbstractReaderCPIOArchiveEntry
     {
         private CpioStruct.cpio_newc_header _entry = new CpioStruct.cpio_newc_header();
+
+        public static byte[] CHECK_FIELD_VALUE = { (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', };
 
         public override long DataSize
         {
@@ -62,6 +65,30 @@ namespace CPIOLibSharp.ArchiveEntry
             Marshal.Copy(data, 0, @in, EntrySize);
             _entry = (CpioStruct.cpio_newc_header)Marshal.PtrToStructure(@in, _entry.GetType());
             Marshal.FreeHGlobal(@in);
+
+            unsafe
+            {
+                byte[] buffer;
+                // check magic
+                fixed (byte* pointer = _entry.c_magic)
+                {
+                    buffer = GetByteArrayFromFixedArray(pointer, 6);
+                }
+                if (!AbstractCPIOFormat.ByteArrayCompare(buffer, NewASCIIFormat.MAGIC_ARCHIVEENTRY_NUMBER))
+                {
+                    return false;
+                }
+
+                // check check field
+                fixed (byte* pointer = _entry.c_check)
+                {
+                    buffer = GetByteArrayFromFixedArray(pointer, 8);
+                }
+                if (!AbstractCPIOFormat.ByteArrayCompare(buffer, CHECK_FIELD_VALUE))
+                {
+                    return false;
+                }
+            }
             return true;
 
         }
