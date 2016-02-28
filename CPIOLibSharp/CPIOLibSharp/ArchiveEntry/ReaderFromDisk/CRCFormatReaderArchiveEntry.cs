@@ -12,8 +12,8 @@ namespace CPIOLibSharp.ArchiveEntry
     {
         private CpioStruct.cpio_newc_header _entry = new CpioStruct.cpio_newc_header();
 
-        public CRCFormatReaderArchiveEntry(ArchiveTypes.ExtractArchiveFlags flags)
-            : base(flags)
+        public CRCFormatReaderArchiveEntry(uint extractFlags)
+            : base(extractFlags)
         { }
 
         public override long DataSize

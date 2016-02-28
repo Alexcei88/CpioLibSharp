@@ -13,8 +13,24 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
         public bool Write(InternalArchiveEntry _entry, string destFolder)
         {
             string dir = InternalArchiveEntry.GetFileName(_entry.FileName);
-            string path = Path.Combine(destFolder, dir);
-            return Directory.CreateDirectory(path) != null;
+            var d = Directory.GetParent(dir);
+            string fullPathToDir = Path.Combine(destFolder, dir);
+            if(Directory.CreateDirectory(fullPathToDir) != null)
+            {
+                if ((_entry.ExtractFlags & (uint)ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_TIME) > 0)
+                {
+                    string currentDir = fullPathToDir;
+                    string _dir = dir;
+                    do
+                    {
+                        Directory.SetLastWriteTimeUtc(currentDir, _entry.mTime);
+                        _dir = Path.GetDirectoryName(_dir);
+                        currentDir = Path.GetDirectoryName(currentDir);
+                    }                        
+                    while(!string.IsNullOrEmpty(_dir) && _dir != ".");                
+                }
+            }
+            return false;
         }
     }
 }

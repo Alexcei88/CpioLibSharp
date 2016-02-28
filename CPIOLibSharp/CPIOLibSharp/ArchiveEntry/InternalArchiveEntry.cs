@@ -34,6 +34,8 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public byte[] Data { get; set; }
 
+        public uint ExtractFlags { get; set; }
+
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder("ArchiveEntry:");

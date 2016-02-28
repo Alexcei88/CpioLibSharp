@@ -16,7 +16,7 @@ namespace CPIOLibSharp.FileStreams
             _fileStream = stream;
         }
 
-        public bool Save(string destFolder, ArchiveTypes.ExtractArchiveFlags flags = 0)
+        public bool Save(string destFolder, ArchiveTypes.ExtractArchiveFlags[] flags = null)
         {
             if (Directory.Exists(destFolder))
             {
@@ -76,7 +76,7 @@ namespace CPIOLibSharp.FileStreams
         /// Фабричный метож
         /// </summary>
         /// <returns></returns>
-        public abstract IReaderCPIOArchiveEntry GetArchiveEntry(ArchiveTypes.ExtractArchiveFlags flags);
+        public abstract IReaderCPIOArchiveEntry GetArchiveEntry(ArchiveTypes.ExtractArchiveFlags[] flags);
 
         /// <summary>
         /// Определение формата CPIO 
@@ -94,5 +94,19 @@ namespace CPIOLibSharp.FileStreams
         {
             return StructuralComparisons.StructuralEqualityComparer.Equals(a1, a2);
         }
+
+        static protected uint GetUintFromExtractArchiveFlags(ArchiveTypes.ExtractArchiveFlags[] flags)
+        {
+            uint exFlags = 0;
+            if (flags == null)
+                return exFlags;
+
+            foreach (ArchiveTypes.ExtractArchiveFlags flag in flags)
+            {
+                exFlags = exFlags | (uint)flag;
+            }
+            return exFlags;
+        }
+
     }
 }

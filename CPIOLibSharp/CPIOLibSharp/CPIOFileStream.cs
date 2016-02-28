@@ -36,7 +36,7 @@ namespace CPIOLibSharp
         /// </summary>
         /// <param name="destFolder"></param>
         /// <returns></returns>
-        public bool Save(string destFolder, ArchiveTypes.ExtractArchiveFlags flags = 0)
+        public bool Save(string destFolder, ArchiveTypes.ExtractArchiveFlags[] flags = null)
         {
             return _currentCpioFormats.Save(destFolder, flags);
         }

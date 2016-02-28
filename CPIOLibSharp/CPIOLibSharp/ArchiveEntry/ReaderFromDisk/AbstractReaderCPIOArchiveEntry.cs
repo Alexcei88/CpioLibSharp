@@ -15,7 +15,7 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <summary>
         /// flags for optional behaviour
         /// </summary>
-        protected ArchiveTypes.ExtractArchiveFlags _flags;
+        protected uint _extractFlags;
 
         public abstract int EntrySize { get; }
 
@@ -24,9 +24,9 @@ namespace CPIOLibSharp.ArchiveEntry
         public abstract long FileNameSize { get; }
 
         
-        public AbstractReaderCPIOArchiveEntry(ArchiveTypes.ExtractArchiveFlags flags)
+        public AbstractReaderCPIOArchiveEntry(uint extractFlags)
         {
-            _flags = flags;
+            _extractFlags = extractFlags;
         }
 
         /// <summary>

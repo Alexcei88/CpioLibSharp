@@ -16,7 +16,7 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public static byte[] CHECK_FIELD_VALUE = { (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', };
 
-        public NewASCIIReaderFormatArchiveEntry(ArchiveTypes.ExtractArchiveFlags flags)
+        public NewASCIIReaderFormatArchiveEntry(uint flags)
             : base(flags)
         { }
 
@@ -170,6 +170,8 @@ namespace CPIOLibSharp.ArchiveEntry
                     minorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
                 _archiveEntry.rDev = GetValueFromHexValue(majorBuffer).ToString() + GetValueFromHexValue(minorBuffer).ToString();
+
+                _archiveEntry.ExtractFlags = _extractFlags;
                 return true;
             }
         }
