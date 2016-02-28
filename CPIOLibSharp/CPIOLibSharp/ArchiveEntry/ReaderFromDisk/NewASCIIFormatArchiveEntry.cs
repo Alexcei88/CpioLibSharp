@@ -16,6 +16,10 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public static byte[] CHECK_FIELD_VALUE = { (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', };
 
+        public NewASCIIReaderFormatArchiveEntry(ArchiveTypes.ExtractArchiveFlags flags)
+            : base(flags)
+        { }
+
         public override long DataSize
         {
             get

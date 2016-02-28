@@ -12,11 +12,22 @@ namespace CPIOLibSharp.ArchiveEntry
     {
         protected InternalArchiveEntry _archiveEntry = new InternalArchiveEntry();
 
+        /// <summary>
+        /// flags for optional behaviour
+        /// </summary>
+        protected ArchiveTypes.ExtractArchiveFlags _flags;
+
         public abstract int EntrySize { get; }
 
         public abstract long DataSize { get; }
 
         public abstract long FileNameSize { get; }
+
+        
+        public AbstractReaderCPIOArchiveEntry(ArchiveTypes.ExtractArchiveFlags flags)
+        {
+            _flags = flags;
+        }
 
         /// <summary>
         /// Заполнение CPIO структуры 

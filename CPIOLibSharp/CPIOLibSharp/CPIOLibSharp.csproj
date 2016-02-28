@@ -54,6 +54,7 @@
     <Compile Include="ArchiveEntry\WriterToDisk\DirectoryWriterEntry.cs" />
     <Compile Include="ArchiveEntry\WriterToDisk\FileWriterEntry.cs" />
     <Compile Include="ArchiveEntry\WriterToDisk\IWriterEntry.cs" />
+    <Compile Include="ArchiveTypes.cs" />
     <Compile Include="CPIOFileStream.cs" />
     <Compile Include="CpioStruct.cs" />
     <Compile Include="DateTimeEx.cs" />

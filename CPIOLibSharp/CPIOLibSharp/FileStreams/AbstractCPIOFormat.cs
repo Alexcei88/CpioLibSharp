@@ -1,6 +1,7 @@
 ﻿using CPIOLibSharp.ArchiveEntry;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 namespace CPIOLibSharp.FileStreams
@@ -15,17 +16,24 @@ namespace CPIOLibSharp.FileStreams
             _fileStream = stream;
         }
 
-        public bool Save(string destFolder)
+        public bool Save(string destFolder, ArchiveTypes.ExtractArchiveFlags flags = 0)
         {
             if (Directory.Exists(destFolder))
             {
+
                 _fileStream.Seek(0, SeekOrigin.Begin);
 
-                IReaderCPIOArchiveEntry archiveEntry = GetArchiveEntry();
+                // list all the archive entry
+                List<IReaderCPIOArchiveEntry> archiveEntries = new List<IReaderCPIOArchiveEntry>();
+
+                IReaderCPIOArchiveEntry archiveEntry = GetArchiveEntry(flags);
                 int sizeBuffer = archiveEntry.EntrySize;
                 byte[] buffer = new byte[sizeBuffer];
                 while (_fileStream.Read(buffer, 0, sizeBuffer) == sizeBuffer)
                 {
+                    archiveEntry = GetArchiveEntry(flags);
+                    archiveEntries.Add(archiveEntry);
+
                     archiveEntry.FillEntry(buffer);
                     int fileNameSize = (int)archiveEntry.FileNameSize;
                     if (fileNameSize > 0)
@@ -51,6 +59,7 @@ namespace CPIOLibSharp.FileStreams
                         Directory.Delete(destFolder);
                         return false;
                     }
+
                 }
                 Console.WriteLine("Not find the end entry in file. Fail is invalid");
                 Directory.Delete(destFolder);
@@ -67,7 +76,7 @@ namespace CPIOLibSharp.FileStreams
         /// Фабричный метож
         /// </summary>
         /// <returns></returns>
-        public abstract IReaderCPIOArchiveEntry GetArchiveEntry();
+        public abstract IReaderCPIOArchiveEntry GetArchiveEntry(ArchiveTypes.ExtractArchiveFlags flags);
 
         /// <summary>
         /// Определение формата CPIO 

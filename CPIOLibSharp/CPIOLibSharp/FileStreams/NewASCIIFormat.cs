@@ -27,9 +27,9 @@ namespace CPIOLibSharp.FileStreams
             return ByteArrayCompare(buffer, MAGIC_ARCHIVEENTRY_NUMBER);
         }
 
-        public override IReaderCPIOArchiveEntry GetArchiveEntry()
+        public override IReaderCPIOArchiveEntry GetArchiveEntry(ArchiveTypes.ExtractArchiveFlags flags)
         {
-            return new NewASCIIReaderFormatArchiveEntry();
+            return new NewASCIIReaderFormatArchiveEntry(flags);
         }
     }
 }

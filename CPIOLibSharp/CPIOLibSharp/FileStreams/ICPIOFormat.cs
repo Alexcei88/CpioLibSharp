@@ -15,6 +15,6 @@ namespace CPIOLibSharp.FileStreams
         /// </summary>
         /// <param name="desFolder"></param>
         /// <returns></returns>
-        bool Save(string desFolder);
+        bool Save(string desFolder, ArchiveTypes.ExtractArchiveFlags flags = 0);
     }
 }
