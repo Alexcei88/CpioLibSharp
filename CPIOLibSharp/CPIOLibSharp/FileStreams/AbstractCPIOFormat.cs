@@ -20,7 +20,7 @@ namespace CPIOLibSharp.FileStreams
         {
             if (Directory.Exists(destFolder))
             {
-
+                bool findTrailer = false;
                 _fileStream.Seek(0, SeekOrigin.Begin);
 
                 // list all the archive entry
@@ -32,9 +32,8 @@ namespace CPIOLibSharp.FileStreams
                 while (_fileStream.Read(buffer, 0, sizeBuffer) == sizeBuffer)
                 {
                     archiveEntry = GetArchiveEntry(flags);
-                    archiveEntries.Add(archiveEntry);
-
                     archiveEntry.FillEntry(buffer);
+
                     int fileNameSize = (int)archiveEntry.FileNameSize;
                     if (fileNameSize > 0)
                     {
@@ -44,7 +43,8 @@ namespace CPIOLibSharp.FileStreams
                     }
                     if (archiveEntry.IsLastArchiveEntry())
                     {
-                        return true;
+                        findTrailer = true;
+                        break;
                     }
                     long dataSize = archiveEntry.DataSize;
                     if (dataSize > 0)
@@ -59,11 +59,18 @@ namespace CPIOLibSharp.FileStreams
                         Directory.Delete(destFolder);
                         return false;
                     }
-
+                    archiveEntries.Add(archiveEntry);
                 }
-                Console.WriteLine("Not find the end entry in file. Fail is invalid");
-                Directory.Delete(destFolder);
-                return false;
+                if (!findTrailer)
+                {
+                    Console.WriteLine("Not find the end entry in file. File is invalid");
+                    Directory.Delete(destFolder);
+                    return false;
+                }
+                else
+                {
+                    return PostProcessingSaveArchive(destFolder, archiveEntries);
+                }
             }
             else
             {
@@ -72,17 +79,35 @@ namespace CPIOLibSharp.FileStreams
         }
 
         /// <summary>
-        /// Возвращает конкретный экземпляр ArchiveEnty
-        /// Фабричный метож
+        /// Возвращает конкретный экземпляр ArchiveEntry
+        /// Fabric method
         /// </summary>
         /// <returns></returns>
         public abstract IReaderCPIOArchiveEntry GetArchiveEntry(ArchiveTypes.ExtractArchiveFlags[] flags);
 
         /// <summary>
-        /// Определение формата CPIO 
+        /// Detect CPIO format
         /// </summary>
         /// <returns></returns>
         public abstract bool DetectFormat();
+
+        /// <summary>
+        /// Post extract entry to disk(after read all entry from file)
+        /// </summary>
+        /// <param name="destFolder"></param>
+        /// <param name="archiveEntries"></param>
+        /// <returns></returns>
+        protected virtual bool PostProcessingSaveArchive(string destFolder, List<IReaderCPIOArchiveEntry> archiveEntries)
+        {
+            foreach (var entry in archiveEntries)
+            {
+                if (!entry.PostExtractEntryToDisk(destFolder, archiveEntries))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         /// <summary>
         /// Проверка на равенство двух массивов байт
@@ -94,6 +119,7 @@ namespace CPIOLibSharp.FileStreams
         {
             return StructuralComparisons.StructuralEqualityComparer.Equals(a1, a2);
         }
+
 
         static protected uint GetUintFromExtractArchiveFlags(ArchiveTypes.ExtractArchiveFlags[] flags)
         {
@@ -107,6 +133,5 @@ namespace CPIOLibSharp.FileStreams
             }
             return exFlags;
         }
-
     }
 }

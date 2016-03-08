@@ -17,9 +17,8 @@ namespace CPIOLibSharp.ArchiveEntry
 
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SYMBOLIC_LINK_FLAG dwFlags);
-
-        [DllImport("kernel32.dll")]
-        public static extern uint GetLastError();
-
+       
+        [DllImport("Kernel32.dll", CharSet = CharSet.Unicode)]
+        public static extern bool CreateHardLink(string lpFileName, string lpExistingFileName, IntPtr lpSecurityAttributes);
     }
 }

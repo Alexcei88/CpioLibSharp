@@ -9,7 +9,7 @@ namespace CPIOLibSharp.ArchiveEntry
     /// <summary>
     /// Reader from cpio archive entry
     /// </summary>
-    public interface IReaderCPIOArchiveEntry
+    internal interface IReaderCPIOArchiveEntry
     {
         /// <summary>
         /// Размер структура с метаданными
@@ -46,18 +46,29 @@ namespace CPIOLibSharp.ArchiveEntry
         void FillDataEntry(byte[] data);
 
         /// <summary>
-        /// Save entry to disk
+        /// Save entry to disk if it possible
         /// </summary>
         /// <param name="destFolder"></param>
         /// <returns></returns>
         bool ExtractEntryToDisk(string destFolder);
 
         /// <summary>
-        /// Последний ли раздел в файле
+        /// Save entry to disk after read all entry
+        /// </summary>
+        /// <param name="destFolder"></param>
+        /// <param name="archiveEntries"></param>
+        /// <returns></returns>
+        bool PostExtractEntryToDisk(string destFolder, List<IReaderCPIOArchiveEntry> archiveEntries);
+
+        /// <summary>
+        /// Is last entry in the file(trailer entry)
         /// </summary>
         /// <returns></returns>
         bool IsLastArchiveEntry();
-
-
+        
+        /// <summary>
+        /// Internal archive entry
+        /// </summary>
+        InternalWriteArchiveEntry InternalEntry { get; }
     }
 }

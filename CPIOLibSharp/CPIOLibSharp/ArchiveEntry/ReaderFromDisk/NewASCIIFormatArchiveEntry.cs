@@ -120,7 +120,7 @@ namespace CPIOLibSharp.ArchiveEntry
                 {
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-                _archiveEntry.Ino = GetValueFromHexValue(majorBuffer).ToString();
+                _archiveEntry.INode = GetValueFromHexValue(majorBuffer).ToString();
 
                 // Type, Permission
                 fixed (byte* pointer = _entry.c_mode)

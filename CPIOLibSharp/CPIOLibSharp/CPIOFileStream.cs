@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace CPIOLibSharp
 {
+    /// <summary>
+    /// A file stream in cpio format
+    /// </summary>
     public class CPIOFileStream
         : FileStream
     {

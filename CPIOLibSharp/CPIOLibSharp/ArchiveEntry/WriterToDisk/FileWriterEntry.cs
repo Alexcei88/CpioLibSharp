@@ -13,6 +13,11 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     class FileWriterEntry
         : IWriterEntry
     {
+        public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)
+        {
+            return false;
+        }
+
         public bool Write(InternalWriteArchiveEntry _entry, string destFolder)
         {
             string fileName = InternalWriteArchiveEntry.GetFileName(_entry.FileName);

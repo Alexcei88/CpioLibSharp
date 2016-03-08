@@ -1,4 +1,5 @@
 ﻿using CPIOLibSharp.ArchiveEntry.WriterToDisk;
+using CPIOLibSharp.FileStreams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace CPIOLibSharp.ArchiveEntry
     {
         public string Dev { get; set; }
 
-        public string Ino { get; set; }
+        public string INode { get; set; }
 
         public ArchiveEntryType ArchiveType { get; set; }
 
@@ -34,7 +35,20 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public byte[] Data { get; set; }
 
+        /// <summary>
+        /// Option for extract entry to disk
+        /// </summary>
         public uint ExtractFlags { get; set; }
+
+        /// <summary>
+        /// Flag is was extracted entry to disk
+        /// </summary>
+        public bool IsExtractToDisk { get; set; }
+
+        /// <summary>
+        /// hardLink to entry of archive
+        /// </summary>
+        public InternalWriteArchiveEntry LinkEntry { get; set; }
 
         public override string ToString()
         {
@@ -43,6 +57,23 @@ namespace CPIOLibSharp.ArchiveEntry
             builder.AppendLine(string.Format("Type {0}", this.ArchiveType));
             builder.AppendLine(string.Format("Permission: {0}", this.Permission));
             return builder.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(obj == null || !(obj is InternalWriteArchiveEntry))
+            {
+                return false;
+            }
+
+            InternalWriteArchiveEntry entry = obj as InternalWriteArchiveEntry;
+            return AbstractCPIOFormat.ByteArrayCompare(entry.FileName, FileName)
+                && entry.INode == entry.INode;
+        }
+
+        public override int GetHashCode()
+        {
+            return FileName.GetHashCode();
         }
 
         /// <summary>
@@ -62,7 +93,7 @@ namespace CPIOLibSharp.ArchiveEntry
             return name.Replace('/', '\\');
         }
 
-        public static string GetTargetFileToSymbolicLink(byte[] data)
+        public static string GetTargetFileToLink(byte[] data)
         {
             StringBuilder retFileName = new StringBuilder();
             int i = 0;

@@ -46,10 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArchiveEntry\ReaderFromDisk\AbstractReaderCPIOArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReaderFromDisk\AbstractReaderArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\InternalWriteArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\ArchiveEntryType.cs" />
-    <Compile Include="ArchiveEntry\ReaderFromDisk\IReaderCPIOArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReaderFromDisk\IReaderArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\ReaderFromDisk\CRCFormatReaderArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\ReaderFromDisk\NewASCIIFormatArchiveEntry.cs" />
     <Compile Include="WindowsNativeLibrary.cs" />
