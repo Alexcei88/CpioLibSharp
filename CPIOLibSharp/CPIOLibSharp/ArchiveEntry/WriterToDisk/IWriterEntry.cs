@@ -11,6 +11,6 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     /// </summary>
     interface IWriterEntry
     {
-        bool Write(InternalArchiveEntry _entry, string destFolder);
+        bool Write(InternalWriteArchiveEntry _entry, string destFolder);
     }
 }

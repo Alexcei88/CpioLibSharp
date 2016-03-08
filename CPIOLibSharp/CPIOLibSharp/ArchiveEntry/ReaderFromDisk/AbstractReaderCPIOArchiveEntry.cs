@@ -10,7 +10,7 @@ namespace CPIOLibSharp.ArchiveEntry
     abstract class AbstractReaderCPIOArchiveEntry
         : IReaderCPIOArchiveEntry
     {
-        protected InternalArchiveEntry _archiveEntry = new InternalArchiveEntry();
+        protected InternalWriteArchiveEntry _archiveEntry = new InternalWriteArchiveEntry();
 
         /// <summary>
         /// flags for optional behaviour
@@ -59,7 +59,7 @@ namespace CPIOLibSharp.ArchiveEntry
         public bool ExtractEntryToDisk(string destFolder)
         {
             FillInternalEntry();
-            IWriterEntry writer = InternalArchiveEntry.GetWriter(_archiveEntry.ArchiveType);
+            IWriterEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
             bool? result = writer?.Write(_archiveEntry, destFolder);
             return result != null;
         }
@@ -70,7 +70,7 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <returns></returns>
         public bool IsLastArchiveEntry()
         {
-            return InternalArchiveEntry.GetFileName(_archiveEntry.FileName).Equals(CpioStruct.LAST_ARCHIVEENTRY_FILENAME);
+            return InternalWriteArchiveEntry.GetFileName(_archiveEntry.FileName).Equals(CpioStruct.LAST_ARCHIVEENTRY_FILENAME);
         }
 
 

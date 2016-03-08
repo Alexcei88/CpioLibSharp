@@ -10,7 +10,7 @@ namespace CPIOLibSharp.ArchiveEntry
     /// <summary>
     /// Данные архива
     /// </summary>
-    class InternalArchiveEntry
+    class InternalWriteArchiveEntry
     {
         public string Dev { get; set; }
 
@@ -62,6 +62,18 @@ namespace CPIOLibSharp.ArchiveEntry
             return name.Replace('/', '\\');
         }
 
+        public static string GetTargetFileToSymbolicLink(byte[] data)
+        {
+            StringBuilder retFileName = new StringBuilder();
+            int i = 0;
+            while (i < data.Length && data[i] != '\0')
+            {
+                retFileName.Append((char)data[i++]);
+            }
+            string name = retFileName.ToString();
+            return name.Replace('/', '\\');
+        }
+
         /// <summary>
         /// Получение типа раздела архива по полю mode
         /// </summary>
@@ -83,15 +95,24 @@ namespace CPIOLibSharp.ArchiveEntry
             return (int)mode & 0x1ff;
         }
 
-        public static IWriterEntry GetWriter(ArchiveEntryType type)
+        public static IWriterEntry GetWriter(InternalWriteArchiveEntry _entry)
         {
-            switch(type)
+            switch(_entry.ArchiveType)
             {
                 case ArchiveEntryType.DIRECTORY:
                     return new DirectoryWriterEntry();
 
                 case ArchiveEntryType.FILE:
-                    return new FileWriterEntry();
+                    if (_entry.nLink > 1)
+                    {
+                        return new HardLinkFileWriterEntry();
+                    }
+                    else
+                    {
+                        return new FileWriterEntry();
+                    }
+                case ArchiveEntryType.SYMBOLIC_LINK:
+                    return new SymbolicLinkFileWriterEntry();
                 default:
                     throw new Exception("Нет класса, реализующего запись для данного типа");
             }

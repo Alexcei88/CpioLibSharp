@@ -32,8 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Posix">
-      <HintPath>..\Mono.Posix.dll</HintPath>
+    <Reference Include="Mono.Posix, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Posix-4.5.4.5.0\lib\net45\Mono.Posix.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,14 +47,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchiveEntry\ReaderFromDisk\AbstractReaderCPIOArchiveEntry.cs" />
-    <Compile Include="ArchiveEntry\InternalArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\InternalWriteArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\ArchiveEntryType.cs" />
     <Compile Include="ArchiveEntry\ReaderFromDisk\IReaderCPIOArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\ReaderFromDisk\CRCFormatReaderArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\ReaderFromDisk\NewASCIIFormatArchiveEntry.cs" />
+    <Compile Include="WindowsNativeLibrary.cs" />
     <Compile Include="ArchiveEntry\WriterToDisk\DirectoryWriterEntry.cs" />
     <Compile Include="ArchiveEntry\WriterToDisk\FileWriterEntry.cs" />
+    <Compile Include="ArchiveEntry\WriterToDisk\HardLinkFileWriterEntry.cs" />
     <Compile Include="ArchiveEntry\WriterToDisk\IWriterEntry.cs" />
+    <Compile Include="ArchiveEntry\WriterToDisk\SymbolicLinkFileWriterEntry.cs" />
     <Compile Include="ArchiveTypes.cs" />
     <Compile Include="CPIOFileStream.cs" />
     <Compile Include="CpioStruct.cs" />
@@ -64,7 +68,9 @@
     <Compile Include="FileStreams\NewASCIIFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

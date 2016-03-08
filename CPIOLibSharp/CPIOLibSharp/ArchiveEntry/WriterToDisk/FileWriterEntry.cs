@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
+    /// <summary>
+    /// Simple file writer of entry
+    /// </summary>
     class FileWriterEntry
         : IWriterEntry
     {
-        public bool Write(InternalArchiveEntry _entry, string destFolder)
+        public bool Write(InternalWriteArchiveEntry _entry, string destFolder)
         {
-            string fileName = InternalArchiveEntry.GetFileName(_entry.FileName);
+            string fileName = InternalWriteArchiveEntry.GetFileName(_entry.FileName);
             string fullPathToFile = Path.Combine(destFolder, fileName);
             string root = Path.GetDirectoryName(fullPathToFile );
             if (Directory.CreateDirectory(root) != null)

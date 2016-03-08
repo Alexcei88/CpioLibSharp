@@ -128,8 +128,8 @@ namespace CPIOLibSharp.ArchiveEntry
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
                 long mode = GetValueFromHexValue(majorBuffer);
-                _archiveEntry.ArchiveType = InternalArchiveEntry.GetArchiveEntryType(mode);
-                _archiveEntry.Permission = InternalArchiveEntry.GePermission(mode);
+                _archiveEntry.ArchiveType = InternalWriteArchiveEntry.GetArchiveEntryType(mode);
+                _archiveEntry.Permission = InternalWriteArchiveEntry.GePermission(mode);
 
                 // Uid
                 fixed (byte* pointer = _entry.c_uid)

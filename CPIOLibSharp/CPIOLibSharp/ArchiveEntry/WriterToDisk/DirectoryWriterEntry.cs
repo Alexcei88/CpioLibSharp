@@ -10,9 +10,9 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     class DirectoryWriterEntry
         : IWriterEntry
     {
-        public bool Write(InternalArchiveEntry _entry, string destFolder)
+        public bool Write(InternalWriteArchiveEntry _entry, string destFolder)
         {
-            string dir = InternalArchiveEntry.GetFileName(_entry.FileName);
+            string dir = InternalWriteArchiveEntry.GetFileName(_entry.FileName);
             var d = Directory.GetParent(dir);
             string fullPathToDir = Path.Combine(destFolder, dir);
             if(Directory.CreateDirectory(fullPathToDir) != null)
