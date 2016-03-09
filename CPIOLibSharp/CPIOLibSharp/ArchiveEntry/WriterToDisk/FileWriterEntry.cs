@@ -27,7 +27,8 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
             {
                 using (FileStream fs = new FileStream(fullPathToFile, FileMode.Create))
                 {
-                    fs.Write(_entry.Data, 0, _entry.Data.Length);
+                    var data = _entry.Data.Where(g => g != '\0').ToArray();
+                    fs.Write(data, 0, data.Length);
                 }
 
                 if ((_entry.ExtractFlags & (uint)ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_TIME) > 0)

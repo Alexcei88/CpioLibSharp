@@ -14,10 +14,10 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
         /// <summary>
         /// save entry to disk
         /// </summary>
-        /// <param name="_entry"></param>
+        /// <param name="entry"></param>
         /// <param name="destFolder"></param>
         /// <returns></returns>
-        bool Write(InternalWriteArchiveEntry _entry, string destFolder);
+        bool Write(InternalWriteArchiveEntry entry, string destFolder);
 
         /// <summary>
         /// Is post-extract required

@@ -34,7 +34,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
                     {
                         if ((_entry.ExtractFlags & (uint)ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_TIME) > 0)
                         {
-                            throw new Exception("For symbolic link function of extract time not works!!!");
+                            File.SetLastWriteTimeUtc(fullPathToFile, _entry.mTime);
                         }
 
                         return true;

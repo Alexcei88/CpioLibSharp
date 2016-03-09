@@ -12,9 +12,10 @@ namespace TestProject
         {
             using (CPIOLibSharp.CPIOFileStream sr = new CPIOLibSharp.CPIOFileStream("example.cpio"))
             {
-                sr.Save(@"F:\", new CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags[] {
-                    //CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_TIME
-                   CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_PERM
+                sr.Save(@"F:\", new CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags[] 
+                {
+                   CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_TIME
+                  ,CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_PERM
                 });    
             }
         }
