@@ -55,6 +55,9 @@
     <None Include="example.cpio">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="exampleOdc.cpio">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CPIOLibSharp\CPIOLibSharp.csproj">

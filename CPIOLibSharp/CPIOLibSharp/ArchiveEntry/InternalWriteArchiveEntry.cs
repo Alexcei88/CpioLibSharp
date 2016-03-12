@@ -144,6 +144,7 @@ namespace CPIOLibSharp.ArchiveEntry
                     }
                 case ArchiveEntryType.SYMBOLIC_LINK:
                     return new SymbolicLinkFileWriterEntry();
+
                 default:
                     throw new Exception("Нет класса, реализующего запись для данного типа");
             }

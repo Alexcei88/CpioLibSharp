@@ -52,6 +52,8 @@
     <Compile Include="ArchiveEntry\ReaderFromDisk\IReaderArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\ReaderFromDisk\CRCFormatReaderArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\ReaderFromDisk\NewASCIIFormatArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReaderFromDisk\ODCReaderArchiveEntry.cs" />
+    <Compile Include="FileStreams\ODCFormat.cs" />
     <Compile Include="WindowsNativeLibrary.cs" />
     <Compile Include="ArchiveEntry\WriterToDisk\DirectoryWriterEntry.cs" />
     <Compile Include="ArchiveEntry\WriterToDisk\FileWriterEntry.cs" />

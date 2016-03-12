@@ -19,12 +19,17 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <summary>
         /// Size of data
         /// </summary>
-        long DataSize { get; }
+        ulong DataSize { get; }
 
         /// <summary>
         /// Size of filename data
         /// </summary>
-        long FileNameSize { get; }
+        ulong FileNameSize { get; }
+
+        /// <summary>
+        /// Имя файла
+        /// </summary>
+        string FileName { get; }
 
         /// <summary>
         /// Fill struct entry

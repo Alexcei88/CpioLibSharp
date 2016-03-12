@@ -10,7 +10,7 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
-            using (CPIOLibSharp.CPIOFileStream sr = new CPIOLibSharp.CPIOFileStream("example.cpio"))
+            using (CPIOLibSharp.CPIOFileStream sr = new CPIOLibSharp.CPIOFileStream("exampleOdc.cpio"))
             {
                 sr.Save(@"F:\", new CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags[] 
                 {

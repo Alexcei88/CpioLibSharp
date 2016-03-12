@@ -20,7 +20,7 @@ namespace CPIOLibSharp.ArchiveEntry
             : base(flags)
         { }
 
-        public override long DataSize
+        public override ulong DataSize
         {
             get
             {
@@ -29,7 +29,7 @@ namespace CPIOLibSharp.ArchiveEntry
                     fixed (byte* pointer = _entry.c_filesize)
                     {
                         string dataSize = Encoding.ASCII.GetString(GetByteArrayFromFixedArray(pointer, 8));
-                        int size = int.Parse(dataSize, System.Globalization.NumberStyles.HexNumber);
+                        ulong size = ulong.Parse(dataSize, System.Globalization.NumberStyles.HexNumber);
                         return size % 4 == 0 ? size : (size + 4) / 4 * 4;
                     }
                 }                
@@ -44,7 +44,7 @@ namespace CPIOLibSharp.ArchiveEntry
             }
         }
 
-        public override long FileNameSize
+        public override ulong FileNameSize
         {
             get
             {
@@ -54,8 +54,8 @@ namespace CPIOLibSharp.ArchiveEntry
                     {
                         byte[] buffer = GetByteArrayFromFixedArray(pointer, 8);
                         string fileNameSize = Encoding.ASCII.GetString(buffer);
-                        int size = int.Parse(fileNameSize, System.Globalization.NumberStyles.HexNumber);
-                        int commonSize = size + EntrySize;
+                        ulong size = ulong.Parse(fileNameSize, System.Globalization.NumberStyles.HexNumber);
+                        ulong commonSize = size + (ulong)EntrySize;
                         return commonSize % 4 == 0 ? size : (4 - commonSize % 4) + size;
                     }
 

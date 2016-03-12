@@ -29,16 +29,17 @@ namespace CPIOLibSharp.FileStreams
                 IReaderCPIOArchiveEntry archiveEntry = GetArchiveEntry(flags);
                 int sizeBuffer = archiveEntry.EntrySize;
                 byte[] buffer = new byte[sizeBuffer];
+
                 while (_fileStream.Read(buffer, 0, sizeBuffer) == sizeBuffer)
                 {
                     archiveEntry = GetArchiveEntry(flags);
                     archiveEntry.FillEntry(buffer);
 
-                    int fileNameSize = (int)archiveEntry.FileNameSize;
-                    if (fileNameSize > 0)
+                    ulong fileNameSize = archiveEntry.FileNameSize;
+                    if (fileNameSize != 0)
                     {
                         byte[] fileName = new byte[fileNameSize];
-                        _fileStream.Read(fileName, 0, fileNameSize);
+                        _fileStream.Read(fileName, 0, (int)fileNameSize);
                         archiveEntry.FillFileNameData(fileName);
                     }
                     if (archiveEntry.IsLastArchiveEntry())
@@ -46,13 +47,19 @@ namespace CPIOLibSharp.FileStreams
                         findTrailer = true;
                         break;
                     }
-                    long dataSize = archiveEntry.DataSize;
-                    if (dataSize > 0)
+                    ulong dataSize = archiveEntry.DataSize;
+                    if (dataSize != 0)
                     {
                         byte[] data = new byte[dataSize];
                         _fileStream.Read(data, 0, (int)dataSize);
                         archiveEntry.FillDataEntry(data);
                     }
+                    // check need to extract archive
+                    if(this.SkipExtractEntry(archiveEntry))
+                    {
+                        continue;
+                    }
+
                     if (!archiveEntry.ExtractEntryToDisk(destFolder))
                     {
                         Console.WriteLine("Fail to extract the archive entry: {0}", archiveEntry.ToString());
@@ -90,6 +97,13 @@ namespace CPIOLibSharp.FileStreams
         /// </summary>
         /// <returns></returns>
         public abstract bool DetectFormat();
+
+        /// <summary>
+        /// Пропустить раздел архива из извлечения
+        /// </summary>
+        /// <param name="entry"></param>
+        /// <returns></returns>
+        protected abstract bool SkipExtractEntry(IReaderCPIOArchiveEntry entry);
 
         /// <summary>
         /// Post extract entry to disk(after read all entry from file)

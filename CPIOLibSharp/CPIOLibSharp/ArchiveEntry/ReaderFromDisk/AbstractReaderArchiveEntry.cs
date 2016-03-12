@@ -19,9 +19,17 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public abstract int EntrySize { get; }
 
-        public abstract long DataSize { get; }
+        public abstract ulong DataSize { get; }
 
-        public abstract long FileNameSize { get; }
+        public abstract ulong FileNameSize { get; }
+
+        public string FileName
+        {
+            get
+            {
+                return InternalWriteArchiveEntry.GetFileName(_archiveEntry.FileName);
+            }
+        }
 
         public InternalWriteArchiveEntry InternalEntry
         {
@@ -82,6 +90,7 @@ namespace CPIOLibSharp.ArchiveEntry
                 // check is hardlinkfile
                 if(_archiveEntry.ArchiveType == ArchiveEntryType.FILE && _archiveEntry.nLink > 1)
                 {
+                    // поиск "настоящего файла" с данными
                     _archiveEntry.LinkEntry = archiveEntries.FirstOrDefault(a => a.InternalEntry.INode == _archiveEntry.INode && a.InternalEntry != _archiveEntry).InternalEntry;
                 }
 
@@ -96,7 +105,7 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <returns></returns>
         public bool IsLastArchiveEntry()
         {
-            return InternalWriteArchiveEntry.GetFileName(_archiveEntry.FileName).Equals(CpioStruct.LAST_ARCHIVEENTRY_FILENAME);
+            return FileName.Equals(CpioStruct.LAST_ARCHIVEENTRY_FILENAME);
         }
 
 

@@ -4,23 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CPIOLibSharp.ArchiveEntry;
+using CPIOLibSharp.ArchiveEntry.ReaderFromDisk;
 using System.IO;
-using Mono.Posix;
-
 
 namespace CPIOLibSharp.FileStreams
 {
-    /// <summary>
-    /// New ASCII Format
-    /// </summary>
-    class NewASCIIFormat
+    class ODCFormat
         : AbstractCPIOFormat
     {
-        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'1' };
+        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'7' };
 
-        public NewASCIIFormat(FileStream stream)
+        /// <summary>
+        /// Имя входного файла
+        /// </summary>
+        private readonly string _fileName;
+
+        public ODCFormat(FileStream stream, string fileName)
             : base(stream)
-        { }
+        {
+            _fileName = fileName;
+        }
 
         public override bool DetectFormat()
         {
@@ -32,12 +35,12 @@ namespace CPIOLibSharp.FileStreams
 
         public override IReaderCPIOArchiveEntry GetArchiveEntry(ArchiveTypes.ExtractArchiveFlags[] flags)
         {
-            return new NewASCIIReaderFormatArchiveEntry(GetUintFromExtractArchiveFlags(flags));
+            return new ODCReaderArchiveEntry(GetUintFromExtractArchiveFlags(flags));
         }
 
         protected override bool SkipExtractEntry(IReaderCPIOArchiveEntry entry)
         {
-            return false;
+            return entry.FileName.Equals(_fileName);
         }
     }
 }

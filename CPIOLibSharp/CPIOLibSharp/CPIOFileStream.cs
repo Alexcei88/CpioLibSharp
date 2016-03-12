@@ -26,11 +26,12 @@ namespace CPIOLibSharp
             {
                  new CRCFormat(this)
                 ,new NewASCIIFormat(this)
+                ,new ODCFormat(this, fileName)
             };
             _currentCpioFormats = _cpioFormats.FirstOrDefault(g => g.DetectFormat());
             if(_currentCpioFormats == null)
             {
-                throw new InvalidDataException(string.Format("File {0} has i format of cpio", fileName));
+                throw new InvalidDataException(string.Format("File {0} has invalid format", fileName));
             }
         }
 

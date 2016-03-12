@@ -39,7 +39,7 @@ namespace CPIOLibSharp
         };
 
         /// <summary>
-        /// Portable ASCII Format
+        /// Portable ASCII Format(ODC)
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
         public unsafe struct cpio_odc_header

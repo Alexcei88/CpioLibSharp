@@ -16,7 +16,7 @@ namespace CPIOLibSharp.ArchiveEntry
             : base(extractFlags)
         { }
 
-        public override long DataSize
+        public override ulong DataSize
         {
             get
             {
@@ -33,7 +33,7 @@ namespace CPIOLibSharp.ArchiveEntry
             }
         }
 
-        public override long FileNameSize
+        public override ulong FileNameSize
         {
             get
             {
