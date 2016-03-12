@@ -1,18 +1,14 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
     /// <summary>
     /// Symbolick link for file writer of entry
     /// </summary>
-    class SymbolicLinkFileWriterEntry
+    internal class SymbolicLinkFileWriterEntry
         : IWriterEntry
     {
         public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)

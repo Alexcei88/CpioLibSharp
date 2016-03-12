@@ -1,17 +1,13 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
-    static class WindowsNativeLibrary
+    internal static class WindowsNativeLibrary
     {
         [Flags]
         public enum FileAccess : uint
@@ -61,6 +57,7 @@ namespace CPIOLibSharp.ArchiveEntry
             GenericAll = 0x10000000,
 
             SPECIFIC_RIGHTS_ALL = 0x00FFFF,
+
             FILE_ALL_ACCESS =
             StandardRightsRequired |
             Synchronize |
@@ -87,6 +84,7 @@ namespace CPIOLibSharp.ArchiveEntry
               FILE_EXECUTE |
               Synchronize
         }
+
         public enum SYMBOLIC_LINK_FLAG
         {
             File = 0,
@@ -95,7 +93,7 @@ namespace CPIOLibSharp.ArchiveEntry
 
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SYMBOLIC_LINK_FLAG dwFlags);
-       
+
         [DllImport("Kernel32.dll", CharSet = CharSet.Unicode)]
         public static extern bool CreateHardLink(string lpFileName, string lpExistingFileName, IntPtr lpSecurityAttributes);
 

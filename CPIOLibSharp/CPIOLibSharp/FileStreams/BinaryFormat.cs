@@ -1,17 +1,15 @@
 ﻿using CPIOLibSharp.ArchiveEntry;
+using CPIOLibSharp.ArchiveEntry.ReaderFromDisk;
 using System.IO;
 
 namespace CPIOLibSharp.FileStreams
 {
-    /// <summary>
-    /// New ASCII Format
-    /// </summary>
-    internal class NewASCIIFormat
+    internal class BinaryFormat
         : AbstractCPIOFormat
     {
-        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'1' };
+        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'7' };
 
-        public NewASCIIFormat(FileStream stream)
+        public BinaryFormat(FileStream stream)
             : base(stream)
         { }
 
@@ -25,7 +23,7 @@ namespace CPIOLibSharp.FileStreams
 
         public override IReaderCPIOArchiveEntry GetArchiveEntry(ArchiveTypes.ExtractArchiveFlags[] flags)
         {
-            return new NewASCIIReaderFormatArchiveEntry(GetUintFromExtractArchiveFlags(flags));
+            return new BinaryReaderArchiveEntry(GetUintFromExtractArchiveFlags(flags));
         }
 
         protected override bool SkipExtractEntry(IReaderCPIOArchiveEntry entry)

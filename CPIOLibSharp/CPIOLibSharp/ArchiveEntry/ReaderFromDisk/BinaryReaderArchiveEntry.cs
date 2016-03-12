@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
-namespace CPIOLibSharp.ArchiveEntry
+namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
 {
-    internal class CRCFormatReaderArchiveEntry
+    internal class BinaryReaderArchiveEntry
         : AbstractReaderCPIOArchiveEntry
     {
-        private CpioStruct.cpio_newc_header _entry = new CpioStruct.cpio_newc_header();
-
-        public CRCFormatReaderArchiveEntry(uint extractFlags)
-            : base(extractFlags)
+        public BinaryReaderArchiveEntry(uint flags)
+            : base(flags)
         { }
 
         public override ulong DataSize
@@ -24,7 +21,7 @@ namespace CPIOLibSharp.ArchiveEntry
         {
             get
             {
-                return Marshal.SizeOf(_entry.GetType());
+                throw new NotImplementedException();
             }
         }
 

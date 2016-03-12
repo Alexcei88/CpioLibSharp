@@ -6,7 +6,7 @@ using System.IO;
 
 namespace CPIOLibSharp.FileStreams
 {
-    abstract class AbstractCPIOFormat
+    internal abstract class AbstractCPIOFormat
         : ICPIOFormat
     {
         protected FileStream _fileStream;
@@ -55,7 +55,7 @@ namespace CPIOLibSharp.FileStreams
                         archiveEntry.FillDataEntry(data);
                     }
                     // check need to extract archive
-                    if(this.SkipExtractEntry(archiveEntry))
+                    if (this.SkipExtractEntry(archiveEntry))
                     {
                         continue;
                     }
@@ -133,7 +133,6 @@ namespace CPIOLibSharp.FileStreams
         {
             return StructuralComparisons.StructuralEqualityComparer.Equals(a1, a2);
         }
-
 
         static protected uint GetUintFromExtractArchiveFlags(ArchiveTypes.ExtractArchiveFlags[] flags)
         {

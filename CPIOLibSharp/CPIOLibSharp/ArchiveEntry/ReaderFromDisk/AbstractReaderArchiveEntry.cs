@@ -1,9 +1,6 @@
 ﻿using CPIOLibSharp.ArchiveEntry.WriterToDisk;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
@@ -45,14 +42,14 @@ namespace CPIOLibSharp.ArchiveEntry
         }
 
         /// <summary>
-        /// Заполнение CPIO структуры 
+        /// Заполнение CPIO структуры
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
         public abstract bool FillEntry(byte[] data);
 
         protected abstract bool FillInternalEntry();
-        
+
         /// <summary>
         /// СОхранение данных об имени фа   ла
         /// </summary>
@@ -75,7 +72,7 @@ namespace CPIOLibSharp.ArchiveEntry
         {
             FillInternalEntry();
             IWriterEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
-            if(writer.IsPostExtractEntry(_archiveEntry))
+            if (writer.IsPostExtractEntry(_archiveEntry))
             {
                 return true;
             }
@@ -88,7 +85,7 @@ namespace CPIOLibSharp.ArchiveEntry
             if (writer.IsPostExtractEntry(_archiveEntry))
             {
                 // check is hardlinkfile
-                if(_archiveEntry.ArchiveType == ArchiveEntryType.FILE && _archiveEntry.nLink > 1)
+                if (_archiveEntry.ArchiveType == ArchiveEntryType.FILE && _archiveEntry.nLink > 1)
                 {
                     // поиск "настоящего файла" с данными
                     _archiveEntry.LinkEntry = archiveEntries.FirstOrDefault(a => a.InternalEntry.INode == _archiveEntry.INode && a.InternalEntry != _archiveEntry).InternalEntry;
@@ -108,14 +105,13 @@ namespace CPIOLibSharp.ArchiveEntry
             return FileName.Equals(CpioStruct.LAST_ARCHIVEENTRY_FILENAME);
         }
 
-
         protected static unsafe byte[] GetByteArrayFromFixedArray(byte* source, int length)
-        {            
+        {
             byte[] buffer = new byte[length];
             unsafe
             {
                 int i = 0;
-                for (byte* d = source; i< length; ++i, ++d)
+                for (byte* d = source; i < length; ++i, ++d)
                 {
                     buffer[i] = *d;
                 }

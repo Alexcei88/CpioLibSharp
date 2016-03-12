@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 
 namespace CPIOLibSharp
 {
@@ -11,13 +6,12 @@ namespace CPIOLibSharp
     /// http://people.freebsd.org/~kientzle/libarchive/man/cpio.5.txt
     /// </summary>
 
-
     public class CpioStruct
     {
         /// <summary>
         /// Имя последнего раздела архива
         /// </summary>
-        public static string LAST_ARCHIVEENTRY_FILENAME= "TRAILER!!!";
+        public static string LAST_ARCHIVEENTRY_FILENAME = "TRAILER!!!";
 
         /// <summary>
         /// Old Binary Format

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
+﻿namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
     /// <summary>
-    /// Interface for writer a entry of archive to a disk 
+    /// Interface for writer a entry of archive to a disk
     /// </summary>
-    interface IWriterEntry
+    internal interface IWriterEntry
     {
         /// <summary>
         /// save entry to disk

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
     /// <summary>
     /// Simple file writer of entry
     /// </summary>
-    class FileWriterEntry
+    internal class FileWriterEntry
         : IWriterEntry
     {
         public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)
@@ -22,7 +18,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
         {
             string fileName = InternalWriteArchiveEntry.GetFileName(_entry.FileName);
             string fullPathToFile = Path.Combine(destFolder, fileName);
-            string root = Path.GetDirectoryName(fullPathToFile );
+            string root = Path.GetDirectoryName(fullPathToFile);
             if (Directory.CreateDirectory(root) != null)
             {
                 using (FileStream fs = new FileStream(fullPathToFile, FileMode.Create))

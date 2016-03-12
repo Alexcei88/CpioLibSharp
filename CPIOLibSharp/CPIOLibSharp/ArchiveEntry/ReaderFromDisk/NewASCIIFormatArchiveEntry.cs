@@ -1,15 +1,11 @@
-﻿using System;
-using CPIOLibSharp;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CPIOLibSharp.FileStreams;
+using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-using CPIOLibSharp.FileStreams;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
-    class NewASCIIReaderFormatArchiveEntry
+    internal class NewASCIIReaderFormatArchiveEntry
         : AbstractReaderCPIOArchiveEntry
     {
         private CpioStruct.cpio_newc_header _entry = new CpioStruct.cpio_newc_header();
@@ -32,7 +28,7 @@ namespace CPIOLibSharp.ArchiveEntry
                         ulong size = ulong.Parse(dataSize, System.Globalization.NumberStyles.HexNumber);
                         return size % 4 == 0 ? size : (size + 4) / 4 * 4;
                     }
-                }                
+                }
             }
         }
 
@@ -58,7 +54,6 @@ namespace CPIOLibSharp.ArchiveEntry
                         ulong commonSize = size + (ulong)EntrySize;
                         return commonSize % 4 == 0 ? size : (4 - commonSize % 4) + size;
                     }
-
                 }
             }
         }
@@ -94,7 +89,6 @@ namespace CPIOLibSharp.ArchiveEntry
                 }
             }
             return true;
-
         }
 
         protected override bool FillInternalEntry()
@@ -181,6 +175,5 @@ namespace CPIOLibSharp.ArchiveEntry
             string fileNameSize = Encoding.ASCII.GetString(buffer);
             return long.Parse(fileNameSize, System.Globalization.NumberStyles.HexNumber);
         }
-
     }
 }

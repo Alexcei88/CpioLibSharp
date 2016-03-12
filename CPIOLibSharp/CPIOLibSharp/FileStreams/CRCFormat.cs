@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CPIOLibSharp.ArchiveEntry;
+﻿using CPIOLibSharp.ArchiveEntry;
 using System.IO;
 
 namespace CPIOLibSharp.FileStreams
@@ -11,7 +6,6 @@ namespace CPIOLibSharp.FileStreams
     internal class CRCFormat
         : AbstractCPIOFormat
     {
-
         public readonly byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'2' };
 
         public CRCFormat(FileStream stream)

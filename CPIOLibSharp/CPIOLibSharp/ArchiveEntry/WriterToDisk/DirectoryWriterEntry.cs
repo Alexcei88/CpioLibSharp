@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
-    class DirectoryWriterEntry
+    internal class DirectoryWriterEntry
         : IWriterEntry
     {
         public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)
@@ -20,7 +15,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
             string dir = InternalWriteArchiveEntry.GetFileName(_entry.FileName);
             var d = Directory.GetParent(dir);
             string fullPathToDir = Path.Combine(destFolder, dir);
-            if(Directory.CreateDirectory(fullPathToDir) != null)
+            if (Directory.CreateDirectory(fullPathToDir) != null)
             {
                 if ((_entry.ExtractFlags & (uint)ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_TIME) > 0)
                 {
@@ -31,8 +26,8 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
                         Directory.SetLastWriteTimeUtc(currentDir, _entry.mTime);
                         _dir = Path.GetDirectoryName(_dir);
                         currentDir = Path.GetDirectoryName(currentDir);
-                    }                        
-                    while(!string.IsNullOrEmpty(_dir) && _dir != ".");                
+                    }
+                    while (!string.IsNullOrEmpty(_dir) && _dir != ".");
                 }
             }
             return false;

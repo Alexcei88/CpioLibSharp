@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
@@ -70,7 +66,7 @@ namespace CPIOLibSharp.ArchiveEntry
         /// </summary>
         /// <returns></returns>
         bool IsLastArchiveEntry();
-        
+
         /// <summary>
         /// Internal archive entry
         /// </summary>

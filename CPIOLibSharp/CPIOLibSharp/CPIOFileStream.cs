@@ -1,11 +1,6 @@
 ﻿using CPIOLibSharp.FileStreams;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CPIOLibSharp
 {
@@ -29,7 +24,7 @@ namespace CPIOLibSharp
                 ,new ODCFormat(this, fileName)
             };
             _currentCpioFormats = _cpioFormats.FirstOrDefault(g => g.DetectFormat());
-            if(_currentCpioFormats == null)
+            if (_currentCpioFormats == null)
             {
                 throw new InvalidDataException(string.Format("File {0} has invalid format", fileName));
             }

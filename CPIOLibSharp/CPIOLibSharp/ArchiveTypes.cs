@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CPIOLibSharp
+﻿namespace CPIOLibSharp
 {
     /// <summary>
     /// Definition types of archive
@@ -19,9 +13,9 @@ namespace CPIOLibSharp
             /* Default: Do not try to set owner/group. */
             //ARCHIVE_EXTRACT_OWNER			=0x0001,
             /* Default: Do obey umask, do not restore SUID/SGID/SVTX bits. */
-            ARCHIVE_EXTRACT_PERM			=0x0002,
+            ARCHIVE_EXTRACT_PERM = 0x0002,
             /* Default: Do not restore mtime/atime. */
-            ARCHIVE_EXTRACT_TIME			=0x0004,
+            ARCHIVE_EXTRACT_TIME = 0x0004,
             /* Default: Replace existing files. */
             //ARCHIVE_EXTRACT_NO_OVERWRITE 		=0x0008,
             /* Default: Try create first, unlink only if create fails with EEXIST. */

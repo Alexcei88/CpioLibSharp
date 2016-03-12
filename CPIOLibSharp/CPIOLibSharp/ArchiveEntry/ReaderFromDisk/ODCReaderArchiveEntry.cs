@@ -1,18 +1,14 @@
 ﻿using CPIOLibSharp.FileStreams;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
 {
-    class ODCReaderArchiveEntry
+    internal class ODCReaderArchiveEntry
         : AbstractReaderCPIOArchiveEntry
     {
         private CpioStruct.cpio_odc_header _entry = new CpioStruct.cpio_odc_header();
-
 
         public ODCReaderArchiveEntry(uint flags)
             : base(flags)

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CPIOLibSharp.ArchiveEntry;
+﻿using CPIOLibSharp.ArchiveEntry;
 using CPIOLibSharp.ArchiveEntry.ReaderFromDisk;
 using System.IO;
 
 namespace CPIOLibSharp.FileStreams
 {
-    class ODCFormat
+    internal class ODCFormat
         : AbstractCPIOFormat
     {
         public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'7' };

@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
     /// <summary>
     /// Hard link for file writer of entry
     /// </summary>
-    class HardLinkFileWriterEntry
+    internal class HardLinkFileWriterEntry
         : IWriterEntry
     {
         public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)
@@ -21,7 +17,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 
         public bool Write(InternalWriteArchiveEntry _entry, string destFolder)
         {
-            if(IsPostExtractEntry(_entry))
+            if (IsPostExtractEntry(_entry))
             {
                 string fileName = InternalWriteArchiveEntry.GetFileName(_entry.FileName);
                 string fullPathToFile = Path.Combine(destFolder, fileName);

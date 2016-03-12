@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CPIOLibSharp
 {
-    static class DateTimeEx
+    internal static class DateTimeEx
     {
         public static DateTime ToUnixTime(this long unixTime)
         {

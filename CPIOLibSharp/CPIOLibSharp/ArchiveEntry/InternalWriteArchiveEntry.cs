@@ -1,17 +1,15 @@
 ﻿using CPIOLibSharp.ArchiveEntry.WriterToDisk;
 using CPIOLibSharp.FileStreams;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
     /// <summary>
     /// Данные архива
     /// </summary>
-    class InternalWriteArchiveEntry
+    internal class InternalWriteArchiveEntry
     {
         public string Dev { get; set; }
 
@@ -61,7 +59,7 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public override bool Equals(object obj)
         {
-            if(obj == null || !(obj is InternalWriteArchiveEntry))
+            if (obj == null || !(obj is InternalWriteArchiveEntry))
             {
                 return false;
             }
@@ -128,7 +126,7 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public static IWriterEntry GetWriter(InternalWriteArchiveEntry _entry)
         {
-            switch(_entry.ArchiveType)
+            switch (_entry.ArchiveType)
             {
                 case ArchiveEntryType.DIRECTORY:
                     return new DirectoryWriterEntry();
@@ -149,6 +147,5 @@ namespace CPIOLibSharp.ArchiveEntry
                     throw new Exception("Нет класса, реализующего запись для данного типа");
             }
         }
-
     }
 }
