@@ -36,6 +36,14 @@ namespace CPIOLibSharp.ArchiveEntry
             }
         }
 
+        public override bool HasData
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public override bool FillEntry(byte[] data)
         {
             throw new NotImplementedException();

@@ -28,7 +28,7 @@ namespace CPIOLibSharp.FileStreams
 
         protected override bool SkipFirstEntry(IReaderCPIOArchiveEntry archiveEntry)
         {
-            return archiveEntry.DataSize == 0;
+            return !archiveEntry.HasData;
         }
     }
 }

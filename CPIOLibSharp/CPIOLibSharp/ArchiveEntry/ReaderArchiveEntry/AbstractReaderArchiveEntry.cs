@@ -8,7 +8,6 @@ namespace CPIOLibSharp.ArchiveEntry
     internal abstract class AbstractReaderCPIOArchiveEntry
         : IReaderCPIOArchiveEntry
     {
-
         /// <summary>
         /// internal archive entry
         /// </summary>
@@ -24,6 +23,8 @@ namespace CPIOLibSharp.ArchiveEntry
         public abstract ulong DataSize { get; }
 
         public abstract ulong FileNameSize { get; }
+
+        public abstract bool HasData { get; }
 
         public string FileName
         {
@@ -111,7 +112,7 @@ namespace CPIOLibSharp.ArchiveEntry
         }
 
         /// <summary>
-        /// Последний ли раздел в архиве
+        /// Is a entry has name is TRAILER?
         /// </summary>
         /// <returns></returns>
         public bool IsLastArchiveEntry()
@@ -135,13 +136,15 @@ namespace CPIOLibSharp.ArchiveEntry
 
         protected static unsafe byte[] GetByteArrayFromFixedArray(ushort* source, int length)
         {
-            byte[] buffer = new byte[length * sizeof(ushort)];
+            int len = length * sizeof(ushort);
+            byte[] buffer = new byte[len];
             unsafe
             {
                 int i = 0;
-                for (ushort* d = source; i < length; ++i, ++d)
+                for (ushort* d = source; i < length; ++d, ++i)
                 {
-                    BitConverter.GetBytes(d[i]).CopyTo(buffer, i * sizeof(ushort));
+                    var buf = BitConverter.GetBytes(*d);
+                    buf.CopyTo(buffer, (length - 1 - i) * sizeof(ushort));
                 }
             }
             return buffer;

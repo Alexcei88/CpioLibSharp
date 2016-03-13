@@ -52,6 +52,21 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
             }
         }
 
+        public override bool HasData
+        {
+            get
+            {
+                unsafe
+                {
+                    fixed (byte* pointer = _entry.c_filesize)
+                    {
+                        string dataSize = Encoding.ASCII.GetString(GetByteArrayFromFixedArray(pointer, 11));
+                        return Convert.ToUInt64(dataSize, 8) != 0;
+                    }
+                }
+            }
+        }
+
         public override bool FillEntry(byte[] data)
         {
             IntPtr @in = Marshal.AllocHGlobal(EntrySize);
@@ -80,7 +95,6 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
             unsafe
             {
                 byte[] majorBuffer;
-                byte[] minorBuffer;
                 // Dev
                 fixed (byte* pointer = _entry.c_dev)
                 {
@@ -110,14 +124,14 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
                 {
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 6);
                 }
-                _archiveEntry.Uid = GetValueFromOctalValue(majorBuffer).ToString();
+                _archiveEntry.Uid = (int)GetValueFromOctalValue(majorBuffer);
 
                 // Gid
                 fixed (byte* pointer = _entry.c_gid)
                 {
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 6);
                 }
-                _archiveEntry.Gid = GetValueFromOctalValue(majorBuffer).ToString();
+                _archiveEntry.Gid = (int)GetValueFromOctalValue(majorBuffer);
 
                 // mTime
                 fixed (byte* pointer = _entry.c_mtime)
@@ -139,7 +153,7 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 6);
                 }
 
-                _archiveEntry.rDev = GetValueFromOctalValue(majorBuffer).ToString();
+                _archiveEntry.rDev = (int)GetValueFromOctalValue(majorBuffer);
                 _archiveEntry.ExtractFlags = _extractFlags;
                 return true;
             }

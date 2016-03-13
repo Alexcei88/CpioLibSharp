@@ -19,13 +19,13 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public int Permission { get; set; }
 
-        public string Uid { get; set; }
+        public int Uid { get; set; }
 
-        public string Gid { get; set; }
+        public int Gid { get; set; }
 
         public long nLink { get; set; }
 
-        public string rDev { get; set; }
+        public int rDev { get; set; }
 
         public DateTime mTime { get; set; }
 

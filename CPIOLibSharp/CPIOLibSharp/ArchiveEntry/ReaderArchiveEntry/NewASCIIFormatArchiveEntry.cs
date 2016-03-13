@@ -58,6 +58,22 @@ namespace CPIOLibSharp.ArchiveEntry
             }
         }
 
+        public override bool HasData
+        {
+            get
+            {
+                unsafe
+                {
+                    fixed (byte* pointer = _entry.c_filesize)
+                    {
+                        string dataSize = Encoding.ASCII.GetString(GetByteArrayFromFixedArray(pointer, 8));
+                        ulong size = ulong.Parse(dataSize, System.Globalization.NumberStyles.HexNumber);
+                        return size != 0;
+                    }
+                }
+            }
+        }
+
         public override bool FillEntry(byte[] data)
         {
             IntPtr @in = Marshal.AllocHGlobal(EntrySize);
@@ -130,14 +146,14 @@ namespace CPIOLibSharp.ArchiveEntry
                 {
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-                _archiveEntry.Uid = GetValueFromHexValue(majorBuffer).ToString();
+                _archiveEntry.Uid = (int)GetValueFromHexValue(majorBuffer);
 
                 // Gid
                 fixed (byte* pointer = _entry.c_gid)
                 {
                     majorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-                _archiveEntry.Gid = GetValueFromHexValue(majorBuffer).ToString();
+                _archiveEntry.Gid = (int)GetValueFromHexValue(majorBuffer);
 
                 // mTime
                 fixed (byte* pointer = _entry.c_mtime)
@@ -163,7 +179,7 @@ namespace CPIOLibSharp.ArchiveEntry
                 {
                     minorBuffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-                _archiveEntry.rDev = GetValueFromHexValue(majorBuffer).ToString() + GetValueFromHexValue(minorBuffer).ToString();
+                _archiveEntry.rDev = (int)GetValueFromHexValue(majorBuffer) + (int)GetValueFromHexValue(minorBuffer);
 
                 _archiveEntry.ExtractFlags = _extractFlags;
                 return true;

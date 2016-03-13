@@ -49,9 +49,9 @@ namespace CPIOLibSharp.FileStreams
                         findTrailer = true;
                         break;
                     }
-                    ulong dataSize = archiveEntry.DataSize;
-                    if (dataSize != 0)
+                    if (archiveEntry.HasData)
                     {
+                        ulong dataSize = archiveEntry.DataSize;
                         byte[] data = new byte[dataSize];
                         _fileStream.Read(data, 0, (int)dataSize);
                         archiveEntry.FillDataEntry(data);
@@ -76,7 +76,7 @@ namespace CPIOLibSharp.FileStreams
                 if (!findTrailer)
                 {
                     Console.WriteLine("Not find the end entry in file. File is invalid");
-                    Directory.Delete(destFolder);
+                    Directory.Delete(destFolder, true);
                     return false;
                 }
                 else

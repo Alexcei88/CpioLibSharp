@@ -13,6 +13,11 @@ namespace CPIOLibSharp.ArchiveEntry
         int EntrySize { get; }
 
         /// <summary>
+        /// Is exist data of entry
+        /// </summary>
+        bool HasData { get; }
+
+        /// <summary>
         /// Size of data
         /// </summary>
         ulong DataSize { get; }
