@@ -9,16 +9,9 @@ namespace CPIOLibSharp.FileStreams
     {
         public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'7' };
 
-        /// <summary>
-        /// Имя входного файла
-        /// </summary>
-        private readonly string _fileName;
-
-        public ODCFormat(FileStream stream, string fileName)
+        public ODCFormat(FileStream stream)
             : base(stream)
-        {
-            _fileName = fileName;
-        }
+        { }
 
         public override bool DetectFormat()
         {
@@ -33,9 +26,9 @@ namespace CPIOLibSharp.FileStreams
             return new ODCReaderArchiveEntry(GetUintFromExtractArchiveFlags(flags));
         }
 
-        protected override bool SkipExtractEntry(IReaderCPIOArchiveEntry entry)
+        protected override bool SkipFirstEntry(IReaderCPIOArchiveEntry archiveEntry)
         {
-            return entry.FileName.Equals(_fileName);
+            return archiveEntry.DataSize == 0;
         }
     }
 }

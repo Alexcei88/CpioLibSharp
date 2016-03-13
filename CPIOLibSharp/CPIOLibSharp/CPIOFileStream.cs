@@ -21,7 +21,8 @@ namespace CPIOLibSharp
             {
                  new CRCFormat(this)
                 ,new NewASCIIFormat(this)
-                ,new ODCFormat(this, fileName)
+                ,new ODCFormat(this)
+                ,new BinaryFormat(this)
             };
             _currentCpioFormats = _cpioFormats.FirstOrDefault(g => g.DetectFormat());
             if (_currentCpioFormats == null)

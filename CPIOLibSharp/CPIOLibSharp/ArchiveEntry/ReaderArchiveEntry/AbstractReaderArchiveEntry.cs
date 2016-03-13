@@ -1,4 +1,5 @@
 ﻿using CPIOLibSharp.ArchiveEntry.WriterToDisk;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -71,27 +72,35 @@ namespace CPIOLibSharp.ArchiveEntry
         public bool ExtractEntryToDisk(string destFolder)
         {
             FillInternalEntry();
-            IWriterEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
-            if (writer.IsPostExtractEntry(_archiveEntry))
+            if (_archiveEntry.nLink > 0)
             {
-                return true;
+                IWriterEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
+                if (writer.IsPostExtractEntry(_archiveEntry))
+                {
+                    return true;
+                }
+                return writer.Write(_archiveEntry, destFolder);
             }
-            return writer.Write(_archiveEntry, destFolder);
+            return true;
+
         }
 
         public bool PostExtractEntryToDisk(string destFolder, List<IReaderCPIOArchiveEntry> archiveEntries)
         {
-            IWriterEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
-            if (writer.IsPostExtractEntry(_archiveEntry))
+            if (_archiveEntry.nLink > 0)
             {
-                // check is hardlinkfile
-                if (_archiveEntry.ArchiveType == ArchiveEntryType.FILE && _archiveEntry.nLink > 1)
+                IWriterEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
+                if (writer.IsPostExtractEntry(_archiveEntry))
                 {
-                    // поиск "настоящего файла" с данными
-                    _archiveEntry.LinkEntry = archiveEntries.FirstOrDefault(a => a.InternalEntry.INode == _archiveEntry.INode && a.InternalEntry != _archiveEntry).InternalEntry;
-                }
+                    // check is hardlinkfile
+                    if (_archiveEntry.ArchiveType == ArchiveEntryType.FILE && _archiveEntry.nLink > 1)
+                    {
+                        // поиск "настоящего файла" с данными
+                        _archiveEntry.LinkEntry = archiveEntries.FirstOrDefault(a => a.InternalEntry.INode == _archiveEntry.INode && a.InternalEntry != _archiveEntry).InternalEntry;
+                    }
 
-                return writer.Write(_archiveEntry, destFolder);
+                    return writer.Write(_archiveEntry, destFolder);
+                }
             }
             return true;
         }
@@ -117,6 +126,21 @@ namespace CPIOLibSharp.ArchiveEntry
                 }
             }
             return buffer;
+        }
+
+        protected static unsafe byte[] GetByteArrayFromFixedArray(ushort* source, int length)
+        {
+            byte[] buffer = new byte[length * sizeof(ushort)];
+            unsafe
+            {
+                int i = 0;
+                for (ushort* d = source; i < length; ++i, ++d)
+                {
+                    BitConverter.GetBytes(d[i]).CopyTo(buffer, i * sizeof(ushort));
+                }
+            }
+            return buffer;
+
         }
     }
 }

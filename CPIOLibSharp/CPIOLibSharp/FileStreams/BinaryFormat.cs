@@ -1,13 +1,18 @@
 ﻿using CPIOLibSharp.ArchiveEntry;
 using CPIOLibSharp.ArchiveEntry.ReaderFromDisk;
+using System;
 using System.IO;
+using System.Text;
 
 namespace CPIOLibSharp.FileStreams
 {
     internal class BinaryFormat
         : AbstractCPIOFormat
     {
-        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'7' };
+        /// <summary>
+        /// Магическое число архива(070707)
+        /// </summary>
+        public static short MAGIC_ARCHIVEENTRY_NUMBER = 29127; 
 
         public BinaryFormat(FileStream stream)
             : base(stream)
@@ -16,9 +21,11 @@ namespace CPIOLibSharp.FileStreams
         public override bool DetectFormat()
         {
             _fileStream.Seek(0, SeekOrigin.Begin);
-            byte[] buffer = new byte[MAGIC_ARCHIVEENTRY_NUMBER.Length];
-            _fileStream.Read(buffer, 0, MAGIC_ARCHIVEENTRY_NUMBER.Length);
-            return ByteArrayCompare(buffer, MAGIC_ARCHIVEENTRY_NUMBER);
+            byte[] buffer = new byte[2];
+            _fileStream.Read(buffer, 0, 2);
+
+            short fileNumber = BitConverter.ToInt16(buffer, 0);
+            return fileNumber == MAGIC_ARCHIVEENTRY_NUMBER;
         }
 
         public override IReaderCPIOArchiveEntry GetArchiveEntry(ArchiveTypes.ExtractArchiveFlags[] flags)
@@ -26,9 +33,9 @@ namespace CPIOLibSharp.FileStreams
             return new BinaryReaderArchiveEntry(GetUintFromExtractArchiveFlags(flags));
         }
 
-        protected override bool SkipExtractEntry(IReaderCPIOArchiveEntry entry)
+        protected override bool SkipFirstEntry(IReaderCPIOArchiveEntry archiveEntry)
         {
-            return false;
+            return archiveEntry.DataSize == 0;
         }
     }
 }

@@ -24,10 +24,5 @@ namespace CPIOLibSharp.FileStreams
         {
             return new CRCFormatReaderArchiveEntry(GetUintFromExtractArchiveFlags(flags));
         }
-
-        protected override bool SkipExtractEntry(IReaderCPIOArchiveEntry entry)
-        {
-            return false;
-        }
     }
 }
