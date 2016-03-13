@@ -8,6 +8,10 @@ namespace CPIOLibSharp.ArchiveEntry
     internal abstract class AbstractReaderCPIOArchiveEntry
         : IReaderCPIOArchiveEntry
     {
+
+        /// <summary>
+        /// internal archive entry
+        /// </summary>
         protected InternalWriteArchiveEntry _archiveEntry = new InternalWriteArchiveEntry();
 
         /// <summary>
@@ -72,13 +76,14 @@ namespace CPIOLibSharp.ArchiveEntry
         public bool ExtractEntryToDisk(string destFolder)
         {
             FillInternalEntry();
-            if (_archiveEntry.nLink > 0)
+            if (_archiveEntry.nLink > 0 && !_archiveEntry.IsExtractToDisk)
             {
                 IWriterEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
                 if (writer.IsPostExtractEntry(_archiveEntry))
                 {
                     return true;
                 }
+                _archiveEntry.IsExtractToDisk = true;
                 return writer.Write(_archiveEntry, destFolder);
             }
             return true;
@@ -87,7 +92,7 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public bool PostExtractEntryToDisk(string destFolder, List<IReaderCPIOArchiveEntry> archiveEntries)
         {
-            if (_archiveEntry.nLink > 0)
+            if (_archiveEntry.nLink > 0 && !_archiveEntry.IsExtractToDisk)
             {
                 IWriterEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
                 if (writer.IsPostExtractEntry(_archiveEntry))
@@ -95,10 +100,10 @@ namespace CPIOLibSharp.ArchiveEntry
                     // check is hardlinkfile
                     if (_archiveEntry.ArchiveType == ArchiveEntryType.FILE && _archiveEntry.nLink > 1)
                     {
-                        // поиск "настоящего файла" с данными
-                        _archiveEntry.LinkEntry = archiveEntries.FirstOrDefault(a => a.InternalEntry.INode == _archiveEntry.INode && a.InternalEntry != _archiveEntry).InternalEntry;
+                        var hardLinkFiles = archiveEntries.Where(a => a.InternalEntry.INode == _archiveEntry.INode);
+                        return ExtractHardlinkFiles(destFolder, hardLinkFiles.ToList());
                     }
-
+                    _archiveEntry.IsExtractToDisk = true;
                     return writer.Write(_archiveEntry, destFolder);
                 }
             }
@@ -140,7 +145,42 @@ namespace CPIOLibSharp.ArchiveEntry
                 }
             }
             return buffer;
+        }
 
+        /// <summary>
+        /// extract hardlink files
+        /// </summary>
+        /// <param name="destFolder"></param>
+        /// <param name="archiveEntries"></param>
+        /// <returns></returns>
+        private bool ExtractHardlinkFiles(string destFolder, List<IReaderCPIOArchiveEntry> archiveEntries)
+        {
+            var presentFile = archiveEntries.Where(a => a.DataSize > 0).FirstOrDefault();
+            if(presentFile == null)
+            {
+                presentFile = archiveEntries.First();
+            }
+            FileWriterEntry writer = new FileWriterEntry();
+            if(writer.Write(presentFile.InternalEntry, destFolder))
+            {
+                presentFile.InternalEntry.IsExtractToDisk = true;
+                HardLinkFileWriterEntry hardWriter = new HardLinkFileWriterEntry();
+
+                foreach(var entry in archiveEntries.Where(a => a.InternalEntry != presentFile.InternalEntry).Select(a => a.InternalEntry))
+                {
+                    entry.LinkEntry = presentFile.InternalEntry;
+                    if(!hardWriter.Write(entry, destFolder))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        entry.IsExtractToDisk = true;
+                    }
+                }
+                return true;
+            }
+            return false;
         }
     }
 }

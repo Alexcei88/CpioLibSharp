@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace CPIOLibSharp.FileStreams
 {
@@ -119,7 +120,7 @@ namespace CPIOLibSharp.FileStreams
         /// <returns></returns>
         protected virtual bool PostProcessingSaveArchive(string destFolder, List<IReaderCPIOArchiveEntry> archiveEntries)
         {
-            foreach (var entry in archiveEntries)
+            foreach (var entry in archiveEntries.Where(a => !a.InternalEntry.IsExtractToDisk))
             {
                 if (!entry.PostExtractEntryToDisk(destFolder, archiveEntries))
                 {
