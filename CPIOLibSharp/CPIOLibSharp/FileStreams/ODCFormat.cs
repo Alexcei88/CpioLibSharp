@@ -25,10 +25,5 @@ namespace CPIOLibSharp.FileStreams
         {
             return new ODCReaderArchiveEntry(GetUintFromExtractArchiveFlags(flags));
         }
-
-        protected override bool SkipFirstEntry(IReaderCPIOArchiveEntry archiveEntry)
-        {
-            return !archiveEntry.HasData;
-        }
     }
 }

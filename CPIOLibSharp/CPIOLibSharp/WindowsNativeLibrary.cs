@@ -7,6 +7,9 @@ using System.Security;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
+    /// <summary>
+    /// Definitions of windows native libraries
+    /// </summary>
     internal static class WindowsNativeLibrary
     {
         [Flags]

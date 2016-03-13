@@ -31,7 +31,6 @@ namespace CPIOLibSharp.FileStreams
                 int sizeBuffer = archiveEntry.EntrySize;
                 byte[] buffer = new byte[sizeBuffer];
 
-                bool firstEntry = true;
                 while (_fileStream.Read(buffer, 0, sizeBuffer) == sizeBuffer)
                 {
                     archiveEntry = GetArchiveEntry(flags);
@@ -57,12 +56,6 @@ namespace CPIOLibSharp.FileStreams
                         archiveEntry.FillDataEntry(data);
                     }
 
-                    if(firstEntry && SkipFirstEntry(archiveEntry))
-                    {
-                        firstEntry = false;
-                        continue;
-                    }
-
                     if (!archiveEntry.ExtractEntryToDisk(destFolder))
                     {
                         Console.WriteLine("Fail to extract the archive entry: {0}", archiveEntry.ToString());
@@ -70,8 +63,6 @@ namespace CPIOLibSharp.FileStreams
                         return false;
                     }
                     archiveEntries.Add(archiveEntry);
-                    firstEntry = false;
-
                 }
                 if (!findTrailer)
                 {
@@ -102,15 +93,6 @@ namespace CPIOLibSharp.FileStreams
         /// </summary>
         /// <returns></returns>
         public abstract bool DetectFormat();
-
-        /// <summary>
-        /// Нужно ли опустить первый ут
-        /// </summary>
-        /// <param name="archiveEntry"></param>
-        protected virtual bool SkipFirstEntry(IReaderCPIOArchiveEntry archiveEntry)
-        {
-            return false;
-        }
 
         /// <summary>
         /// Post extract entry to disk(after read all entry from file)

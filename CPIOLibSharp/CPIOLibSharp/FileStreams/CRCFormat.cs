@@ -6,7 +6,7 @@ namespace CPIOLibSharp.FileStreams
     internal class CRCFormat
         : AbstractCPIOFormat
     {
-        public readonly byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'2' };
+        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'2' };
 
         public CRCFormat(FileStream stream)
             : base(stream)

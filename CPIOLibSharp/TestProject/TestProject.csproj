@@ -58,6 +58,9 @@
     <None Include="exampleBin.cpio">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="exampleCrc.cpio">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="exampleOdc.cpio">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -32,10 +32,5 @@ namespace CPIOLibSharp.FileStreams
         {
             return new BinaryReaderArchiveEntry(GetUintFromExtractArchiveFlags(flags));
         }
-
-        protected override bool SkipFirstEntry(IReaderCPIOArchiveEntry archiveEntry)
-        {
-            return !archiveEntry.HasData;
-        }
     }
 }
