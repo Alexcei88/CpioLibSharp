@@ -5,6 +5,15 @@
     /// </summary>
     public static class ArchiveTypes
     {
+        public enum CpioFormats
+        {
+            Binary = 0,
+            ODC,
+            NewASCII,
+            CRC
+
+        }
+
         /// <summary>
         /// The "flags" argument selects optional behavior, 'OR' the flags you want.
         /// </summary>

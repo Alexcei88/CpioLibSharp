@@ -13,7 +13,9 @@ namespace CPIOLibSharp.FileStreams
 
         public NewASCIIFormat(FileStream stream)
             : base(stream)
-        { }
+        {
+            _format = ArchiveTypes.CpioFormats.NewASCII;
+        }
 
         public override bool DetectFormat()
         {

@@ -1,6 +1,7 @@
 ﻿using CPIOLibSharp.FileStreams;
 using System.IO;
 using System.Linq;
+using static CPIOLibSharp.ArchiveTypes;
 
 namespace CPIOLibSharp
 {
@@ -10,6 +11,15 @@ namespace CPIOLibSharp
     public class CPIOFileStream
         : FileStream
     {
+        public CpioFormats Format
+        {
+            get
+            {
+                return _currentCpioFormats.Format;
+            }
+        }
+
+
         private ICPIOFormat[] _cpioFormats;
 
         private ICPIOFormat _currentCpioFormats;

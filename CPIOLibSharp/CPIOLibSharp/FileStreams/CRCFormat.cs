@@ -10,7 +10,9 @@ namespace CPIOLibSharp.FileStreams
 
         public CRCFormat(FileStream stream)
             : base(stream)
-        { }
+        {
+            _format = ArchiveTypes.CpioFormats.CRC;
+        }
 
         public override bool DetectFormat()
         {

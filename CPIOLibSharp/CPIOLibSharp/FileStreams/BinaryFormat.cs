@@ -16,7 +16,9 @@ namespace CPIOLibSharp.FileStreams
 
         public BinaryFormat(FileStream stream)
             : base(stream)
-        { }
+        {
+            _format = ArchiveTypes.CpioFormats.Binary;
+        }
 
         public override bool DetectFormat()
         {

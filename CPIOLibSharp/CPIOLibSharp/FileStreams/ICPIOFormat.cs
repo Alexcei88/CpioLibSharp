@@ -1,7 +1,14 @@
-﻿namespace CPIOLibSharp.FileStreams
+﻿using static CPIOLibSharp.ArchiveTypes;
+
+namespace CPIOLibSharp.FileStreams
 {
     internal interface ICPIOFormat
     {
+        /// <summary>
+        /// CPIO format of file
+        /// </summary>
+        CpioFormats Format { get; }
+
         bool DetectFormat();
 
         /// <summary>

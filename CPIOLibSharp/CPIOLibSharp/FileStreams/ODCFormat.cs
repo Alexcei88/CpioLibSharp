@@ -11,7 +11,9 @@ namespace CPIOLibSharp.FileStreams
 
         public ODCFormat(FileStream stream)
             : base(stream)
-        { }
+        {
+            _format = ArchiveTypes.CpioFormats.ODC;
+        }
 
         public override bool DetectFormat()
         {
