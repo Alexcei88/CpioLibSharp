@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Alexcei Shmakov</authors>
+    <owners>Alexcei Shmakov</owners>
+    <licenseUrl>https://github.com/Alexcei88/CpioLibSharp</licenseUrl>
+    <projectUrl>https://github.com/Alexcei88/CpioLibSharp</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>decompression library for cpio archive format</description>
+    <releaseNotes>
+
+    </releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags></tags>
+  </metadata>
+</package>
