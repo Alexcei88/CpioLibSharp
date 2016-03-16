@@ -22,7 +22,7 @@
             /* Default: Do not try to set owner/group. */
             //ARCHIVE_EXTRACT_OWNER			=0x0001,
             /* Default: Do obey umask, do not restore SUID/SGID/SVTX bits. */
-            ARCHIVE_EXTRACT_PERM = 0x0002,
+            //ARCHIVE_EXTRACT_PERM = 0x0002,
             /* Default: Do not restore mtime/atime. */
             ARCHIVE_EXTRACT_TIME = 0x0004,
             /* Default: Replace existing files. */

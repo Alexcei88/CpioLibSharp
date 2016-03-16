@@ -11,44 +11,54 @@ namespace CPIOLibSharp
     public class CPIOFileStream
         : FileStream
     {
+        /// <summary>
+        /// A format of cpio file
+        /// </summary>
         public CpioFormats Format
         {
             get
             {
-                return _currentCpioFormats.Format;
+                return _currentCpioFileStream.Format;
             }
         }
 
 
-        private ICPIOFormat[] _cpioFormats;
+        /// <summary>
+        /// array of supporting stream formats
+        /// </summary>
+        private ICPIOFormat[] _cpioFileStream;
 
-        private ICPIOFormat _currentCpioFormats;
+        /// <summary>
+        /// current stream format 
+        /// </summary>
+        private ICPIOFormat _currentCpioFileStream;
 
         public CPIOFileStream(string fileName)
             : base(fileName, FileMode.Open)
         {
-            _cpioFormats = new ICPIOFormat[]
+            _cpioFileStream = new ICPIOFormat[]
             {
                  new CRCFormat(this)
                 ,new NewASCIIFormat(this)
                 ,new ODCFormat(this)
                 ,new BinaryFormat(this)
             };
-            _currentCpioFormats = _cpioFormats.FirstOrDefault(g => g.DetectFormat());
-            if (_currentCpioFormats == null)
+            _currentCpioFileStream = _cpioFileStream.FirstOrDefault(g => g.DetectFormat());
+            if (_currentCpioFileStream == null)
             {
                 throw new InvalidDataException(string.Format("File {0} has invalid format", fileName));
             }
         }
 
         /// <summary>
-        /// Save archive to disk
+        /// Extract archive to disk
         /// </summary>
-        /// <param name="destFolder"></param>
+        /// <param name="destFolder">Destinition folder</param>
+        /// <param name="flags">Optional flags for additional behaviour</param>
         /// <returns></returns>
-        public bool Save(string destFolder, ArchiveTypes.ExtractArchiveFlags[] flags = null)
+        public bool Extract(string destFolder, ArchiveTypes.ExtractArchiveFlags[] flags = null)
         {
-            return _currentCpioFormats.Save(destFolder, flags);
+            return _currentCpioFileStream.Save(destFolder, flags);
         }
     }
 }

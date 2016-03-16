@@ -6,10 +6,9 @@
         {
             using (CPIOLibSharp.CPIOFileStream sr = new CPIOLibSharp.CPIOFileStream("exampleCrc.cpio"))
             {
-                sr.Save(@"F:\", new CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags[]
+                sr.Extract(@"F:\", new CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags[]
                 {
                    CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_TIME
-                  ,CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_PERM
                 });
             }
         }
