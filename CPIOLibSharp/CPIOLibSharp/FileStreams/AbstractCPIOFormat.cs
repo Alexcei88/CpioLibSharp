@@ -73,7 +73,7 @@ namespace CPIOLibSharp.FileStreams
                     if (!archiveEntry.ExtractEntryToDisk(destFolder))
                     {
                         Console.WriteLine("Fail to extract the archive entry: {0}", archiveEntry.ToString());
-                        Directory.Delete(destFolder);
+                        Directory.Delete(destFolder, true);
                         return false;
                     }
                     archiveEntries.Add(archiveEntry);
@@ -91,7 +91,7 @@ namespace CPIOLibSharp.FileStreams
             }
             else
             {
-                throw new Exception(string.Format("Directory {0} not exist"));
+                throw new Exception(string.Format("Directory {0} not exist", destFolder));
             }
         }
 

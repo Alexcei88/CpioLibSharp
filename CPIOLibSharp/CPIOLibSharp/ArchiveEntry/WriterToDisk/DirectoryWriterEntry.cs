@@ -29,6 +29,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
                     }
                     while (!string.IsNullOrEmpty(_dir) && _dir != ".");
                 }
+                return true;
             }
             return false;
         }
