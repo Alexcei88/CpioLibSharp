@@ -56,7 +56,7 @@ namespace CPIOLibSharp
         /// <param name="destFolder">Destinition folder</param>
         /// <param name="flags">Optional flags for additional behaviour</param>
         /// <returns></returns>
-        public bool Extract(string destFolder, ArchiveTypes.ExtractArchiveFlags[] flags = null)
+        public bool Extract(string destFolder, ExtractFlags[] flags = null)
         {
             return _currentCpioFileStream.Save(destFolder, flags);
         }

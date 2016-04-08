@@ -51,6 +51,7 @@
     <Compile Include="ArchiveEntry\ReaderArchiveEntry\CRCFormatReaderArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\ReaderArchiveEntry\NewASCIIFormatArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\ReaderArchiveEntry\ODCReaderArchiveEntry.cs" />
+    <Compile Include="ExtractFlags.cs" />
     <Compile Include="FileStreams\BinaryFormat.cs" />
     <Compile Include="FileStreams\ODCFormat.cs" />
     <Compile Include="WindowsNativeLibrary.cs" />
@@ -80,6 +81,7 @@
   </Target>
   -->
   <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release'">
-    <Exec Command="nuget pack CPIOLibSharp.csproj -Prop Configuration=Release"></Exec>
+    <Exec Command="nuget pack CPIOLibSharp.csproj -Prop Configuration=Release">
+    </Exec>
   </Target>
 </Project>

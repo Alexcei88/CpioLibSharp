@@ -1,4 +1,6 @@
-﻿namespace TestProject
+﻿using CPIOLibSharp;
+
+namespace TestProject
 {
     internal class Program
     {
@@ -6,9 +8,9 @@
         {
             using (CPIOLibSharp.CPIOFileStream sr = new CPIOLibSharp.CPIOFileStream("exampleCrc.cpio"))
             {
-                sr.Extract(@"F:\", new CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags[]
+                sr.Extract(@"F:\", new CPIOLibSharp.ExtractFlags[]
                 {
-                   CPIOLibSharp.ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_TIME
+                   ExtractFlags.ARCHIVE_EXTRACT_TIME
                 });
             }
         }

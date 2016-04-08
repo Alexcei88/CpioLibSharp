@@ -31,7 +31,7 @@ namespace CPIOLibSharp.FileStreams
             _fileStream = stream;
         }
 
-        public bool Save(string destFolder, ArchiveTypes.ExtractArchiveFlags[] flags = null)
+        public bool Save(string destFolder, ExtractFlags[] flags = null)
         {
             if (Directory.Exists(destFolder))
             {
@@ -80,7 +80,7 @@ namespace CPIOLibSharp.FileStreams
                 }
                 if (!findTrailer)
                 {
-                    Console.WriteLine("Not find the end entry in file. File is invalid");
+                    Console.WriteLine("Not find the end entry in file. File is invalid format");
                     Directory.Delete(destFolder, true);
                     return false;
                 }
@@ -91,7 +91,7 @@ namespace CPIOLibSharp.FileStreams
             }
             else
             {
-                throw new Exception(string.Format("Directory {0} not exist", destFolder));
+                throw new Exception(string.Format("The destinition directory {0} not exists", destFolder));
             }
         }
 
@@ -100,7 +100,7 @@ namespace CPIOLibSharp.FileStreams
         /// Fabric method
         /// </summary>
         /// <returns></returns>
-        public abstract IReaderCPIOArchiveEntry GetArchiveEntry(ArchiveTypes.ExtractArchiveFlags[] flags);
+        public abstract IReaderCPIOArchiveEntry GetArchiveEntry(ExtractFlags[] flags);
 
         /// <summary>
         /// Detect CPIO format
@@ -137,13 +137,13 @@ namespace CPIOLibSharp.FileStreams
             return StructuralComparisons.StructuralEqualityComparer.Equals(a1, a2);
         }
 
-        static protected uint GetUintFromExtractArchiveFlags(ArchiveTypes.ExtractArchiveFlags[] flags)
+        static protected uint GetUintFromExtractArchiveFlags(ExtractFlags[] flags)
         {
             uint exFlags = 0;
             if (flags == null)
                 return exFlags;
 
-            foreach (ArchiveTypes.ExtractArchiveFlags flag in flags)
+            foreach (ExtractFlags flag in flags)
             {
                 exFlags = exFlags | (uint)flag;
             }

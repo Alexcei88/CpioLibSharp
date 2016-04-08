@@ -17,7 +17,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
             string fullPathToDir = Path.Combine(destFolder, dir);
             if (Directory.CreateDirectory(fullPathToDir) != null)
             {
-                if ((_entry.ExtractFlags & (uint)ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_TIME) > 0)
+                if ((_entry.ExtractFlags & (uint)ExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
                 {
                     string currentDir = fullPathToDir;
                     string _dir = dir;

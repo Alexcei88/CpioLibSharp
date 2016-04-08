@@ -5,10 +5,14 @@ namespace CPIOLibSharp.FileStreams
     internal interface ICPIOFormat
     {
         /// <summary>
-        /// CPIO format of file
+        /// Current CPIO format
         /// </summary>
         CpioFormats Format { get; }
 
+        /// <summary>
+        /// compare format
+        /// </summary>
+        /// <returns></returns>
         bool DetectFormat();
 
         /// <summary>
@@ -16,6 +20,6 @@ namespace CPIOLibSharp.FileStreams
         /// </summary>
         /// <param name="desFolder"></param>
         /// <returns></returns>
-        bool Save(string desFolder, ArchiveTypes.ExtractArchiveFlags[] flags = null);
+        bool Save(string desFolder, ExtractFlags[] flags = null);
     }
 }

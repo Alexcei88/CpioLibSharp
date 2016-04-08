@@ -27,7 +27,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
                 string fullPathToTargetFile = Path.Combine(destFolder, targetFile);
                 if (WindowsNativeLibrary.CreateSymbolicLink(fullPathToFile, fullPathToTargetFile, 0))
                 {
-                    if ((entry.ExtractFlags & (uint)ArchiveTypes.ExtractArchiveFlags.ARCHIVE_EXTRACT_TIME) > 0)
+                    if ((entry.ExtractFlags & (uint)ExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
                     {
                         SetSymLinkLastWriteTime(fullPathToFile, entry.mTime);
                     }

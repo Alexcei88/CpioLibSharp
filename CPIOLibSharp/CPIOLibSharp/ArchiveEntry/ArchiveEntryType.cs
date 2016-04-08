@@ -1,7 +1,7 @@
 ﻿namespace CPIOLibSharp.ArchiveEntry
 {
     /// <summary>
-    /// Type entry of archive
+    /// A Type entry of archive
     /// </summary>
     internal enum ArchiveEntryType
     {
