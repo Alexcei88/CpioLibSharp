@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CPIOLibSharp
+namespace CPIOLibSharp.Helper
 {
     internal static class DateTimeEx
     {

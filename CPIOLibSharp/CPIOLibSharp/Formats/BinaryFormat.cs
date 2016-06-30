@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace CPIOLibSharp.FileStreams
+namespace CPIOLibSharp.Formats
 {
     internal class BinaryFormat
         : AbstractCPIOFormat
@@ -17,7 +17,7 @@ namespace CPIOLibSharp.FileStreams
         public BinaryFormat(FileStream stream)
             : base(stream)
         {
-            _format = ArchiveTypes.CpioFormats.Binary;
+            _format = ArchiveFormat.CpioFormats.Binary;
         }
 
         public override bool DetectFormat()

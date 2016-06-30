@@ -1,4 +1,4 @@
-﻿using CPIOLibSharp.FileStreams;
+﻿using CPIOLibSharp.Formats;
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;

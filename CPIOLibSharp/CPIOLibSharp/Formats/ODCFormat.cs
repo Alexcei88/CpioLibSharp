@@ -1,17 +1,18 @@
 ﻿using CPIOLibSharp.ArchiveEntry;
+using CPIOLibSharp.ArchiveEntry.ReaderFromDisk;
 using System.IO;
 
-namespace CPIOLibSharp.FileStreams
+namespace CPIOLibSharp.Formats
 {
-    internal class CRCFormat
+    internal class ODCFormat
         : AbstractCPIOFormat
     {
-        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'2' };
+        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'7' };
 
-        public CRCFormat(FileStream stream)
+        public ODCFormat(FileStream stream)
             : base(stream)
         {
-            _format = ArchiveTypes.CpioFormats.CRC;
+            _format = ArchiveFormat.CpioFormats.ODC;
         }
 
         public override bool DetectFormat()
@@ -24,7 +25,7 @@ namespace CPIOLibSharp.FileStreams
 
         public override IReaderCPIOArchiveEntry GetArchiveEntry(ExtractFlags[] flags)
         {
-            return new CRCFormatReaderArchiveEntry(GetUintFromExtractArchiveFlags(flags));
+            return new ODCReaderArchiveEntry(GetUintFromExtractArchiveFlags(flags));
         }
     }
 }

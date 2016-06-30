@@ -1,20 +1,17 @@
 ﻿using CPIOLibSharp.ArchiveEntry;
 using System.IO;
 
-namespace CPIOLibSharp.FileStreams
+namespace CPIOLibSharp.Formats
 {
-    /// <summary>
-    /// New ASCII Format
-    /// </summary>
-    internal class NewASCIIFormat
+    internal class CRCFormat
         : AbstractCPIOFormat
     {
-        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'1' };
+        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'2' };
 
-        public NewASCIIFormat(FileStream stream)
+        public CRCFormat(FileStream stream)
             : base(stream)
         {
-            _format = ArchiveTypes.CpioFormats.NewASCII;
+            _format = ArchiveFormat.CpioFormats.CRC;
         }
 
         public override bool DetectFormat()
@@ -27,7 +24,7 @@ namespace CPIOLibSharp.FileStreams
 
         public override IReaderCPIOArchiveEntry GetArchiveEntry(ExtractFlags[] flags)
         {
-            return new NewASCIIReaderFormatArchiveEntry(GetUintFromExtractArchiveFlags(flags));
+            return new CRCFormatReaderArchiveEntry(GetUintFromExtractArchiveFlags(flags));
         }
     }
 }

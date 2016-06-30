@@ -1,9 +1,9 @@
 ﻿namespace CPIOLibSharp
 {
     /// <summary>
-    /// Definition types of archive
+    /// Enumeration all of CPIO formats 
     /// </summary>
-    public static class ArchiveTypes
+    public static class ArchiveFormat
     {
         public enum CpioFormats
         {

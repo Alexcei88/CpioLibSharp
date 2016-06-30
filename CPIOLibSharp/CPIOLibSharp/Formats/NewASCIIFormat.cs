@@ -1,18 +1,20 @@
 ﻿using CPIOLibSharp.ArchiveEntry;
-using CPIOLibSharp.ArchiveEntry.ReaderFromDisk;
 using System.IO;
 
-namespace CPIOLibSharp.FileStreams
+namespace CPIOLibSharp.Formats
 {
-    internal class ODCFormat
+    /// <summary>
+    /// New ASCII Format
+    /// </summary>
+    internal class NewASCIIFormat
         : AbstractCPIOFormat
     {
-        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'7' };
+        public static byte[] MAGIC_ARCHIVEENTRY_NUMBER = { (byte)'0', (byte)'7', (byte)'0', (byte)'7', (byte)'0', (byte)'1' };
 
-        public ODCFormat(FileStream stream)
+        public NewASCIIFormat(FileStream stream)
             : base(stream)
         {
-            _format = ArchiveTypes.CpioFormats.ODC;
+            _format = ArchiveFormat.CpioFormats.NewASCII;
         }
 
         public override bool DetectFormat()
@@ -25,7 +27,7 @@ namespace CPIOLibSharp.FileStreams
 
         public override IReaderCPIOArchiveEntry GetArchiveEntry(ExtractFlags[] flags)
         {
-            return new ODCReaderArchiveEntry(GetUintFromExtractArchiveFlags(flags));
+            return new NewASCIIReaderFormatArchiveEntry(GetUintFromExtractArchiveFlags(flags));
         }
     }
 }

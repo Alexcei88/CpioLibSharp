@@ -3,18 +3,19 @@
 namespace CPIOLibSharp
 {
     /// <summary>
+    /// Description of structs from format
     /// http://people.freebsd.org/~kientzle/libarchive/man/cpio.5.txt
     /// </summary>
 
     public class CpioStruct
     {
         /// <summary>
-        /// Имя последнего раздела архива
+        /// Name of last archive entry
         /// </summary>
         public static string LAST_ARCHIVEENTRY_FILENAME = "TRAILER!!!";
 
         /// <summary>
-        /// Old Binary Format
+        /// Old Binary struct archive entry
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
         public unsafe struct header_old_cpio
@@ -33,7 +34,7 @@ namespace CPIOLibSharp
         };
 
         /// <summary>
-        /// Portable ASCII Format(ODC)
+        /// Portable ASCII struct archive entry(ODC)
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
         public unsafe struct cpio_odc_header
@@ -52,7 +53,7 @@ namespace CPIOLibSharp
         };
 
         /// <summary>
-        /// New ASCII Format
+        /// New ASCII struct archive entry
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
         public unsafe struct cpio_newc_header

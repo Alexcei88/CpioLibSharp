@@ -5,10 +5,10 @@ using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace CPIOLibSharp.ArchiveEntry
+namespace CPIOLibSharp.Helper
 {
     /// <summary>
-    /// Definitions of windows native libraries
+    /// Definitions of windows native function
     /// </summary>
     internal static class WindowsNativeLibrary
     {

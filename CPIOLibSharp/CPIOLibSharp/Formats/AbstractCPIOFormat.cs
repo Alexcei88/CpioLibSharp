@@ -4,9 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static CPIOLibSharp.ArchiveTypes;
+using static CPIOLibSharp.ArchiveFormat;
 
-namespace CPIOLibSharp.FileStreams
+namespace CPIOLibSharp.Formats
 {
     internal abstract class AbstractCPIOFormat
         : ICPIOFormat

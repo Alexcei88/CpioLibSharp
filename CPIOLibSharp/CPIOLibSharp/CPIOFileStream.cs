@@ -1,7 +1,7 @@
-﻿using CPIOLibSharp.FileStreams;
+﻿using CPIOLibSharp.Formats;
 using System.IO;
 using System.Linq;
-using static CPIOLibSharp.ArchiveTypes;
+using static CPIOLibSharp.ArchiveFormat;
 
 namespace CPIOLibSharp
 {
@@ -24,12 +24,12 @@ namespace CPIOLibSharp
 
 
         /// <summary>
-        /// array of supporting stream formats
+        /// the array of supporting formats
         /// </summary>
         private ICPIOFormat[] _cpioFileStream;
 
         /// <summary>
-        /// current stream format 
+        /// the current format 
         /// </summary>
         private ICPIOFormat _currentCpioFileStream;
 

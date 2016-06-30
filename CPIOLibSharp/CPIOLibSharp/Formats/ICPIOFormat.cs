@@ -1,6 +1,6 @@
-﻿using static CPIOLibSharp.ArchiveTypes;
+﻿using static CPIOLibSharp.ArchiveFormat;
 
-namespace CPIOLibSharp.FileStreams
+namespace CPIOLibSharp.Formats
 {
     internal interface ICPIOFormat
     {

@@ -1,5 +1,5 @@
 ﻿using CPIOLibSharp.ArchiveEntry.WriterToDisk;
-using CPIOLibSharp.FileStreams;
+using CPIOLibSharp.Formats;
 using System;
 using System.Linq;
 using System.Text;
@@ -7,7 +7,7 @@ using System.Text;
 namespace CPIOLibSharp.ArchiveEntry
 {
     /// <summary>
-    /// Данные архива
+    /// Internal archive entry to write to disk
     /// </summary>
     internal class InternalWriteArchiveEntry
     {
