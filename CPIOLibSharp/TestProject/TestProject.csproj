@@ -47,10 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\Dropbox\Axelot\Package\cpiofromrpm.cpio">
-      <Link>cpiofromrpm.cpio</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="App.config" />
     <None Include="example.cpio">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

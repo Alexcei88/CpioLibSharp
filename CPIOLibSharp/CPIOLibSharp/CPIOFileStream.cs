@@ -22,14 +22,13 @@ namespace CPIOLibSharp
             }
         }
 
-
         /// <summary>
         /// the array of supporting formats
         /// </summary>
         private ICPIOFormat[] _cpioFileStream;
 
         /// <summary>
-        /// the current format 
+        /// the current format
         /// </summary>
         private ICPIOFormat _currentCpioFileStream;
 

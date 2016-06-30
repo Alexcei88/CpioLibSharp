@@ -2,7 +2,6 @@
 using CPIOLibSharp.ArchiveEntry.ReaderFromDisk;
 using System;
 using System.IO;
-using System.Text;
 
 namespace CPIOLibSharp.Formats
 {
@@ -12,7 +11,7 @@ namespace CPIOLibSharp.Formats
         /// <summary>
         /// Магическое число архива(070707)
         /// </summary>
-        public static short MAGIC_ARCHIVEENTRY_NUMBER = 29127; 
+        public static short MAGIC_ARCHIVEENTRY_NUMBER = 29127;
 
         public BinaryFormat(FileStream stream)
             : base(stream)

@@ -1,7 +1,7 @@
 ﻿namespace CPIOLibSharp
 {
     /// <summary>
-    /// Enumeration all of CPIO formats 
+    /// Enumeration all of CPIO formats
     /// </summary>
     public static class ArchiveFormat
     {
@@ -11,7 +11,6 @@
             ODC,
             NewASCII,
             CRC
-
-        }        
+        }
     }
 }

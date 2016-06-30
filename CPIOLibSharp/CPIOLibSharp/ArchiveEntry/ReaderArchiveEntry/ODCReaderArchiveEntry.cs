@@ -1,4 +1,5 @@
 ﻿using CPIOLibSharp.Formats;
+using CPIOLibSharp.Helper;
 using System;
 using System.Runtime.InteropServices;
 using System.Text;

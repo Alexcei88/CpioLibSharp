@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CPIOLibSharp
+﻿namespace CPIOLibSharp
 {
     /// <summary>
     /// The "flags" argument selects optional behavior, 'OR' the flags you want.

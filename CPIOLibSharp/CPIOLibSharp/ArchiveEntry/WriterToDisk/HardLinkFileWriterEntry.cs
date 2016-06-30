@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CPIOLibSharp.Helper;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 

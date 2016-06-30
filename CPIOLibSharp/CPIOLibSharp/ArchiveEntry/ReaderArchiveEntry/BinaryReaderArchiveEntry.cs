@@ -1,8 +1,7 @@
 ﻿using CPIOLibSharp.Formats;
+using CPIOLibSharp.Helper;
 using System;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
 {
@@ -23,7 +22,7 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
                 {
                     fixed (ushort* pointer = _entry.c_filesize)
                     {
-                        byte[] array =  GetByteArrayFromFixedArray(pointer, 2);
+                        byte[] array = GetByteArrayFromFixedArray(pointer, 2);
                         // +1 - NULL byte of end
                         return (ulong)BitConverter.ToInt32(array, 0) + 1;
                     }
@@ -69,7 +68,7 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
             _entry = (CpioStruct.header_old_cpio)Marshal.PtrToStructure(@in, _entry.GetType());
             Marshal.FreeHGlobal(@in);
 
-            // check magic                
+            // check magic
             if (_entry.c_magic != BinaryFormat.MAGIC_ARCHIVEENTRY_NUMBER)
             {
                 return false;
@@ -79,30 +78,30 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
 
         protected override bool FillInternalEntry()
         {
-                _archiveEntry.Dev = _entry.c_dev.ToString();
-                _archiveEntry.INode = _entry.c_ino.ToString();
+            _archiveEntry.Dev = _entry.c_dev.ToString();
+            _archiveEntry.INode = _entry.c_ino.ToString();
 
-                // Type, Permission
-                long mode = _entry.c_mode;
-                _archiveEntry.ArchiveType = InternalWriteArchiveEntry.GetArchiveEntryType(mode);
-                _archiveEntry.Permission = InternalWriteArchiveEntry.GePermission(mode);
+            // Type, Permission
+            long mode = _entry.c_mode;
+            _archiveEntry.ArchiveType = InternalWriteArchiveEntry.GetArchiveEntryType(mode);
+            _archiveEntry.Permission = InternalWriteArchiveEntry.GePermission(mode);
 
-                _archiveEntry.Uid = _entry.c_uid;
-                _archiveEntry.Gid = _entry.c_gid;
+            _archiveEntry.Uid = _entry.c_uid;
+            _archiveEntry.Gid = _entry.c_gid;
 
-                unsafe
+            unsafe
+            {
+                fixed (ushort* pointer = _entry.c_mtime)
                 {
-                    fixed (ushort* pointer = _entry.c_mtime)
-                    {
-                        byte[] array = GetByteArrayFromFixedArray(pointer, 2);
-                        _archiveEntry.mTime = ((long)BitConverter.ToInt32(array, 0)).ToUnixTime();
-                    }
+                    byte[] array = GetByteArrayFromFixedArray(pointer, 2);
+                    _archiveEntry.mTime = ((long)BitConverter.ToInt32(array, 0)).ToUnixTime();
                 }
-                _archiveEntry.nLink = _entry.c_nlink;
-                // rDev
-                _archiveEntry.rDev = _entry.c_rdev;
-                _archiveEntry.ExtractFlags = _extractFlags;
-                return true;
+            }
+            _archiveEntry.nLink = _entry.c_nlink;
+            // rDev
+            _archiveEntry.rDev = _entry.c_rdev;
+            _archiveEntry.ExtractFlags = _extractFlags;
+            return true;
         }
     }
 }

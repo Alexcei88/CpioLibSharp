@@ -1,4 +1,5 @@
 ﻿using CPIOLibSharp.Formats;
+using CPIOLibSharp.Helper;
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -172,7 +173,6 @@ namespace CPIOLibSharp.ArchiveEntry
                 _archiveEntry.ExtractFlags = _extractFlags;
                 return true;
             }
-
         }
 
         private long GetValueFromHexValue(byte[] buffer)
