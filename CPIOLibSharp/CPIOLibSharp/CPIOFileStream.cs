@@ -6,7 +6,7 @@ using static CPIOLibSharp.ArchiveFormat;
 namespace CPIOLibSharp
 {
     /// <summary>
-    /// A file stream in cpio format
+    /// A file stream in cpio format(main class in library)
     /// </summary>
     public class CPIOFileStream
         : FileStream

@@ -4,7 +4,7 @@ using System.IO;
 namespace CPIOLibSharp.Formats
 {
     /// <summary>
-    /// New ASCII Format
+    /// decompessor of data from file to disk in new ASCII Format
     /// </summary>
     internal class NewASCIIFormat
         : AbstractCPIOFormat

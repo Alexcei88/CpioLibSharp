@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
     /// <summary>
-    /// Symbolick link for file writer of entry
+    /// Writer of entry with symbolick link
     /// </summary>
     internal class SymbolicLinkFileWriterEntry
         : IWriterEntry

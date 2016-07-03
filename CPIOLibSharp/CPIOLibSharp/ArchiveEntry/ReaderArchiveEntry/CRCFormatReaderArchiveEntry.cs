@@ -6,6 +6,9 @@ using System.Text;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
+    /// <summary>
+    /// Reader for crc format
+    /// </summary>
     internal class CRCFormatReaderArchiveEntry
         : AbstractReaderCPIOArchiveEntry
     {

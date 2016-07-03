@@ -6,6 +6,9 @@ using System.Text;
 
 namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
 {
+    /// <summary>
+    /// Reader for ODC format
+    /// </summary>
     internal class ODCReaderArchiveEntry
         : AbstractReaderCPIOArchiveEntry
     {

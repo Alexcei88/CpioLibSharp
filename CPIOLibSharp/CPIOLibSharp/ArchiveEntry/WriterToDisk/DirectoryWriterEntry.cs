@@ -2,6 +2,9 @@
 
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
+    /// <summary>
+    /// Writer entry for directory
+    /// </summary>
     internal class DirectoryWriterEntry
         : IWriterEntry
     {

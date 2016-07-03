@@ -4,8 +4,8 @@ using System.Linq;
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
     /// <summary>
-    /// Simple file writer of entry
-    /// </summary>
+    /// Writer entry for simple file 
+    /// /// </summary>
     internal class FileWriterEntry
         : IWriterEntry
     {

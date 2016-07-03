@@ -4,6 +4,9 @@ using System.IO;
 
 namespace CPIOLibSharp.Formats
 {
+    /// <summary>
+    /// decompessor of data from file to disk in odc Format
+    /// </summary>
     internal class ODCFormat
         : AbstractCPIOFormat
     {

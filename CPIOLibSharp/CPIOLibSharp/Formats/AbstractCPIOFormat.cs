@@ -8,6 +8,9 @@ using static CPIOLibSharp.ArchiveFormat;
 
 namespace CPIOLibSharp.Formats
 {
+    /// <summary>
+    /// base class the decompessor of data from file to disk for different formats
+    /// </summary>
     internal abstract class AbstractCPIOFormat
         : ICPIOFormat
     {
@@ -31,10 +34,22 @@ namespace CPIOLibSharp.Formats
             _fileStream = stream;
         }
 
+        /// <summary>
+        /// Extract archive to disk
+        /// </summary>
+        /// <param name="destFolder"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
         public bool Save(string destFolder, ExtractFlags[] flags = null)
         {
-            if (Directory.Exists(destFolder))
+            if (!Directory.Exists(destFolder))
             {
+                if(Directory.CreateDirectory(destFolder) == null)
+                {
+                    throw new Exception(string.Format("The destinition directory {0} can not be created", destFolder));
+                }
+            }
+
                 bool findTrailer = false;
                 _fileStream.Seek(0, SeekOrigin.Begin);
 
@@ -88,15 +103,10 @@ namespace CPIOLibSharp.Formats
                 {
                     return PostProcessingSaveArchive(destFolder, archiveEntries);
                 }
-            }
-            else
-            {
-                throw new Exception(string.Format("The destinition directory {0} not exists", destFolder));
-            }
         }
 
         /// <summary>
-        /// Возвращает конкретный экземпляр ArchiveEntry
+        /// get current reader of archive entry
         /// Fabric method
         /// </summary>
         /// <returns></returns>
@@ -127,7 +137,7 @@ namespace CPIOLibSharp.Formats
         }
 
         /// <summary>
-        /// Проверка на равенство двух массивов байт
+        /// To compare two array
         /// </summary>
         /// <param name="a1"></param>
         /// <param name="a2"></param>
@@ -137,6 +147,11 @@ namespace CPIOLibSharp.Formats
             return StructuralComparisons.StructuralEqualityComparer.Equals(a1, a2);
         }
 
+        /// <summary>
+        /// transfrormation extract flags enum to uint
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <returns></returns>
         static protected uint GetUintFromExtractArchiveFlags(ExtractFlags[] flags)
         {
             uint exFlags = 0;

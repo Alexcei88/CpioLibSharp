@@ -5,6 +5,9 @@ using System.Runtime.InteropServices;
 
 namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
 {
+    /// <summary>
+    /// Reader for binary format
+    /// </summary>
     internal class BinaryReaderArchiveEntry
         : AbstractReaderCPIOArchiveEntry
     {

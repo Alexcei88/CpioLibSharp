@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
+    /// <summary>
+    /// Base class of reader for archive entry
+    /// </summary>
     internal abstract class AbstractReaderCPIOArchiveEntry
         : IReaderCPIOArchiveEntry
     {
@@ -90,6 +93,12 @@ namespace CPIOLibSharp.ArchiveEntry
             return true;
         }
 
+        /// <summary>
+        /// Post extract entry
+        /// </summary>
+        /// <param name="destFolder"></param>
+        /// <param name="archiveEntries"></param>
+        /// <returns></returns>
         public bool PostExtractEntryToDisk(string destFolder, List<IReaderCPIOArchiveEntry> archiveEntries)
         {
             if (_archiveEntry.nLink > 0 && !_archiveEntry.IsExtractToDisk)
@@ -119,6 +128,12 @@ namespace CPIOLibSharp.ArchiveEntry
             return FileName.Equals(CpioStruct.LAST_ARCHIVEENTRY_FILENAME);
         }
 
+        /// <summary>
+        /// Get a array of bytes from input pointer on array
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
         protected static unsafe byte[] GetByteArrayFromFixedArray(byte* source, int length)
         {
             byte[] buffer = new byte[length];
@@ -133,6 +148,12 @@ namespace CPIOLibSharp.ArchiveEntry
             return buffer;
         }
 
+        /// <summary>
+        /// Get a array of bytes from input pointer on array
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
         protected static unsafe byte[] GetByteArrayFromFixedArray(ushort* source, int length)
         {
             int len = length * sizeof(ushort);

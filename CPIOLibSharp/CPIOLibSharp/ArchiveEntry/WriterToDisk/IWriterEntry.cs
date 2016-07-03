@@ -1,7 +1,7 @@
 ﻿namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
     /// <summary>
-    /// Interface for writer a entry of archive to a disk
+    /// Interface of writer a archive entry to disk
     /// </summary>
     internal interface IWriterEntry
     {

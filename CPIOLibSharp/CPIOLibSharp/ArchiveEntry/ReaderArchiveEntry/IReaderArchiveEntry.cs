@@ -3,12 +3,12 @@
 namespace CPIOLibSharp.ArchiveEntry
 {
     /// <summary>
-    /// Reader from cpio archive entry
+    /// Interface reader from cpio archive entry
     /// </summary>
     internal interface IReaderCPIOArchiveEntry
     {
         /// <summary>
-        /// Размер структура с метаданными
+        /// Size of entry
         /// </summary>
         int EntrySize { get; }
 
@@ -28,12 +28,12 @@ namespace CPIOLibSharp.ArchiveEntry
         ulong FileNameSize { get; }
 
         /// <summary>
-        /// Имя файла
+        /// File name
         /// </summary>
         string FileName { get; }
 
         /// <summary>
-        /// Fill struct entry
+        /// Fill entry
         /// </summary>
         /// <param name="data"></param>
         bool FillEntry(byte[] data);

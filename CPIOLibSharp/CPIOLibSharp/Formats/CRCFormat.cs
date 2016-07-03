@@ -3,6 +3,9 @@ using System.IO;
 
 namespace CPIOLibSharp.Formats
 {
+    /// <summary>
+    /// decompessor of data from file to disk in CRC Format
+    /// </summary>
     internal class CRCFormat
         : AbstractCPIOFormat
     {

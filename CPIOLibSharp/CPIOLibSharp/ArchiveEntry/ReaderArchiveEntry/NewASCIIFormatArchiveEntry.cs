@@ -6,6 +6,9 @@ using System.Text;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
+    /// <summary>
+    /// Reader for NewASCII format
+    /// </summary>
     internal class NewASCIIReaderFormatArchiveEntry
         : AbstractReaderCPIOArchiveEntry
     {

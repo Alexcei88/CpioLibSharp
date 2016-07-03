@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
     /// <summary>
-    /// Hard link for file writer of entry
+    /// Writer of entry with hard link
     /// </summary>
     internal class HardLinkFileWriterEntry
         : IWriterEntry

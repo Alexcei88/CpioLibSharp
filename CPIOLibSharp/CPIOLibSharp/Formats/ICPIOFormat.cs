@@ -2,6 +2,9 @@
 
 namespace CPIOLibSharp.Formats
 {
+    /// <summary>
+    /// interface for decompessor of data from file to disk for different formats
+    /// </summary>
     internal interface ICPIOFormat
     {
         /// <summary>
@@ -10,7 +13,7 @@ namespace CPIOLibSharp.Formats
         CpioFormats Format { get; }
 
         /// <summary>
-        /// compare format
+        /// do input stream has this format
         /// </summary>
         /// <returns></returns>
         bool DetectFormat();
