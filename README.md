@@ -10,6 +10,10 @@ For more information about a CPIO format see [format of cpio archive file](https
  - **new ASCII**: The new (SVR4) portable format, which supports file systems having more than 65536 inodes.
  - **crc**: The new (SVR4) portable format with a checksum added.
 
+## Usage
+
+[Examples of using the library](https://github.com/Alexcei88/CpioLibSharp/wiki)
+
 ## Nuget
 
 Available on Nuget: https://www.nuget.org/packages/CPIOLibSharp/.<br>
