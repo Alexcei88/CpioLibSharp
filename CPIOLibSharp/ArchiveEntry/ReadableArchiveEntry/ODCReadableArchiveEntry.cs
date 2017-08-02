@@ -9,12 +9,12 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
     /// <summary>
     /// Reader for ODC format
     /// </summary>
-    internal class ODCReaderArchiveEntry
-        : AbstractReaderCPIOArchiveEntry
+    internal class ODCReadableArchiveEntry
+        : AbstractReadableArchiveEntry
     {
         private CpioStructDefinition.cpio_odc_header _entry = new CpioStructDefinition.cpio_odc_header();
 
-        public ODCReaderArchiveEntry(uint flags)
+        public ODCReadableArchiveEntry(uint flags)
             : base(flags)
         { }
 

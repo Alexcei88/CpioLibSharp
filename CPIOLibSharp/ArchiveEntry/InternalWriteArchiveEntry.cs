@@ -134,19 +134,19 @@ namespace CPIOLibSharp.ArchiveEntry
             switch (_entry.ArchiveType)
             {
                 case ArchiveEntryType.DIRECTORY:
-                    return new DirectoryWriterEntry();
+                    return new DirectoryEntryWriter();
 
                 case ArchiveEntryType.FILE:
                     if (_entry.nLink > 1)
                     {
-                        return new HardLinkFileWriterEntry();
+                        return new HardLinkEntryWriter();
                     }
                     else
                     {
-                        return new FileWriterEntry();
+                        return new FileEntryWriter();
                     }
                 case ArchiveEntryType.SYMBOLIC_LINK:
-                    return new SymbolicLinkFileWriterEntry();
+                    return new SymbolicLinkEntryWriter();
 
                 default:
                     throw new Exception("Нет класса, реализующего запись для данного типа");

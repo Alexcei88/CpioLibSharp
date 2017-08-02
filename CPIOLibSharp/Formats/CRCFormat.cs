@@ -25,9 +25,9 @@ namespace CPIOLibSharp.Formats
             return ByteArrayCompare(buffer, MAGIC_ARCHIVEENTRY_NUMBER);
         }
 
-        public override IReaderCPIOArchiveEntry GetArchiveEntry(CpioExtractFlags[] flags)
+        public override IReadableCPIOArchiveEntry GetReadableArchiveEntry(CpioExtractFlags[] flags)
         {
-            return new CRCFormatReaderArchiveEntry(GetUintFromExtractArchiveFlags(flags));
+            return new CRCReadableArchiveEntry(ExtractArchiveFlagToUInt(flags));
         }
     }
 }

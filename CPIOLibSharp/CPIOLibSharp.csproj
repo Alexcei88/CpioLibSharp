@@ -56,11 +56,11 @@
     <Compile Include="Formats\BinaryFormat.cs" />
     <Compile Include="Formats\ODCFormat.cs" />
     <Compile Include="Helper\WindowsNativeLibrary.cs" />
-    <Compile Include="ArchiveEntry\WriterToDisk\DirectoryWriterEntry.cs" />
-    <Compile Include="ArchiveEntry\WriterToDisk\FileWriterEntry.cs" />
-    <Compile Include="ArchiveEntry\WriterToDisk\HardLinkFileWriterEntry.cs" />
+    <Compile Include="ArchiveEntry\WriterToDisk\DirectoryEntryWriter.cs" />
+    <Compile Include="ArchiveEntry\WriterToDisk\FileEntryWriter.cs" />
+    <Compile Include="ArchiveEntry\WriterToDisk\HardLinkEntryWriter.cs" />
     <Compile Include="ArchiveEntry\WriterToDisk\IArchiveEntryWriter.cs" />
-    <Compile Include="ArchiveEntry\WriterToDisk\SymbolicLinkFileWriterEntry.cs" />
+    <Compile Include="ArchiveEntry\WriterToDisk\SymbolicLinkEntryWriter.cs" />
     <Compile Include="Formats\EnumArchiveFormat.cs" />
     <Compile Include="CPIOFileStream.cs" />
     <Compile Include="CpioStructDefinition.cs" />

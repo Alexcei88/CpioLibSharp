@@ -6,7 +6,7 @@ namespace CPIOLibSharp.ArchiveEntry
     /// <summary>
     /// Interface reader from cpio archive entry
     /// </summary>
-    internal interface IReaderCPIOArchiveEntry
+    internal interface IReadableCPIOArchiveEntry
     {
         /// <summary>
         /// Size of entry
@@ -44,14 +44,15 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <param name="data"></param>
         bool ReadMetadataEntry(byte[] data);
 
+        /*
         /// <summary>
         /// Save entry to disk after read all entry
         /// </summary>
         /// <param name="destFolder"></param>
         /// <param name="archiveEntries"></param>
         /// <returns></returns>
-        bool PostExtractEntryToDisk(string destFolder, List<IReaderCPIOArchiveEntry> archiveEntries);
-
+        bool PostExtractEntryToDisk(string destFolder, List<IReadableCPIOArchiveEntry> archiveEntries);
+        */
         /// <summary>
         /// Is last entry in the file(trailer entry)
         /// </summary>
@@ -61,11 +62,6 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <summary>
         /// writer of readable entry to disk
         /// </summary>
-        IArchiveEntryWriter writer { get; }
-
-        /// <summary>
-        /// Internal archive entry
-        /// </summary>
-        InternalWriteArchiveEntry InternalEntry { get; }
+        IArchiveEntryWriter Writer { get; }
     }
 }

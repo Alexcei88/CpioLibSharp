@@ -9,28 +9,33 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     /// <summary>
     /// Writer of entry with symbolick link
     /// </summary>
-    internal class SymbolicLinkFileWriterEntry
-        : IArchiveEntryWriter
+    internal class SymbolicLinkEntryWriter
+        : AbstractArchiveEntryWriter
     {
-        public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)
+        public SymbolicLinkEntryWriter(InternalWriteArchiveEntry internalEntry, IReadableCPIOArchiveEntry readableArchiveEntry) 
+            : base(internalEntry, readableArchiveEntry)
+        {
+        }
+
+        public override bool IsPostExtractEntry()
         {
             return true;
         }
 
-        public bool Write(InternalWriteArchiveEntry entry, string destFolder)
+        public override bool Write(string destFolder)
         {
-            string fileName = InternalWriteArchiveEntry.GetFileName(entry.FileName);
+            string fileName = InternalWriteArchiveEntry.GetFileName(_internalEntry.FileName);
             string fullPathToFile = Path.Combine(destFolder, fileName);
             string root = Path.GetDirectoryName(fullPathToFile);
             if (Directory.CreateDirectory(root) != null)
             {
-                string targetFile = InternalWriteArchiveEntry.GetTargetFileToLink(entry.Data);
+                string targetFile = InternalWriteArchiveEntry.GetTargetFileToLink(_internalEntry.Data);
                 string fullPathToTargetFile = Path.Combine(destFolder, targetFile);
                 if (WindowsNativeLibrary.CreateSymbolicLink(fullPathToFile, fullPathToTargetFile, 0))
                 {
-                    if ((entry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
+                    if ((_internalEntry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
                     {
-                        SetSymLinkLastWriteTime(fullPathToFile, entry.mTime);
+                        SetSymLinkLastWriteTime(fullPathToFile, _internalEntry.mTime);
                     }
                     return true;
                 }

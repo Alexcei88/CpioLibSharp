@@ -9,12 +9,12 @@ namespace CPIOLibSharp.ArchiveEntry
     /// <summary>
     /// Reader for crc format
     /// </summary>
-    internal class CRCFormatReaderArchiveEntry
-        : AbstractReaderCPIOArchiveEntry
+    internal class CRCReadableArchiveEntry
+        : AbstractReadableArchiveEntry
     {
         private CpioStructDefinition.cpio_newc_header _entry = new CpioStructDefinition.cpio_newc_header();
 
-        public CRCFormatReaderArchiveEntry(uint extractFlags)
+        public CRCReadableArchiveEntry(uint extractFlags)
             : base(extractFlags)
         { }
 

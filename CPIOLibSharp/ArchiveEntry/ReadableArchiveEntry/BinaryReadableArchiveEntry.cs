@@ -8,12 +8,12 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
     /// <summary>
     /// Reader for binary format
     /// </summary>
-    internal class BinaryReaderArchiveEntry
-        : AbstractReaderCPIOArchiveEntry
+    internal class BinaryReadableArchiveEntry
+        : AbstractReadableArchiveEntry
     {
         private CpioStructDefinition.header_old_cpio _entry = new CpioStructDefinition.header_old_cpio();
 
-        public BinaryReaderArchiveEntry(uint flags)
+        public BinaryReadableArchiveEntry(uint flags)
             : base(flags)
         { }
 

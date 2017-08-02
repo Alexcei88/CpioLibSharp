@@ -1,32 +1,43 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
     /// <summary>
     /// Writer entry for directory
     /// </summary>
-    internal class DirectoryWriterEntry
-        : IArchiveEntryWriter
+    internal class DirectoryEntryWriter
+        : AbstractArchiveEntryWriter
     {
-        public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)
+        public DirectoryEntryWriter(InternalWriteArchiveEntry internalEntry, IReadableCPIOArchiveEntry readableArchiveEntry) 
+            : base(internalEntry, readableArchiveEntry)
+        {
+        }
+
+        public override bool ExtractEntryToDisk(string destFolder)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool IsPostExtractEntry()
         {
             return false;
         }
 
-        public bool Write(InternalWriteArchiveEntry _entry, string destFolder)
+        public override bool Write(string destFolder)
         {
-            string dir = InternalWriteArchiveEntry.GetFileName(_entry.FileName);
+            string dir = InternalWriteArchiveEntry.GetFileName(_internalEntry.FileName);
             var d = Directory.GetParent(dir);
             string fullPathToDir = Path.Combine(destFolder, dir);
             if (Directory.CreateDirectory(fullPathToDir) != null)
             {
-                if ((_entry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
+                if ((_internalEntry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
                 {
                     string currentDir = fullPathToDir;
                     string _dir = dir;
                     do
                     {
-                        Directory.SetLastWriteTimeUtc(currentDir, _entry.mTime);
+                        Directory.SetLastWriteTimeUtc(currentDir, _internalEntry.mTime);
                         _dir = Path.GetDirectoryName(_dir);
                         currentDir = Path.GetDirectoryName(currentDir);
                     }

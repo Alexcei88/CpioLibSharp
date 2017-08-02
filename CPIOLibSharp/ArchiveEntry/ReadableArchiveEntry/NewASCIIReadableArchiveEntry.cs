@@ -9,8 +9,8 @@ namespace CPIOLibSharp.ArchiveEntry
     /// <summary>
     /// Reader for NewASCII format
     /// </summary>
-    internal class NewASCIIReaderFormatArchiveEntry
-        : AbstractReaderCPIOArchiveEntry
+    internal class NewASCIIReadableArchiveEntry
+        : AbstractReadableArchiveEntry
     {
         private CpioStructDefinition.cpio_newc_header _entry = new CpioStructDefinition.cpio_newc_header();
 
@@ -19,7 +19,7 @@ namespace CPIOLibSharp.ArchiveEntry
         /// </summary>
         public static byte[] CHECK_FIELD_VALUE = { (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', };
 
-        public NewASCIIReaderFormatArchiveEntry(uint flags)
+        public NewASCIIReadableArchiveEntry(uint flags)
             : base(flags)
         { }
 

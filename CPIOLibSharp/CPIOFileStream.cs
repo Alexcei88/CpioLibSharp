@@ -6,7 +6,7 @@ using static CPIOLibSharp.ArchiveFormat;
 namespace CPIOLibSharp
 {
     /// <summary>
-    /// A file stream in cpio format(main class in library)
+    /// A file stream in cpio format(a main class in library)
     /// </summary>
     public class CPIOFileStream
         : FileStream
@@ -23,11 +23,6 @@ namespace CPIOLibSharp
         }
 
         /// <summary>
-        /// the array of supporting formats
-        /// </summary>
-        private ICPIOFormat[] _cpioFileStream;
-
-        /// <summary>
         /// the current format
         /// </summary>
         private ICPIOFormat _currentCpioFileStream;
@@ -35,14 +30,14 @@ namespace CPIOLibSharp
         public CPIOFileStream(string fileName)
             : base(fileName, FileMode.Open)
         {
-            _cpioFileStream = new ICPIOFormat[]
+            var cpioFileStream = new ICPIOFormat[]
             {
                  new CRCFormat(this)
                 ,new NewASCIIFormat(this)
                 ,new ODCFormat(this)
                 ,new BinaryFormat(this)
             };
-            _currentCpioFileStream = _cpioFileStream.FirstOrDefault(g => g.DetectFormat());
+            _currentCpioFileStream = cpioFileStream.FirstOrDefault(g => g.DetectFormat());
             if (_currentCpioFileStream == null)
             {
                 throw new InvalidDataException(string.Format("File {0} has invalid format", fileName));

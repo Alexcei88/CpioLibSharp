@@ -8,8 +8,8 @@ namespace CPIOLibSharp.ArchiveEntry
     /// <summary>
     /// Base class of reader for archive entry
     /// </summary>
-    internal abstract class AbstractReaderCPIOArchiveEntry
-        : IReaderCPIOArchiveEntry
+    internal abstract class AbstractReadableArchiveEntry
+        : IReadableCPIOArchiveEntry
     {
         /// <summary>
         /// internal archive entry
@@ -61,7 +61,7 @@ namespace CPIOLibSharp.ArchiveEntry
             }
         }
 
-        public AbstractReaderCPIOArchiveEntry(uint extractFlags)
+        public AbstractReadableArchiveEntry(uint extractFlags)
         {
             _extractFlags = extractFlags;
         }
@@ -86,6 +86,7 @@ namespace CPIOLibSharp.ArchiveEntry
             _archiveEntry.FileName = data;
         }
 
+        /*
         public bool ExtractEntryToDisk(string destFolder)
         {
             FillInternalEntry();
@@ -100,8 +101,9 @@ namespace CPIOLibSharp.ArchiveEntry
                 return writer.Write(_archiveEntry, destFolder);
             }
             return true;
-        }
+        }*/
 
+        /*
         /// <summary>
         /// Post extract entry
         /// </summary>
@@ -127,6 +129,7 @@ namespace CPIOLibSharp.ArchiveEntry
             }
             return true;
         }
+        */
 
         /// <summary>
         /// Is a entry has name is TRAILER?
@@ -179,6 +182,7 @@ namespace CPIOLibSharp.ArchiveEntry
             return buffer;
         }
 
+        /*
         /// <summary>
         /// extract hardlink files
         /// </summary>
@@ -192,11 +196,11 @@ namespace CPIOLibSharp.ArchiveEntry
             {
                 presentFile = archiveEntries.First();
             }
-            FileWriterEntry writer = new FileWriterEntry();
+            FileEntryWriter writer = new FileEntryWriter();
             if (writer.Write(presentFile.InternalEntry, destFolder))
             {
                 presentFile.InternalEntry.IsExtractToDisk = true;
-                HardLinkFileWriterEntry hardWriter = new HardLinkFileWriterEntry();
+                HardLinkEntryWriter hardWriter = new HardLinkEntryWriter();
 
                 foreach (var entry in archiveEntries.Where(a => a.InternalEntry != presentFile.InternalEntry).Select(a => a.InternalEntry))
                 {
@@ -213,6 +217,6 @@ namespace CPIOLibSharp.ArchiveEntry
                 return true;
             }
             return false;
-        }
+        }*/
     }
 }
