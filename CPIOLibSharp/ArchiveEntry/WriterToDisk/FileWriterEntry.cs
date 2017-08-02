@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
@@ -7,8 +8,16 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     /// Writer entry for simple file 
     /// /// </summary>
     internal class FileWriterEntry
-        : IWriterArchiveEntry
+        : IArchiveEntryWriter
     {
+
+        FileWriterEntry
+
+        public bool ExtractEntryToDisk(string destFolder)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)
         {
             return false;

@@ -14,6 +14,9 @@ namespace CPIOLibSharp.ArchiveEntry
     {
         private CpioStructDefinition.cpio_newc_header _entry = new CpioStructDefinition.cpio_newc_header();
 
+        /// <summary>
+        /// Magic value
+        /// </summary>
         public static byte[] CHECK_FIELD_VALUE = { (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', };
 
         public NewASCIIReaderFormatArchiveEntry(uint flags)

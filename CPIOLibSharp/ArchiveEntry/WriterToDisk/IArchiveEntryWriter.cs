@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface of writer a archive entry to disk
     /// </summary>
-    internal interface IWriterArchiveEntry
+    internal interface IArchiveEntryWriter
     {
         /// <summary>
         /// Save entry to disk if it possible

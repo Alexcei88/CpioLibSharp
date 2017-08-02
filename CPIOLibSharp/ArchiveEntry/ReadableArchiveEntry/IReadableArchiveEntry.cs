@@ -61,7 +61,7 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <summary>
         /// writer of readable entry to disk
         /// </summary>
-        IWriterArchiveEntry writer { get; }
+        IArchiveEntryWriter writer { get; }
 
         /// <summary>
         /// Internal archive entry

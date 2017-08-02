@@ -43,14 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArchiveEntry\ReaderArchiveEntry\AbstractReaderArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReadableArchiveEntry\AbstractReadableArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\InternalWriteArchiveEntry.cs" />
     <Compile Include="ArchiveEntry\ArchiveEntryType.cs" />
-    <Compile Include="ArchiveEntry\ReaderArchiveEntry\BinaryReaderArchiveEntry.cs" />
-    <Compile Include="ArchiveEntry\ReaderArchiveEntry\IReaderArchiveEntry.cs" />
-    <Compile Include="ArchiveEntry\ReaderArchiveEntry\CRCFormatReaderArchiveEntry.cs" />
-    <Compile Include="ArchiveEntry\ReaderArchiveEntry\NewASCIIFormatArchiveEntry.cs" />
-    <Compile Include="ArchiveEntry\ReaderArchiveEntry\ODCReaderArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReadableArchiveEntry\BinaryReadableArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReadableArchiveEntry\IReadableArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReadableArchiveEntry\CRCReadableArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReadableArchiveEntry\NewASCIIReadableArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\ReadableArchiveEntry\ODCReadableArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\WriterToDisk\AbstractArchiveEntryWriter.cs" />
     <Compile Include="CpioExtractFlags.cs" />
     <Compile Include="Formats\BinaryFormat.cs" />
     <Compile Include="Formats\ODCFormat.cs" />
@@ -58,7 +59,7 @@
     <Compile Include="ArchiveEntry\WriterToDisk\DirectoryWriterEntry.cs" />
     <Compile Include="ArchiveEntry\WriterToDisk\FileWriterEntry.cs" />
     <Compile Include="ArchiveEntry\WriterToDisk\HardLinkFileWriterEntry.cs" />
-    <Compile Include="ArchiveEntry\WriterToDisk\IWriterArchiveEntry.cs" />
+    <Compile Include="ArchiveEntry\WriterToDisk\IArchiveEntryWriter.cs" />
     <Compile Include="ArchiveEntry\WriterToDisk\SymbolicLinkFileWriterEntry.cs" />
     <Compile Include="Formats\EnumArchiveFormat.cs" />
     <Compile Include="CPIOFileStream.cs" />

@@ -129,7 +129,7 @@ namespace CPIOLibSharp.ArchiveEntry
         /// </summary>
         /// <param name="_entry"></param>
         /// <returns></returns>
-        public static IWriterArchiveEntry GetWriter(InternalWriteArchiveEntry _entry)
+        public static IArchiveEntryWriter GetWriter(InternalWriteArchiveEntry _entry)
         {
             switch (_entry.ArchiveType)
             {

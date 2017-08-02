@@ -91,7 +91,7 @@ namespace CPIOLibSharp.ArchiveEntry
             FillInternalEntry();
             if (_archiveEntry.nLink > 0 && !_archiveEntry.IsExtractToDisk)
             {
-                IWriterArchiveEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
+                IArchiveEntryWriter writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
                 if (writer.IsPostExtractEntry(_archiveEntry))
                 {
                     return true;
@@ -112,7 +112,7 @@ namespace CPIOLibSharp.ArchiveEntry
         {
             if (_archiveEntry.nLink > 0 && !_archiveEntry.IsExtractToDisk)
             {
-                IWriterArchiveEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
+                IArchiveEntryWriter writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
                 if (writer.IsPostExtractEntry(_archiveEntry))
                 {
                     // check is hardlinkfile

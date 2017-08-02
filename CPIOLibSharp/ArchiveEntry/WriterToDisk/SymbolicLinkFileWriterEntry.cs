@@ -10,7 +10,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     /// Writer of entry with symbolick link
     /// </summary>
     internal class SymbolicLinkFileWriterEntry
-        : IWriterArchiveEntry
+        : IArchiveEntryWriter
     {
         public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)
         {
