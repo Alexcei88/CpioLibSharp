@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CPIOLibSharp.ArchiveEntry.WriterToDisk;
+using System.Collections.Generic;
 
 namespace CPIOLibSharp.ArchiveEntry
 {
@@ -30,33 +31,18 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <summary>
         /// File name
         /// </summary>
-        string FileName { get; }
+        byte[] FileName { get; set; }
 
         /// <summary>
-        /// Fill entry
+        /// Set data entry
+        /// </summary>
+        byte[] Data { get; set; }
+
+        /// <summary>
+        /// Fill metadata of entry
         /// </summary>
         /// <param name="data"></param>
-        bool FillEntry(byte[] data);
-
-        /// <summary>
-        /// Fill filename data
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        void FillFileNameData(byte[] data);
-
-        /// <summary>
-        /// Fill data of entry
-        /// </summary>
-        /// <param name="data"></param>
-        void FillDataEntry(byte[] data);
-
-        /// <summary>
-        /// Save entry to disk if it possible
-        /// </summary>
-        /// <param name="destFolder"></param>
-        /// <returns></returns>
-        bool ExtractEntryToDisk(string destFolder);
+        bool ReadMetadataEntry(byte[] data);
 
         /// <summary>
         /// Save entry to disk after read all entry
@@ -71,6 +57,11 @@ namespace CPIOLibSharp.ArchiveEntry
         /// </summary>
         /// <returns></returns>
         bool IsLastArchiveEntry();
+
+        /// <summary>
+        /// writer of readable entry to disk
+        /// </summary>
+        IWriterArchiveEntry writer { get; }
 
         /// <summary>
         /// Internal archive entry

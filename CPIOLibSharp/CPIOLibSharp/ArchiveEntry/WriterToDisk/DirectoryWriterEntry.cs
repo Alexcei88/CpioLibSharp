@@ -6,7 +6,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     /// Writer entry for directory
     /// </summary>
     internal class DirectoryWriterEntry
-        : IWriterEntry
+        : IArchiveEntryWriter
     {
         public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)
         {
@@ -20,7 +20,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
             string fullPathToDir = Path.Combine(destFolder, dir);
             if (Directory.CreateDirectory(fullPathToDir) != null)
             {
-                if ((_entry.ExtractFlags & (uint)ExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
+                if ((_entry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
                 {
                     string currentDir = fullPathToDir;
                     string _dir = dir;

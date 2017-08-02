@@ -3,7 +3,7 @@
     /// <summary>
     /// The "flags" argument selects optional behavior, 'OR' the flags you want.
     /// </summary>
-    public enum ExtractFlags
+    public enum CpioExtractFlags
     {
         /* Default: Do not try to set owner/group. */
         //ARCHIVE_EXTRACT_OWNER			=0x0001,

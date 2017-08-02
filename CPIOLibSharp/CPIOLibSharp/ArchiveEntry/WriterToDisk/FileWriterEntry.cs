@@ -7,7 +7,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     /// Writer entry for simple file 
     /// /// </summary>
     internal class FileWriterEntry
-        : IWriterEntry
+        : IWriterArchiveEntry
     {
         public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)
         {
@@ -30,7 +30,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
                     }
                 }
 
-                if ((_entry.ExtractFlags & (uint)ExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
+                if ((_entry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
                 {
                     File.SetLastWriteTimeUtc(fullPathToFile, _entry.mTime);
                 }

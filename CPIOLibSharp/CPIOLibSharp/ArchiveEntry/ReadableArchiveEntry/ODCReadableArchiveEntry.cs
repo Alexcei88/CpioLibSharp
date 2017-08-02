@@ -12,7 +12,7 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
     internal class ODCReaderArchiveEntry
         : AbstractReaderCPIOArchiveEntry
     {
-        private CpioStruct.cpio_odc_header _entry = new CpioStruct.cpio_odc_header();
+        private CpioStructDefinition.cpio_odc_header _entry = new CpioStructDefinition.cpio_odc_header();
 
         public ODCReaderArchiveEntry(uint flags)
             : base(flags)
@@ -71,11 +71,11 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
             }
         }
 
-        public override bool FillEntry(byte[] data)
+        public override bool ReadMetadataEntry(byte[] data)
         {
             IntPtr @in = Marshal.AllocHGlobal(EntrySize);
             Marshal.Copy(data, 0, @in, EntrySize);
-            _entry = (CpioStruct.cpio_odc_header)Marshal.PtrToStructure(@in, _entry.GetType());
+            _entry = (CpioStructDefinition.cpio_odc_header)Marshal.PtrToStructure(@in, _entry.GetType());
             Marshal.FreeHGlobal(@in);
 
             unsafe
@@ -121,7 +121,7 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
                 }
                 long mode = (long)GetValueFromOctalValue(majorBuffer);
                 _archiveEntry.ArchiveType = InternalWriteArchiveEntry.GetArchiveEntryType(mode);
-                _archiveEntry.Permission = InternalWriteArchiveEntry.GePermission(mode);
+                _archiveEntry.Permission = InternalWriteArchiveEntry.GetPermission(mode);
 
                 // Uid
                 fixed (byte* pointer = _entry.c_uid)

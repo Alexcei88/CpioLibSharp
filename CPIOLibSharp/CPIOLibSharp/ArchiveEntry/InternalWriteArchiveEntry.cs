@@ -75,7 +75,7 @@ namespace CPIOLibSharp.ArchiveEntry
         }
 
         /// <summary>
-        /// Получение имени файла из переданного массива байт
+        /// Get file name from byte array
         /// </summary>
         /// <param name="fileName">входной массив байт</param>
         /// <returns></returns>
@@ -115,16 +115,21 @@ namespace CPIOLibSharp.ArchiveEntry
         }
 
         /// <summary>
-        /// Получение прав раздела по поле mode
+        /// Get permission for file
         /// </summary>
         /// <param name="mode"></param>
         /// <returns></returns>
-        public static int GePermission(long mode)
+        public static int GetPermission(long mode)
         {
             return (int)mode & 0x1ff;
         }
 
-        public static IWriterEntry GetWriter(InternalWriteArchiveEntry _entry)
+        /// <summary>
+        /// Get writer for archve entry
+        /// </summary>
+        /// <param name="_entry"></param>
+        /// <returns></returns>
+        public static IWriterArchiveEntry GetWriter(InternalWriteArchiveEntry _entry)
         {
             switch (_entry.ArchiveType)
             {

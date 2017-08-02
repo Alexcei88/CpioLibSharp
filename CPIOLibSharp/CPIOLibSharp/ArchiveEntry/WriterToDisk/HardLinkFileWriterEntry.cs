@@ -9,7 +9,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     /// Writer of entry with hard link
     /// </summary>
     internal class HardLinkFileWriterEntry
-        : IWriterEntry
+        : IArchiveEntryWriter
     {
         public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)
         {
@@ -27,7 +27,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
                 string fullPathToTargetFile = Path.Combine(destFolder, targetFile);
                 if (WindowsNativeLibrary.CreateHardLink(fullPathToFile, fullPathToTargetFile, IntPtr.Zero))
                 {
-                    if ((_entry.ExtractFlags & (uint)ExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
+                    if ((_entry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
                     {
                         File.SetLastWriteTimeUtc(fullPathToFile, _entry.mTime);
                     }

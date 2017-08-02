@@ -29,11 +29,27 @@ namespace CPIOLibSharp.ArchiveEntry
 
         public abstract bool HasData { get; }
 
-        public string FileName
+        public byte[] FileName
         {
             get
             {
-                return InternalWriteArchiveEntry.GetFileName(_archiveEntry.FileName);
+                return _archiveEntry.FileName;
+            }
+            set
+            {
+                _archiveEntry.FileName = value;
+            }
+        }
+
+        public byte[] Data
+        {
+            get
+            {
+                return _archiveEntry.Data;
+            }
+            set
+            {
+                _archiveEntry.Data = value;
             }
         }
 
@@ -55,12 +71,14 @@ namespace CPIOLibSharp.ArchiveEntry
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public abstract bool FillEntry(byte[] data);
+        public abstract bool ReadMetadataEntry(byte[] data);
 
         protected abstract bool FillInternalEntry();
 
+
+
         /// <summary>
-        /// СОхранение данных об имени фа   ла
+        /// Сoхранение данных об имени фа   ла
         /// </summary>
         /// <param name="data"></param>
         public void FillFileNameData(byte[] data)
@@ -68,21 +86,12 @@ namespace CPIOLibSharp.ArchiveEntry
             _archiveEntry.FileName = data;
         }
 
-        /// <summary>
-        /// Сохранение данных о файле
-        /// </summary>
-        /// <param name="data"></param>
-        public void FillDataEntry(byte[] data)
-        {
-            _archiveEntry.Data = data;
-        }
-
         public bool ExtractEntryToDisk(string destFolder)
         {
             FillInternalEntry();
             if (_archiveEntry.nLink > 0 && !_archiveEntry.IsExtractToDisk)
             {
-                IWriterEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
+                IWriterArchiveEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
                 if (writer.IsPostExtractEntry(_archiveEntry))
                 {
                     return true;
@@ -103,7 +112,7 @@ namespace CPIOLibSharp.ArchiveEntry
         {
             if (_archiveEntry.nLink > 0 && !_archiveEntry.IsExtractToDisk)
             {
-                IWriterEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
+                IWriterArchiveEntry writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry);
                 if (writer.IsPostExtractEntry(_archiveEntry))
                 {
                     // check is hardlinkfile
@@ -125,7 +134,7 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <returns></returns>
         public bool IsLastArchiveEntry()
         {
-            return FileName.Equals(CpioStruct.LAST_ARCHIVEENTRY_FILENAME);
+            return InternalWriteArchiveEntry.GetFileName(_archiveEntry.FileName).Equals(CpioStructDefinition.LAST_ARCHIVEENTRY_FILENAME);
         }
 
         /// <summary>

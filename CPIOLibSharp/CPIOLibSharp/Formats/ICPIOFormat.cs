@@ -23,6 +23,6 @@ namespace CPIOLibSharp.Formats
         /// </summary>
         /// <param name="desFolder"></param>
         /// <returns></returns>
-        bool Save(string desFolder, ExtractFlags[] flags = null);
+        bool Save(string desFolder, CpioExtractFlags[] flags = null);
     }
 }

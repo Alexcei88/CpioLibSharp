@@ -11,7 +11,7 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
     internal class BinaryReaderArchiveEntry
         : AbstractReaderCPIOArchiveEntry
     {
-        private CpioStruct.header_old_cpio _entry = new CpioStruct.header_old_cpio();
+        private CpioStructDefinition.header_old_cpio _entry = new CpioStructDefinition.header_old_cpio();
 
         public BinaryReaderArchiveEntry(uint flags)
             : base(flags)
@@ -64,11 +64,11 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
             }
         }
 
-        public override bool FillEntry(byte[] data)
+        public override bool ReadMetadataEntry(byte[] data)
         {
             IntPtr @in = Marshal.AllocHGlobal(EntrySize);
             Marshal.Copy(data, 0, @in, EntrySize);
-            _entry = (CpioStruct.header_old_cpio)Marshal.PtrToStructure(@in, _entry.GetType());
+            _entry = (CpioStructDefinition.header_old_cpio)Marshal.PtrToStructure(@in, _entry.GetType());
             Marshal.FreeHGlobal(@in);
 
             // check magic
@@ -87,7 +87,7 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
             // Type, Permission
             long mode = _entry.c_mode;
             _archiveEntry.ArchiveType = InternalWriteArchiveEntry.GetArchiveEntryType(mode);
-            _archiveEntry.Permission = InternalWriteArchiveEntry.GePermission(mode);
+            _archiveEntry.Permission = InternalWriteArchiveEntry.GetPermission(mode);
 
             _archiveEntry.Uid = _entry.c_uid;
             _archiveEntry.Gid = _entry.c_gid;

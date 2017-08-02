@@ -10,7 +10,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     /// Writer of entry with symbolick link
     /// </summary>
     internal class SymbolicLinkFileWriterEntry
-        : IWriterEntry
+        : IWriterArchiveEntry
     {
         public bool IsPostExtractEntry(InternalWriteArchiveEntry _entry)
         {
@@ -28,7 +28,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
                 string fullPathToTargetFile = Path.Combine(destFolder, targetFile);
                 if (WindowsNativeLibrary.CreateSymbolicLink(fullPathToFile, fullPathToTargetFile, 0))
                 {
-                    if ((entry.ExtractFlags & (uint)ExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
+                    if ((entry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
                     {
                         SetSymLinkLastWriteTime(fullPathToFile, entry.mTime);
                     }

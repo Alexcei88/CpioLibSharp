@@ -7,7 +7,7 @@ namespace CPIOLibSharp
     /// http://people.freebsd.org/~kientzle/libarchive/man/cpio.5.txt
     /// </summary>
 
-    public class CpioStruct
+    public class CpioStructDefinition
     {
         /// <summary>
         /// Name of last archive entry

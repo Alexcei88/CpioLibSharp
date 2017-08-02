@@ -7,15 +7,17 @@ using System.Text;
 namespace CPIOLibSharp.ArchiveEntry
 {
     /// <summary>
-    /// Reader for crc format
+    /// Reader for NewASCII format
     /// </summary>
-    internal class CRCFormatReaderArchiveEntry
+    internal class NewASCIIReaderFormatArchiveEntry
         : AbstractReaderCPIOArchiveEntry
     {
-        private CpioStruct.cpio_newc_header _entry = new CpioStruct.cpio_newc_header();
+        private CpioStructDefinition.cpio_newc_header _entry = new CpioStructDefinition.cpio_newc_header();
 
-        public CRCFormatReaderArchiveEntry(uint extractFlags)
-            : base(extractFlags)
+        public static byte[] CHECK_FIELD_VALUE = { (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', (byte)'0', };
+
+        public NewASCIIReaderFormatArchiveEntry(uint flags)
+            : base(flags)
         { }
 
         public override ulong DataSize
@@ -76,11 +78,11 @@ namespace CPIOLibSharp.ArchiveEntry
             }
         }
 
-        public override bool FillEntry(byte[] data)
+        public override bool ReadMetadataEntry(byte[] data)
         {
             IntPtr @in = Marshal.AllocHGlobal(EntrySize);
             Marshal.Copy(data, 0, @in, EntrySize);
-            _entry = (CpioStruct.cpio_newc_header)Marshal.PtrToStructure(@in, _entry.GetType());
+            _entry = (CpioStructDefinition.cpio_newc_header)Marshal.PtrToStructure(@in, _entry.GetType());
             Marshal.FreeHGlobal(@in);
 
             unsafe
@@ -91,7 +93,17 @@ namespace CPIOLibSharp.ArchiveEntry
                 {
                     buffer = GetByteArrayFromFixedArray(pointer, 6);
                 }
-                if (!AbstractCPIOFormat.ByteArrayCompare(buffer, CRCFormat.MAGIC_ARCHIVEENTRY_NUMBER))
+                if (!AbstractCPIOFormat.ByteArrayCompare(buffer, NewASCIIFormat.MAGIC_ARCHIVEENTRY_NUMBER))
+                {
+                    return false;
+                }
+
+                // check check field
+                fixed (byte* pointer = _entry.c_check)
+                {
+                    buffer = GetByteArrayFromFixedArray(pointer, 8);
+                }
+                if (!AbstractCPIOFormat.ByteArrayCompare(buffer, CHECK_FIELD_VALUE))
                 {
                     return false;
                 }
@@ -131,7 +143,7 @@ namespace CPIOLibSharp.ArchiveEntry
                 }
                 long mode = GetValueFromHexValue(majorBuffer);
                 _archiveEntry.ArchiveType = InternalWriteArchiveEntry.GetArchiveEntryType(mode);
-                _archiveEntry.Permission = InternalWriteArchiveEntry.GePermission(mode);
+                _archiveEntry.Permission = InternalWriteArchiveEntry.GetPermission(mode);
 
                 // Uid
                 fixed (byte* pointer = _entry.c_uid)

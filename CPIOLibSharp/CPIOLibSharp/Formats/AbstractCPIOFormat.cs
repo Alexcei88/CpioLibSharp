@@ -40,7 +40,7 @@ namespace CPIOLibSharp.Formats
         /// <param name="destFolder"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        public bool Save(string destFolder, ExtractFlags[] flags = null)
+        public bool Save(string destFolder, CpioExtractFlags[] flags = null)
         {
             if (!Directory.Exists(destFolder))
             {
@@ -63,14 +63,14 @@ namespace CPIOLibSharp.Formats
                 while (_fileStream.Read(buffer, 0, sizeBuffer) == sizeBuffer)
                 {
                     archiveEntry = GetArchiveEntry(flags);
-                    archiveEntry.FillEntry(buffer);
+                    archiveEntry.ReadMetadataEntry(buffer);
 
                     ulong fileNameSize = archiveEntry.FileNameSize;
                     if (fileNameSize != 0)
                     {
                         byte[] fileName = new byte[fileNameSize];
                         _fileStream.Read(fileName, 0, (int)fileNameSize);
-                        archiveEntry.FillFileNameData(fileName);
+                        archiveEntry.FileName = fileName;
                     }
                     if (archiveEntry.IsLastArchiveEntry())
                     {
@@ -82,9 +82,10 @@ namespace CPIOLibSharp.Formats
                         ulong dataSize = archiveEntry.DataSize;
                         byte[] data = new byte[dataSize];
                         _fileStream.Read(data, 0, (int)dataSize);
-                        archiveEntry.FillDataEntry(data);
+                        archiveEntry.Data  = data;
                     }
 
+                    // save entry to disk
                     if (!archiveEntry.ExtractEntryToDisk(destFolder))
                     {
                         Console.WriteLine("Fail to extract the archive entry: {0}", archiveEntry.ToString());
@@ -110,7 +111,7 @@ namespace CPIOLibSharp.Formats
         /// Fabric method
         /// </summary>
         /// <returns></returns>
-        public abstract IReaderCPIOArchiveEntry GetArchiveEntry(ExtractFlags[] flags);
+        public abstract IReaderCPIOArchiveEntry GetArchiveEntry(CpioExtractFlags[] flags);
 
         /// <summary>
         /// Detect CPIO format
@@ -152,13 +153,13 @@ namespace CPIOLibSharp.Formats
         /// </summary>
         /// <param name="flags"></param>
         /// <returns></returns>
-        static protected uint GetUintFromExtractArchiveFlags(ExtractFlags[] flags)
+        static protected uint GetUintFromExtractArchiveFlags(CpioExtractFlags[] flags)
         {
             uint exFlags = 0;
             if (flags == null)
                 return exFlags;
 
-            foreach (ExtractFlags flag in flags)
+            foreach (CpioExtractFlags flag in flags)
             {
                 exFlags = exFlags | (uint)flag;
             }
