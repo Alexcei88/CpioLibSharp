@@ -14,8 +14,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     {
         public SymbolicLinkEntryWriter(InternalWriteArchiveEntry internalEntry, IReadableCPIOArchiveEntry readableArchiveEntry) 
             : base(internalEntry, readableArchiveEntry)
-        {
-        }
+        { }
 
         public override bool IsPostExtractEntry()
         {

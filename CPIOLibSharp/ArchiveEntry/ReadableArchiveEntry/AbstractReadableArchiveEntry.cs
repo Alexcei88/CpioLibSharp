@@ -28,6 +28,11 @@ namespace CPIOLibSharp.ArchiveEntry
         public abstract ulong FileNameSize { get; }
 
         public abstract bool HasData { get; }
+        
+        /// <summary>
+        /// Writer
+        /// </summary>
+        public IArchiveEntryWriter _writer;
 
         public byte[] FileName
         {
@@ -61,21 +66,25 @@ namespace CPIOLibSharp.ArchiveEntry
             }
         }
 
+        public IArchiveEntryWriter Writer
+        {
+            get
+            {
+                return _writer = InternalWriteArchiveEntry.GetWriter(_archiveEntry, this);
+            }
+        }
+
         public AbstractReadableArchiveEntry(uint extractFlags)
         {
             _extractFlags = extractFlags;
         }
 
         /// <summary>
-        /// Заполнение CPIO структуры
+        /// Read and fill metadata of entry
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
         public abstract bool ReadMetadataEntry(byte[] data);
-
-        protected abstract bool FillInternalEntry();
-
-
 
         /// <summary>
         /// Сoхранение данных об имени фа   ла

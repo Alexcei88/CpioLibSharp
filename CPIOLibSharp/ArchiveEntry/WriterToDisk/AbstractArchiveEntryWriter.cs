@@ -25,7 +25,10 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
             _readableArchiveEntry = readableArchiveEntry;
         }
 
-        public abstract bool ExtractEntryToDisk(string destFolder);
+        bool IArchiveEntryWriter.ExtractEntryToDisk(string destFolder)
+        {
+            return true;
+        }
 
         public abstract bool IsPostExtractEntry();
 

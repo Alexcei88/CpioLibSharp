@@ -43,7 +43,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 
                 if ((_internalEntry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
                 {
-                    File.SetLastWriteTimeUtc(fullPathToFile, _entry.mTime);
+                    File.SetLastWriteTimeUtc(fullPathToFile, _internalEntry.mTime);
                 }
 
                 return true;

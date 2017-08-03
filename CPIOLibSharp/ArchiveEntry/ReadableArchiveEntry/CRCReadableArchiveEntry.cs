@@ -96,10 +96,11 @@ namespace CPIOLibSharp.ArchiveEntry
                     return false;
                 }
             }
+            FillInternalEntry();
             return true;
         }
 
-        protected override bool FillInternalEntry()
+        private void FillInternalEntry()
         {
             unsafe
             {
@@ -174,7 +175,6 @@ namespace CPIOLibSharp.ArchiveEntry
                 _archiveEntry.rDev = (int)GetValueFromHexValue(majorBuffer) + (int)GetValueFromHexValue(minorBuffer);
 
                 _archiveEntry.ExtractFlags = _extractFlags;
-                return true;
             }
         }
 

@@ -91,10 +91,11 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
                     return false;
                 }
             }
+            FillInternalEntry();
             return true;
         }
 
-        protected override bool FillInternalEntry()
+        private void FillInternalEntry()
         {
             unsafe
             {
@@ -159,7 +160,6 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
 
                 _archiveEntry.rDev = (int)GetValueFromOctalValue(majorBuffer);
                 _archiveEntry.ExtractFlags = _extractFlags;
-                return true;
             }
         }
 

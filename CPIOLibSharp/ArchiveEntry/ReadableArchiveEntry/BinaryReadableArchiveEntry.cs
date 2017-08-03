@@ -76,10 +76,11 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
             {
                 return false;
             }
+            FillInternalEntry();
             return true;
         }
 
-        protected override bool FillInternalEntry()
+        private void FillInternalEntry()
         {
             _archiveEntry.Dev = _entry.c_dev.ToString();
             _archiveEntry.INode = _entry.c_ino.ToString();
@@ -104,7 +105,6 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
             // rDev
             _archiveEntry.rDev = _entry.c_rdev;
             _archiveEntry.ExtractFlags = _extractFlags;
-            return true;
         }
     }
 }

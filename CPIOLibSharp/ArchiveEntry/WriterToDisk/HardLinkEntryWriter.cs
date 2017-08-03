@@ -13,8 +13,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     {
         public HardLinkEntryWriter(InternalWriteArchiveEntry internalEntry, IReadableCPIOArchiveEntry readableArchiveEntry) 
             : base(internalEntry, readableArchiveEntry)
-        {
-        }
+        { }
 
         public override bool IsPostExtractEntry()
         {

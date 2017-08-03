@@ -54,7 +54,7 @@ namespace CPIOLibSharp.Formats
                 _fileStream.Seek(0, SeekOrigin.Begin);
 
                 // list all the archive entry
-                List<IReadableCPIOArchiveEntry> archiveEntries = new List<IReaderCPIOArchiveEntry>();
+                List<IReadableCPIOArchiveEntry> archiveEntries = new List<IReadableCPIOArchiveEntry>();
 
                 IReadableCPIOArchiveEntry archiveEntry = GetReadableArchiveEntry(flags);
                 int sizeBuffer = archiveEntry.EntrySize;
@@ -86,7 +86,7 @@ namespace CPIOLibSharp.Formats
                     }
 
                     // save entry to disk
-                    if (!archiveEntry.ExtractEntryToDisk(destFolder))
+                    if (!archiveEntry.Writer.ExtractEntryToDisk(destFolder))
                     {
                         Console.WriteLine("Fail to extract the archive entry: {0}", archiveEntry.ToString());
                         Directory.Delete(destFolder, true);
@@ -125,7 +125,7 @@ namespace CPIOLibSharp.Formats
         /// <param name="destFolder"></param>
         /// <param name="archiveEntries"></param>
         /// <returns></returns>
-        protected virtual bool PostProcessingSaveArchive(string destFolder, List<IReaderCPIOArchiveEntry> archiveEntries)
+        protected virtual bool PostProcessingSaveArchive(string destFolder, List<IReadableCPIOArchiveEntry> archiveEntries)
         {
             foreach (var entry in archiveEntries.Where(a => !a.InternalEntry.IsExtractToDisk))
             {
