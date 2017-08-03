@@ -118,7 +118,7 @@ namespace CPIOLibSharp.Formats
         /// </summary>
         /// <returns></returns>
         public abstract bool DetectFormat();
-
+        
         /// <summary>
         /// Post extract entry to disk(after read all entry from file)
         /// </summary>
@@ -127,9 +127,9 @@ namespace CPIOLibSharp.Formats
         /// <returns></returns>
         protected virtual bool PostProcessingSaveArchive(string destFolder, List<IReadableCPIOArchiveEntry> archiveEntries)
         {
-            foreach (var entry in archiveEntries.Where(a => !a.InternalEntry.IsExtractToDisk))
+            foreach (var entry in archiveEntries)
             {
-                if (!entry.PostExtractEntryToDisk(destFolder, archiveEntries))
+                if (!entry.Writer.PostExtractEntryToDisk(destFolder, archiveEntries))
                 {
                     return false;
                 }

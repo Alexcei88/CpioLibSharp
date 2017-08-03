@@ -44,6 +44,11 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <param name="data"></param>
         bool ReadMetadataEntry(byte[] data);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        string INode { get; }
+
         /*
         /// <summary>
         /// Save entry to disk after read all entry
