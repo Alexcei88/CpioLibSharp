@@ -14,11 +14,6 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
         {
         }
 
-        public override bool ExtractEntryToDisk(string destFolder)
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool IsPostExtractEntry()
         {
             return false;

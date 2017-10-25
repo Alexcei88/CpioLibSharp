@@ -6,14 +6,18 @@ using System.Runtime.InteropServices;
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
     /// <summary>
-    /// Writer of entry with hard link
+    /// A Writer of entry with hard link
     /// </summary>
     internal class HardLinkEntryWriter
         : AbstractArchiveEntryWriter
     {
-        public HardLinkEntryWriter(InternalWriteArchiveEntry internalEntry, IReadableCPIOArchiveEntry readableArchiveEntry) 
+        private string _originalFilePath;
+
+        public HardLinkEntryWriter(InternalWriteArchiveEntry internalEntry, IReadableCPIOArchiveEntry readableArchiveEntry, string originalFilePath) 
             : base(internalEntry, readableArchiveEntry)
-        { }
+        {
+            _originalFilePath = originalFilePath;
+        }
 
         public override bool IsPostExtractEntry()
         {
@@ -27,8 +31,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
             string root = Path.GetDirectoryName(fullPathToFile);
             if (Directory.CreateDirectory(root) != null)
             {
-                string targetFile = InternalWriteArchiveEntry.GetFileName(_internalEntry.LinkEntry.FileName);
-                string fullPathToTargetFile = Path.Combine(destFolder, targetFile);
+                string fullPathToTargetFile = Path.Combine(destFolder, _originalFilePath);
                 if (WindowsNativeLibrary.CreateHardLink(fullPathToFile, fullPathToTargetFile, IntPtr.Zero))
                 {
                     if ((_internalEntry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)

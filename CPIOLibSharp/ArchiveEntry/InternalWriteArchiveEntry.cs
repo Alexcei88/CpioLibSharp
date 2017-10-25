@@ -139,7 +139,7 @@ namespace CPIOLibSharp.ArchiveEntry
                 case ArchiveEntryType.FILE:
                     if (_entry.nLink > 1)
                     {
-                        return new HardLinkEntryWriter(_entry, readableEntry);
+                        return new HardLinkEntryWriter(_entry, readableEntry, InternalWriteArchiveEntry.GetFileName(_entry.FileName));
                     }
                     else
                     {

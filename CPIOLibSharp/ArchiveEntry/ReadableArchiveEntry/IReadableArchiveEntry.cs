@@ -65,7 +65,7 @@ namespace CPIOLibSharp.ArchiveEntry
         bool IsLastArchiveEntry();
 
         /// <summary>
-        /// writer of readable entry to disk
+        /// A writer of readable entry to disk
         /// </summary>
         IArchiveEntryWriter Writer { get; }
     }

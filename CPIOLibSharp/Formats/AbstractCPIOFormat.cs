@@ -86,7 +86,7 @@ namespace CPIOLibSharp.Formats
                     }
 
                     // save entry to disk
-                    if (!archiveEntry.Writer.ExtractEntryToDisk(destFolder))
+                    if (archiveEntry.Writer.ExtractEntryToDisk(destFolder) == null)
                     {
                         Console.WriteLine("Fail to extract the archive entry: {0}", archiveEntry.ToString());
                         Directory.Delete(destFolder, true);
@@ -102,7 +102,7 @@ namespace CPIOLibSharp.Formats
                 }
                 else
                 {
-                    return PostProcessingSaveArchive(destFolder, archiveEntries);
+                    return PostProcessingEntries(destFolder, archiveEntries);
                 }
         }
 
@@ -125,11 +125,11 @@ namespace CPIOLibSharp.Formats
         /// <param name="destFolder"></param>
         /// <param name="archiveEntries"></param>
         /// <returns></returns>
-        protected virtual bool PostProcessingSaveArchive(string destFolder, List<IReadableCPIOArchiveEntry> archiveEntries)
+        protected virtual bool PostProcessingEntries(string destFolder, List<IReadableCPIOArchiveEntry> archiveEntries)
         {
             foreach (var entry in archiveEntries)
             {
-                if (!entry.Writer.PostExtractEntryToDisk(destFolder, archiveEntries))
+                if (entry.Writer.PostExtractEntryToDisk(destFolder, archiveEntries) == null)
                 {
                     return false;
                 }

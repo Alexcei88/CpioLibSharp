@@ -8,18 +8,18 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     internal interface IArchiveEntryWriter
     {
         /// <summary>
-        /// Save entry to disk if it possible
+        /// Save entry to disk if it possible now
         /// </summary>
         /// <param name="destFolder"></param>
-        /// <returns></returns>
-        bool ExtractEntryToDisk(string destFolder);
+        /// <returns>path to file</returns>
+        string ExtractEntryToDisk(string destFolder);
 
         /// <summary>
-        /// Post extract entry
+        /// Postprocessing for entry(for example for files is link)
         /// </summary>
         /// <param name="destFolder"></param>
         /// <param name="entries"></param>
-        /// <returns></returns>
-        bool PostExtractEntryToDisk(string destFolder, List<IReadableCPIOArchiveEntry> entries);
+        /// <returns>path to file</returns>
+        string PostExtractEntryToDisk(string destFolder, List<IReadableCPIOArchiveEntry> entries);
     }
 }
