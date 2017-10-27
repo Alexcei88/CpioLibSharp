@@ -56,14 +56,13 @@ namespace CPIOLibSharp.Formats
                 // list all the archive entry
                 List<IReadableCPIOArchiveEntry> archiveEntries = new List<IReadableCPIOArchiveEntry>();
 
-                IReadableCPIOArchiveEntry archiveEntry = GetReadableArchiveEntry(flags);
+                IReadableCPIOArchiveEntry archiveEntry = CreateReadableArchiveEntry(flags);
                 int sizeBuffer = archiveEntry.EntrySize;
                 byte[] buffer = new byte[sizeBuffer];
 
                 while (_fileStream.Read(buffer, 0, sizeBuffer) == sizeBuffer)
                 {
-                    archiveEntry = GetReadableArchiveEntry(flags);
-                    archiveEntry.ReadMetadataEntry(buffer);
+                    archiveEntry = CreateReadableArchiveEntry(flags);
 
                     ulong fileNameSize = archiveEntry.FileNameSize;
                     if (fileNameSize != 0)
@@ -77,6 +76,8 @@ namespace CPIOLibSharp.Formats
                         findTrailer = true;
                         break;
                     }
+                    archiveEntry.ReadMetadataEntry(buffer);
+
                     if (archiveEntry.HasData)
                     {
                         ulong dataSize = archiveEntry.DataSize;
@@ -111,7 +112,7 @@ namespace CPIOLibSharp.Formats
         /// Fabric method
         /// </summary>
         /// <returns></returns>
-        public abstract IReadableCPIOArchiveEntry GetReadableArchiveEntry(CpioExtractFlags[] flags);
+        public abstract IReadableCPIOArchiveEntry CreateReadableArchiveEntry(CpioExtractFlags[] flags);
 
         /// <summary>
         /// Detect CPIO format

@@ -32,7 +32,7 @@ namespace CPIOLibSharp.Formats
             return fileNumber == MAGIC_ARCHIVEENTRY_NUMBER;
         }
 
-        public override IReadableCPIOArchiveEntry GetReadableArchiveEntry(CpioExtractFlags[] flags)
+        public override IReadableCPIOArchiveEntry CreateReadableArchiveEntry(CpioExtractFlags[] flags)
         {
             return new BinaryReadableArchiveEntry(ExtractArchiveFlagToUInt(flags));
         }
