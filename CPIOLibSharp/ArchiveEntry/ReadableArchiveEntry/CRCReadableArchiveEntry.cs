@@ -76,7 +76,7 @@ namespace CPIOLibSharp.ArchiveEntry
             }
         }
 
-        public override bool ReadMetadataEntry(byte[] data)
+        public override bool FillEntry(byte[] data)
         {
             IntPtr @in = Marshal.AllocHGlobal(EntrySize);
             Marshal.Copy(data, 0, @in, EntrySize);
@@ -96,11 +96,10 @@ namespace CPIOLibSharp.ArchiveEntry
                     return false;
                 }
             }
-            FillInternalEntry();
             return true;
         }
 
-        private void FillInternalEntry()
+        public override void ReadMetadataEntry()
         {
             unsafe
             {

@@ -64,7 +64,7 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
             }
         }
 
-        public override bool ReadMetadataEntry(byte[] data)
+        public override bool FillEntry(byte[] data)
         {
             IntPtr @in = Marshal.AllocHGlobal(EntrySize);
             Marshal.Copy(data, 0, @in, EntrySize);
@@ -76,11 +76,10 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
             {
                 return false;
             }
-            FillInternalEntry();
             return true;
         }
 
-        private void FillInternalEntry()
+        public override void ReadMetadataEntry()
         {
             _archiveEntry.Dev = _entry.c_dev.ToString();
             _archiveEntry.INode = _entry.c_ino.ToString();

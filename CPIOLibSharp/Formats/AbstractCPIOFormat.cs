@@ -63,6 +63,7 @@ namespace CPIOLibSharp.Formats
                 while (_fileStream.Read(buffer, 0, sizeBuffer) == sizeBuffer)
                 {
                     archiveEntry = CreateReadableArchiveEntry(flags);
+                    archiveEntry.FillEntry(buffer);
 
                     ulong fileNameSize = archiveEntry.FileNameSize;
                     if (fileNameSize != 0)
@@ -76,8 +77,8 @@ namespace CPIOLibSharp.Formats
                         findTrailer = true;
                         break;
                     }
-                    archiveEntry.ReadMetadataEntry(buffer);
 
+                    archiveEntry.ReadMetadataEntry();
                     if (archiveEntry.HasData)
                     {
                         ulong dataSize = archiveEntry.DataSize;

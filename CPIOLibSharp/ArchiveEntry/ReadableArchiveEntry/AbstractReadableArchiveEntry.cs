@@ -92,11 +92,16 @@ namespace CPIOLibSharp.ArchiveEntry
         }
 
         /// <summary>
-        /// Read and fill metadata of entry
+        /// Fill metadata of entry
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public abstract bool ReadMetadataEntry(byte[] data);
+        public abstract bool FillEntry(byte[] data);
+
+        /// <summary>
+        /// Read netadata from entry
+        /// </summary>
+        public abstract void ReadMetadataEntry();
 
         /// <summary>
         /// Сoхранение данных об имени фа   ла
