@@ -48,7 +48,6 @@ namespace UnitTest
                 string destBinFolder = Path.Combine(_destFolder, Path.GetRandomFileName());
                 stream.Extract(destBinFolder);
                 CheckFiles(destBinFolder);
-
             }
         }
 
