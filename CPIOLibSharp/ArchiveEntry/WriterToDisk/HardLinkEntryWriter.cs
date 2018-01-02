@@ -1,6 +1,7 @@
 ﻿using CPIOLibSharp.Helper;
 using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
@@ -18,8 +19,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 
         public HardLinkEntryWriter(InternalWriteArchiveEntry internalEntry, IReadableCPIOArchiveEntry readableArchiveEntry) 
             : base(internalEntry, readableArchiveEntry)
-        {
-        }
+        { }
 
         public override bool IsPostExtractEntry()
         {
@@ -33,19 +33,34 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
             string root = Path.GetDirectoryName(fullPathToFile);
             if (Directory.CreateDirectory(root) != null)
             {
-                string fullPathToTargetFile = Path.Combine(destFolder, OriginalFilePath);
-                if (WindowsNativeLibrary.CreateHardLink(fullPathToFile, fullPathToTargetFile, IntPtr.Zero))
+                if (OriginalFilePath == null)
                 {
-                    if ((_internalEntry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
+                    // write as simple file
+                    using (FileStream fs = new FileStream(fullPathToFile, FileMode.Create))
                     {
-                        File.SetLastWriteTimeUtc(fullPathToFile, _internalEntry.mTime);
+                        if (_internalEntry.Data != null)
+                        {
+                            var data = _internalEntry.Data.Where(g => g != '\0').ToArray();
+                            fs.Write(data, 0, data.Length);
+                        }
                     }
-
                     return true;
                 }
                 else
                 {
-                    throw new Exception(string.Format("Hardlink for file {0} no created. Win32Error: {1}", fullPathToFile, Marshal.GetLastWin32Error()));
+                    string fullPathToTargetFile = Path.Combine(destFolder, OriginalFilePath);
+                    if (WindowsNativeLibrary.CreateHardLink(fullPathToFile, fullPathToTargetFile, IntPtr.Zero))
+                    {
+                        if ((_internalEntry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
+                        {
+                            File.SetLastWriteTimeUtc(fullPathToFile, _internalEntry.mTime);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception(string.Format("Hardlink for file {0} no created. Win32Error: {1}", fullPathToFile, Marshal.GetLastWin32Error()));
+                    }
                 }
             }
             return false;

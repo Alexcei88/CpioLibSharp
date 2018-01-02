@@ -29,7 +29,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
         {
             if (_internalEntry.nLink > 0 && !_internalEntry.IsExtractToDisk)
             {
-                if (this.IsPostExtractEntry())
+                if (IsPostExtractEntry())
                 {
                     return InternalWriteArchiveEntry.GetFileName(_internalEntry.FileName);
                 }
@@ -67,6 +67,10 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
                             throw new Exception("Not expected type of entry");
                     }
                 }
+                else
+                {
+                    throw new Exception("The entry must be saved to disk already!");
+                }
             }
             return InternalWriteArchiveEntry.GetFileName(_internalEntry.FileName);
         }
@@ -92,15 +96,14 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
             var originalEntry = archiveEntries.FirstOrDefault(a => a.DataSize > 0);
             if (originalEntry == null)
             {
-                originalEntry = archiveEntries.First();
+                throw new Exception("Not found file with data for creating hardlink file");
             }
-            FileEntryWriter fileWriter = new FileEntryWriter(_internalEntry, originalEntry);
-            _internalEntry.IsExtractToDisk = fileWriter.Write(destFolder);
+            originalEntry.Writer.WriteEntryToDisk(destFolder);
 
             archiveEntries.Remove(originalEntry);
             foreach (var entry in archiveEntries)
             {
-                (entry.Writer as HardLinkEntryWriter).OriginalFilePath = InternalWriteArchiveEntry.GetFileName(_internalEntry.FileName);
+                (entry.Writer as HardLinkEntryWriter).OriginalFilePath = InternalWriteArchiveEntry.GetFileName(originalEntry.FileName);
                 entry.Writer.WriteEntryToDisk(destFolder);
             }
         }

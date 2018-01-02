@@ -7,7 +7,7 @@ using System.Text;
 namespace CPIOLibSharp.ArchiveEntry
 {
     /// <summary>
-    /// Internal archive entry to write to disk
+    /// Internal an archive entry to write to disk
     /// </summary>
     internal class InternalWriteArchiveEntry
     {
@@ -77,7 +77,7 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <summary>
         /// Get file name from byte array
         /// </summary>
-        /// <param name="fileName">входной массив байт</param>
+        /// <param name="fileName">input byte array</param>
         /// <returns></returns>
         public static string GetFileName(byte[] fileName)
         {
@@ -91,6 +91,11 @@ namespace CPIOLibSharp.ArchiveEntry
             return name.Replace('/', '\\');
         }
 
+        /// <summary>
+        /// Get target file name for symbolic link file
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static string GetTargetFileToLink(byte[] data)
         {
             StringBuilder retFileName = new StringBuilder();
@@ -104,7 +109,7 @@ namespace CPIOLibSharp.ArchiveEntry
         }
 
         /// <summary>
-        /// Получение типа раздела архива по полю mode
+        /// Get type of entry by long number
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -115,7 +120,7 @@ namespace CPIOLibSharp.ArchiveEntry
         }
 
         /// <summary>
-        /// Get permission for file
+        /// Get permission for the file by long number
         /// </summary>
         /// <param name="mode"></param>
         /// <returns></returns>
@@ -125,7 +130,7 @@ namespace CPIOLibSharp.ArchiveEntry
         }
 
         /// <summary>
-        /// Get writer for archve entry
+        /// Get writer for the archive entry
         /// </summary>
         /// <param name="entry"></param>
         /// <returns></returns>
