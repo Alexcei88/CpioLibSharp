@@ -40,8 +40,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
                 }
                 else
                 {
-                    Console.WriteLine("Symbolic link for file {0} no created. Win32Error: {1}", fullPathToFile, Marshal.GetLastWin32Error());
-                    return false;
+                    throw new Exception(string.Format("Symbolic link for file {0} no created. Win32Error: {1}", fullPathToFile, Marshal.GetLastWin32Error()));
                 }
             }
             return false;

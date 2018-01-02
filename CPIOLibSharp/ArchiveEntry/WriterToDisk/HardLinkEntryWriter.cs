@@ -11,12 +11,14 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
     internal class HardLinkEntryWriter
         : AbstractArchiveEntryWriter
     {
-        private string _originalFilePath;
+        /// <summary>
+        /// original file name
+        /// </summary>
+        public string OriginalFilePath { get; set; }
 
-        public HardLinkEntryWriter(InternalWriteArchiveEntry internalEntry, IReadableCPIOArchiveEntry readableArchiveEntry, string originalFilePath) 
+        public HardLinkEntryWriter(InternalWriteArchiveEntry internalEntry, IReadableCPIOArchiveEntry readableArchiveEntry) 
             : base(internalEntry, readableArchiveEntry)
         {
-            _originalFilePath = originalFilePath;
         }
 
         public override bool IsPostExtractEntry()
@@ -31,7 +33,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
             string root = Path.GetDirectoryName(fullPathToFile);
             if (Directory.CreateDirectory(root) != null)
             {
-                string fullPathToTargetFile = Path.Combine(destFolder, _originalFilePath);
+                string fullPathToTargetFile = Path.Combine(destFolder, OriginalFilePath);
                 if (WindowsNativeLibrary.CreateHardLink(fullPathToFile, fullPathToTargetFile, IntPtr.Zero))
                 {
                     if ((_internalEntry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
@@ -43,8 +45,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
                 }
                 else
                 {
-                    Console.WriteLine("Symbolic link for file {0} no created. Win32Error: {1}", fullPathToFile, Marshal.GetLastWin32Error());
-                    return false;
+                    throw new Exception(string.Format("Hardlink for file {0} no created. Win32Error: {1}", fullPathToFile, Marshal.GetLastWin32Error()));
                 }
             }
             return false;

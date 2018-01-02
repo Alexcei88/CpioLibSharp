@@ -127,26 +127,26 @@ namespace CPIOLibSharp.ArchiveEntry
         /// <summary>
         /// Get writer for archve entry
         /// </summary>
-        /// <param name="_entry"></param>
+        /// <param name="entry"></param>
         /// <returns></returns>
-        public static IArchiveEntryWriter GetWriter(InternalWriteArchiveEntry _entry, IReadableCPIOArchiveEntry readableEntry)
+        public static IArchiveEntryWriter GetWriter(InternalWriteArchiveEntry entry, IReadableCPIOArchiveEntry readableEntry)
         {
-            switch (_entry.ArchiveType)
+            switch (entry.ArchiveType)
             {
                 case ArchiveEntryType.DIRECTORY:
-                    return new DirectoryEntryWriter(_entry, readableEntry);
+                    return new DirectoryEntryWriter(entry, readableEntry);
 
                 case ArchiveEntryType.FILE:
-                    if (_entry.nLink > 1)
+                    if (entry.nLink > 1)
                     {
-                        return new HardLinkEntryWriter(_entry, readableEntry, InternalWriteArchiveEntry.GetFileName(_entry.FileName));
+                        return new HardLinkEntryWriter(entry, readableEntry);
                     }
                     else
                     {
-                        return new FileEntryWriter(_entry, readableEntry);
+                        return new FileEntryWriter(entry, readableEntry);
                     }
                 case ArchiveEntryType.SYMBOLIC_LINK:
-                    return new SymbolicLinkEntryWriter(_entry, readableEntry);
+                    return new SymbolicLinkEntryWriter(entry, readableEntry);
 
                 default:
                     throw new Exception("Нет класса, реализующего запись для данного типа");
