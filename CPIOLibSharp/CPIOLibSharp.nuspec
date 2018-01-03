@@ -9,9 +9,9 @@
     <licenseUrl>https://github.com/Alexcei88/CpioLibSharp</licenseUrl>
     <projectUrl>https://github.com/Alexcei88/CpioLibSharp</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>decompression library for cpio archive format</description>
+    <description>A decompression library for cpio archive format</description>
     <releaseNotes>
-
+	1.0.3.0 - refactoring code of library
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>cpio</tags>
