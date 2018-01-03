@@ -6,7 +6,7 @@ using static CPIOLibSharp.ArchiveFormat;
 namespace CPIOLibSharp
 {
     /// <summary>
-    /// A file stream in cpio format(a main class in library)
+    /// A readable file stream in a cpio format
     /// </summary>
     public class CPIOFileStream
         : FileStream
@@ -52,7 +52,7 @@ namespace CPIOLibSharp
         /// <returns></returns>
         public bool Extract(string destFolder, CpioExtractFlags[] flags = null)
         {
-            return _currentCpioFileStream.Save(destFolder, flags);
+            return _currentCpioFileStream.Extract(destFolder, flags);
         }
     }
 }

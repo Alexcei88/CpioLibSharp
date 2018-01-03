@@ -8,7 +8,7 @@ namespace CPIOLibSharp.Formats
     internal interface ICPIOFormat
     {
         /// <summary>
-        /// Current CPIO format
+        /// CPIO format
         /// </summary>
         CpioFormats Format { get; }
 
@@ -19,10 +19,10 @@ namespace CPIOLibSharp.Formats
         bool DetectFormat();
 
         /// <summary>
-        /// Save archive to disk
+        /// extract files from archive to the disk
         /// </summary>
         /// <param name="desFolder"></param>
         /// <returns></returns>
-        bool Save(string desFolder, CpioExtractFlags[] flags = null);
+        bool Extract(string desFolder, CpioExtractFlags[] flags = null);
     }
 }

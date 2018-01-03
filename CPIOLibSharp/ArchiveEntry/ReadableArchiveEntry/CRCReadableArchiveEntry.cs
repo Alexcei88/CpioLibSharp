@@ -91,7 +91,7 @@ namespace CPIOLibSharp.ArchiveEntry
                 {
                     buffer = GetByteArrayFromFixedArray(pointer, 6);
                 }
-                if (!AbstractCPIOFormat.ByteArrayCompare(buffer, CRCFormat.MAGIC_ARCHIVEENTRY_NUMBER))
+                if (!InternalWriteArchiveEntry.ByteArrayCompare(buffer, CRCFormat.MAGIC_ARCHIVEENTRY_NUMBER))
                 {
                     return false;
                 }

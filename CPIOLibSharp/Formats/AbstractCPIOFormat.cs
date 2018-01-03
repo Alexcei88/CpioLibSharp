@@ -9,11 +9,14 @@ using static CPIOLibSharp.ArchiveFormat;
 namespace CPIOLibSharp.Formats
 {
     /// <summary>
-    /// base class the decompessor of data from file to disk for different formats
+    /// base class a decompessor of data from archive file to save to disk
     /// </summary>
     internal abstract class AbstractCPIOFormat
         : ICPIOFormat
     {
+        /// <summary>
+        /// Stream to archive file
+        /// </summary>
         protected FileStream _fileStream;
 
         /// <summary>
@@ -40,7 +43,7 @@ namespace CPIOLibSharp.Formats
         /// <param name="destFolder"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        public bool Save(string destFolder, CpioExtractFlags[] flags = null)
+        public bool Extract(string destFolder, CpioExtractFlags[] flags = null)
         {
             if (!Directory.Exists(destFolder))
             {
@@ -109,25 +112,24 @@ namespace CPIOLibSharp.Formats
         }
 
         /// <summary>
-        /// get current reader of archive entry
-        /// Fabric method
+        /// get reader of archive entry(fabric method)
         /// </summary>
         /// <returns></returns>
         public abstract IReadableCPIOArchiveEntry CreateReadableArchiveEntry(CpioExtractFlags[] flags);
-
+        
         /// <summary>
-        /// Detect CPIO format
+        /// detect a CPIO format
         /// </summary>
         /// <returns></returns>
         public abstract bool DetectFormat();
-        
+               
         /// <summary>
         /// Post extract entry to disk(after read all entry from file)
         /// </summary>
         /// <param name="destFolder"></param>
         /// <param name="archiveEntries"></param>
         /// <returns></returns>
-        protected virtual bool PostProcessingEntries(string destFolder, List<IReadableCPIOArchiveEntry> archiveEntries)
+        private bool PostProcessingEntries(string destFolder, List<IReadableCPIOArchiveEntry> archiveEntries)
         {
             foreach (var entry in archiveEntries)
             {
@@ -137,17 +139,6 @@ namespace CPIOLibSharp.Formats
                 }
             }
             return true;
-        }
-
-        /// <summary>
-        /// To compare two array
-        /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="a2"></param>
-        /// <returns></returns>
-        static public bool ByteArrayCompare(byte[] a1, byte[] a2)
-        {
-            return StructuralComparisons.StructuralEqualityComparer.Equals(a1, a2);
         }
 
         /// <summary>

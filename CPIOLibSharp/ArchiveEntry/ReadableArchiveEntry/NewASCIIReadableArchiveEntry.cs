@@ -96,7 +96,7 @@ namespace CPIOLibSharp.ArchiveEntry
                 {
                     buffer = GetByteArrayFromFixedArray(pointer, 6);
                 }
-                if (!AbstractCPIOFormat.ByteArrayCompare(buffer, NewASCIIFormat.MAGIC_ARCHIVEENTRY_NUMBER))
+                if (!InternalWriteArchiveEntry.ByteArrayCompare(buffer, NewASCIIFormat.MAGIC_ARCHIVEENTRY_NUMBER))
                 {
                     return false;
                 }
@@ -106,7 +106,7 @@ namespace CPIOLibSharp.ArchiveEntry
                 {
                     buffer = GetByteArrayFromFixedArray(pointer, 8);
                 }
-                if (!AbstractCPIOFormat.ByteArrayCompare(buffer, CHECK_FIELD_VALUE))
+                if (!InternalWriteArchiveEntry.ByteArrayCompare(buffer, CHECK_FIELD_VALUE))
                 {
                     return false;
                 }

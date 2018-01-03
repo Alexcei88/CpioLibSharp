@@ -1,6 +1,7 @@
 ﻿using CPIOLibSharp.ArchiveEntry.WriterToDisk;
 using CPIOLibSharp.Formats;
 using System;
+using System.Collections;
 using System.Linq;
 using System.Text;
 
@@ -65,7 +66,7 @@ namespace CPIOLibSharp.ArchiveEntry
             }
 
             InternalWriteArchiveEntry entry = obj as InternalWriteArchiveEntry;
-            return AbstractCPIOFormat.ByteArrayCompare(entry.FileName, FileName)
+            return ByteArrayCompare(entry.FileName, FileName)
                 && entry.INode == entry.INode;
         }
 
@@ -157,5 +158,18 @@ namespace CPIOLibSharp.ArchiveEntry
                     throw new Exception("Нет класса, реализующего запись для данного типа");
             }
         }
+
+        /// <summary>
+        /// To compare two array
+        /// </summary>
+        /// <param name="a1"></param>
+        /// <param name="a2"></param>
+        /// <returns></returns>
+        static public bool ByteArrayCompare(byte[] a1, byte[] a2)
+        {
+            return StructuralComparisons.StructuralEqualityComparer.Equals(a1, a2);
+        }
+
+
     }
 }
