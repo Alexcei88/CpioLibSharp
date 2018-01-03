@@ -8,7 +8,7 @@
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CPIOLibSharp")]
-[assembly: AssemblyCopyright("Copyright © 2016-2017")]
+[assembly: AssemblyCopyright("Copyright © 2016-2018")]
 [assembly: AssemblyTrademark("Alexcei Shmakov")]
 [assembly: AssemblyCulture("")]
 
