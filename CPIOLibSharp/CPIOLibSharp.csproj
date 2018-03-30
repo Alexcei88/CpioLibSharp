@@ -64,7 +64,7 @@
     <Compile Include="Formats\EnumArchiveFormat.cs" />
     <Compile Include="CPIOFileStream.cs" />
     <Compile Include="CpioStructDefinition.cs" />
-    <Compile Include="Helper\DateTimeEx.cs" />
+    <Compile Include="Helper\Extensions.cs" />
     <Compile Include="Formats\AbstractCPIOFormat.cs" />
     <Compile Include="Formats\ICPIOFormat.cs" />
     <Compile Include="Formats\CRCFormat.cs" />

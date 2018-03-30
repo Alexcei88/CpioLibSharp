@@ -86,7 +86,7 @@ namespace CPIOLibSharp.ArchiveEntry.ReaderFromDisk
                 {
                     buffer = GetByteArrayFromFixedArray(pointer, 6);
                 }
-                if (!InternalWriteArchiveEntry.ByteArrayCompare(buffer, ODCFormat.MAGIC_ARCHIVEENTRY_NUMBER))
+                if (!buffer.Compare(ODCFormat.MAGIC_ARCHIVEENTRY_NUMBER))
                 {
                     return false;
                 }

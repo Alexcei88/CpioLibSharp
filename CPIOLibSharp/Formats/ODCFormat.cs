@@ -1,5 +1,6 @@
 ﻿using CPIOLibSharp.ArchiveEntry;
 using CPIOLibSharp.ArchiveEntry.ReaderFromDisk;
+using CPIOLibSharp.Helper;
 using System.IO;
 
 namespace CPIOLibSharp.Formats
@@ -23,7 +24,7 @@ namespace CPIOLibSharp.Formats
             _fileStream.Seek(0, SeekOrigin.Begin);
             byte[] buffer = new byte[MAGIC_ARCHIVEENTRY_NUMBER.Length];
             _fileStream.Read(buffer, 0, MAGIC_ARCHIVEENTRY_NUMBER.Length);
-            return InternalWriteArchiveEntry.ByteArrayCompare(buffer, MAGIC_ARCHIVEENTRY_NUMBER);
+            return buffer.Compare(MAGIC_ARCHIVEENTRY_NUMBER);
         }
 
         public override IReadableCPIOArchiveEntry CreateReadableArchiveEntry(CpioExtractFlags[] flags)
