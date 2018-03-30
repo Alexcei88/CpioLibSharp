@@ -3,6 +3,7 @@ using Microsoft.Win32.SafeHandles;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using static CPIOLibSharp.Helper.WindowsNativeLibrary;
 
 namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
 {
@@ -30,7 +31,7 @@ namespace CPIOLibSharp.ArchiveEntry.WriterToDisk
             {
                 string targetFile = InternalWriteArchiveEntry.GetTargetFileToLink(_internalEntry.Data);
                 string fullPathToTargetFile = Path.Combine(destFolder, targetFile);
-                if (WindowsNativeLibrary.CreateSymbolicLink(fullPathToFile, fullPathToTargetFile, 0))
+                if (WindowsNativeLibrary.CreateSymbolicLink(fullPathToFile, fullPathToTargetFile, SYMBOLIC_LINK_FLAG.File))
                 {
                     if ((_internalEntry.ExtractFlags & (uint)CpioExtractFlags.ARCHIVE_EXTRACT_TIME) > 0)
                     {
